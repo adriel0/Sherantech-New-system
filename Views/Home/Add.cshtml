@@ -1,0 +1,18 @@
+﻿@{
+    
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <form method="post">
+        <label for="DealerName">Dealer Name:</label>
+        <input type="text" name="DealerName" value="" />
+        <label for="DealerAddress">Dealer Address:</label>
+        <input type="text" name="DealerAddress" value="" />
+        <label for="DealerAccountId">Dealer Account Id:</label>
+        <input type="number" name="DealerAccountId" value="" />
+        <input type="submit" value="Submit" class="submit" />
+        @*<input type="hidden" name="Id" value="@Model.Id" readonly />*@
+    </form>
+</div>
