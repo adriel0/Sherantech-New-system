@@ -17,52 +17,6 @@ namespace WebApplication1.Controllers
             _logger = logger;
         }
 
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Login_Post()
-        {
-            String password = "";
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
-                {
-                    connection.Open();
-                    String sql = "SELECT Password FROM Accounts WHERE Username = " + Request.Form["Username"].ToString();
-                    
-
-                    
-                    using (SqlCommand command = new SqlCommand(sql, connection))
-                    {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                password = reader.GetString(0);
-
-                            }
-                        }
-                    }
-
-                }
-            }
-            catch (SqlException e)
-            {
-                Debug.WriteLine(e.ToString());
-            }
-
-            if (password.Equals(Request.Form["Password"].ToString()))
-            {
-                // change later
-                return RedirectToAction("Dealers");
-            }
-
-            return RedirectToAction("Index");
-        }
-
         public IActionResult Index()
         {
             List<DealersModel> dealersModels = new List<DealersModel>();
@@ -85,7 +39,12 @@ namespace WebApplication1.Controllers
                         {
                             while (reader.Read())
                             {
-                                
+                                DealersModel dm = new DealersModel();
+                                dm.Id = reader.GetInt32(0);
+                                dm.DealerName = reader.GetString(1);
+                                dm.DealerAddress = reader.GetString(2);
+                                dm.DealerAccountId = reader.GetInt32(3);
+                                dealersModels.Add(dm);
                                 
                             }
                         }
@@ -119,7 +78,10 @@ namespace WebApplication1.Controllers
                         {
                             while (reader.Read())
                             {
-                                //dealersModels.Id = reader.GetInt32(0);
+                                dealersModels.Id = reader.GetInt32(0);
+                                dealersModels.DealerName = reader.GetString(1);
+                                dealersModels.DealerAddress = reader.GetString(2);
+                                dealersModels.DealerAccountId = reader.GetInt32(3);
                             }
                         }
                     }

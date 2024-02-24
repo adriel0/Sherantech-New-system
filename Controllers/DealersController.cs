@@ -41,25 +41,9 @@ namespace WebApplication1.Controllers
                             {
                                 DealersModel dm = new DealersModel();
                                 dm.Id = reader.GetInt32(0);
-                                dm.DealerBusinessName = reader.GetString(1);
+                                dm.DealerName = reader.GetString(1);
                                 dm.DealerAddress = reader.GetString(2);
-                                dm.DealerTelNo = reader.GetInt32(3);
-                                dm.DealerCellNo = reader.GetInt32(4);
-                                dm.DealerFaxNo = reader.GetInt32(5);
-                                dm.DealerEmail = reader.GetString(6);
-                                dm.DealerWebsite = reader.GetString(7);
-                                dm.DealerBusinessType = reader.GetString(8);
-                                dm.DealerSecNo = reader.GetInt32(9);
-                                dm.DealerDateIssued = reader.GetSqlDateTime(10).Value;
-                                dm.DealerAuthorizationCapital = reader.GetInt32(11);
-                                dm.DealerSubscribedCapital = reader.GetInt32(12);
-                                dm.DealerPaidUpCapital = reader.GetInt32(13);
-                                dm.DTIRegNo = reader.GetInt32(14);
-                                dm.DTIDateIssued = reader.GetSqlDateTime(15).Value;
-                                dm.DTIAmtCapital = reader.GetInt32(16);
-                                dm.DTIPaidUpCapital = reader.GetInt32(17);
-                                dm.DTITaxAcctNo = reader.GetInt32(18);
-                                dm.DealerTerms = reader.GetString(19);
+                                dm.DealerAccountId = reader.GetInt32(3);
                                 dealersModels.Add(dm);
 
                             }

@@ -11,6 +11,8 @@ namespace WebApplication1.Models
         public string? DealerBusinessName { get; set;}
         [AllowNull]
         public string? DealerAddress { get; set;}
+        [DisallowNull]
+        public int DealerAccountId { get; set;}
 
         [AllowNull]
         public int? DealerTelNo { get; set; }
@@ -27,7 +29,7 @@ namespace WebApplication1.Models
         [AllowNull]
         public int? DealerSecNo { get; set; }
         [AllowNull]
-        public DateTime? DealerDateIssued { get; set; }
+        public string? DealerDateIssued { get; set; }
         [AllowNull]
         public int? DealerAuthorizationCapital { get; set; }
         [AllowNull]
@@ -37,7 +39,7 @@ namespace WebApplication1.Models
         [AllowNull]
         public int? DTIRegNo { get; set; }
         [AllowNull]
-        public DateTime? DTIDateIssued { get; set; }
+        public string? DTIDateIssued { get; set; }
         [AllowNull]
         public int? DTIAmtCapital { get; set; }
         [AllowNull]
