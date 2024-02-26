@@ -3,6 +3,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using System.Net;
+using System.Reflection.PortableExecutable;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
@@ -76,7 +77,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            DealersModel dealersModels = new DealersModel();
+            DealersModel dm = new DealersModel();
             try
             {
                 using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
@@ -94,10 +95,26 @@ namespace WebApplication1.Controllers
                         {
                             while (reader.Read())
                             {
-                                dealersModels.Id = reader.GetInt32(0);
-                                dealersModels.DealerName = reader.GetString(1);
-                                dealersModels.DealerAddress = reader.GetString(2);
-                                dealersModels.DealerAccountId = reader.GetInt32(3);
+                                
+                                dm.DealerBusinessName = reader.GetString(1);
+                                dm.DealerAddress = reader.GetString(2);
+                                dm.DealerTelNo = reader.GetInt32(3);
+                                dm.DealerCellNo = reader.GetInt32(4);
+                                dm.DealerFaxNo = reader.GetInt32(5);
+                                dm.DealerEmail = reader.GetString(6);
+                                dm.DealerWebsite = reader.GetString(7);
+                                dm.DealerBusinessType = reader.GetString(8);
+                                dm.DealerSecNo = reader.GetInt32(9);
+                                dm.DealerDateIssued = reader.GetSqlDateTime(10).Value;
+                                dm.DealerAuthorizationCapital = reader.GetInt32(11);
+                                dm.DealerSubscribedCapital = reader.GetInt32(12);
+                                dm.DealerPaidUpCapital = reader.GetInt32(13);
+                                dm.DTIRegNo = reader.GetInt32(14);
+                                dm.DTIDateIssued = reader.GetSqlDateTime(15).Value;
+                                dm.DTIAmtCapital = reader.GetInt32(16);
+                                dm.DTIPaidUpCapital = reader.GetInt32(17);
+                                dm.DTITaxAcctNo = reader.GetInt32(18);
+                                dm.DealerTerms = reader.GetString(19);
                             }
                         }
                     }
@@ -107,7 +124,7 @@ namespace WebApplication1.Controllers
             {
                 Debug.WriteLine(e.ToString());
             }
-            return View(dealersModels);
+            return View(dm);
         }
         [HttpPost]
         public IActionResult Edit()
@@ -118,11 +135,33 @@ namespace WebApplication1.Controllers
                 {
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "UPDATE Dealers SET DealerName = @dn, DealerAddress = @da, DealerAccountId = @dai  WHERE Id = @id";
+                        command.CommandText = "UPDATE Dealers SET DealerBusinessName = @dbn, DealerAddress = @da, DealerTelNo = @dtn, " +
+                                                                 "DealerCellNo = @dcn, DealerFaxNo = @dfn, DealerEmail = @de, " +
+                                                                 "DealerWebsite = @dw, DealerBusinessType = @dbt, DealerSecNo = @dsn, " +
+                                                                 "DealerDateIssued = @ddi, DealerAuthorizationCapital = @dac, DealerSubscribedCapital = @dsc, " +
+                                                                 "DealerPaidUpCapital = @dpuc, DTIRegNo = @dtirn, DTIDateIssued = @dtidi, " +
+                                                                 "DTIAmtCapital = @dtiac, DTIPaidUpCapital = @dtipuc, DTITaxAcctNo = @dtitan, " +
+                                                                 "DealerTerms = @dt  WHERE Id = @id";
 
-                        command.Parameters.AddWithValue("@dn", Request.Form["DealerName"].ToString());
+                        command.Parameters.AddWithValue("@dbn", Request.Form["DealerBusinessName"].ToString());
                         command.Parameters.AddWithValue("@da", Request.Form["DealerAddress"].ToString());
-                        command.Parameters.AddWithValue("@dai", Request.Form["DealerAccountId"].ToString());
+                        command.Parameters.AddWithValue("@dtn", Request.Form["DealerTelNo"].ToString());
+                        command.Parameters.AddWithValue("@dcn", Request.Form["DealerCellNo"].ToString());
+                        command.Parameters.AddWithValue("@dfn", Request.Form["DealerFaxNo"].ToString());
+                        command.Parameters.AddWithValue("@de", Request.Form["DealerEmail"].ToString());
+                        command.Parameters.AddWithValue("@dw", Request.Form["DealerWebsite"].ToString());
+                        command.Parameters.AddWithValue("@dbt", Request.Form["DealerBusinessType"].ToString());
+                        command.Parameters.AddWithValue("@dsn", Request.Form["DealerSecNo"].ToString());
+                        command.Parameters.AddWithValue("@ddi", Request.Form["DealerDateIssued"].ToString());
+                        command.Parameters.AddWithValue("@dac", Request.Form["DealerAuthorizationCapital"].ToString());
+                        command.Parameters.AddWithValue("@dsc", Request.Form["DealerSubscribedCapital"].ToString());
+                        command.Parameters.AddWithValue("@dpuc", Request.Form["DealerPaidUpCapital"].ToString());
+                        command.Parameters.AddWithValue("@dtirn", Request.Form["DTIRegNo"].ToString());
+                        command.Parameters.AddWithValue("@dtidi", Request.Form["DTIDateIssued"].ToString());
+                        command.Parameters.AddWithValue("@dtiac", Request.Form["DTIAmtCapital"].ToString());
+                        command.Parameters.AddWithValue("@dtipuc", Request.Form["DTIPaidUpCapital"].ToString());
+                        command.Parameters.AddWithValue("@dtitan", Request.Form["DTITaxAcctNo"].ToString());
+                        command.Parameters.AddWithValue("@dt", Request.Form["DealerTerms"].ToString());
                         command.Parameters.AddWithValue("@id", Request.Form["Id"].ToString());
                         Debug.WriteLine(Request.Form["Id"].ToString());
                         connection.Open();
@@ -152,13 +191,32 @@ namespace WebApplication1.Controllers
                 {
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "INSERT Into Dealers (DealerName, DealerAddress, DealerAccountId) Values (@dn, @da, @dai)";
+                        command.CommandText = "INSERT Into Dealers (DealerBusinessName, DealerAddress, DealerTelNo, " +
+                                                                   "DealerCellNo, DealerFaxNo, DealerEmail, DealerWebsite, DealerBusinessType, DealerSecNo, " +
+                                                                   "DealerDateIssued, DealerAuthorizationCapital, DealerSubscribedCapital, DealerPaidUpCapital, " +
+                                                                   "DTIRegNo, DTIDateIssued, DTIAmtCapital, DTIPaidUpCapital, DTITaxAcctNo, DealerTerms, " +
+                                                                   "Id) Values (@dbn, @da, @dtn, @dcn, @dfn, @de, @dw, @dbt, @dsn, @ddi, @dac, @dsc, @dpuc, @dtirn, @dtidi, @dtiac, @dtipuc, @dtitan, @dt, @id)";
 
-                        command.Parameters.AddWithValue("@dn", Request.Form["DealerName"].ToString());
+                        command.Parameters.AddWithValue("@dbn", Request.Form["DealerBusinessName"].ToString());
                         command.Parameters.AddWithValue("@da", Request.Form["DealerAddress"].ToString());
-                        command.Parameters.AddWithValue("@dai", Request.Form["DealerAccountId"].ToString());
+                        command.Parameters.AddWithValue("@dtn", Request.Form["DealerTelNo"].ToString());
+                        command.Parameters.AddWithValue("@dcn", Request.Form["DealerCellNo"].ToString());
+                        command.Parameters.AddWithValue("@dfn", Request.Form["DealerFaxNo"].ToString());
+                        command.Parameters.AddWithValue("@de", Request.Form["DealerEmail"].ToString());
+                        command.Parameters.AddWithValue("@dw", Request.Form["DealerWebsite"].ToString());
+                        command.Parameters.AddWithValue("@dbt", Request.Form["DealerBusinessType"].ToString());
+                        command.Parameters.AddWithValue("@dsn", Request.Form["DealerSecNo"].ToString());
+                        command.Parameters.AddWithValue("@ddi", Request.Form["DealerDateIssued"].ToString());
+                        command.Parameters.AddWithValue("@dac", Request.Form["DealerAuthorizationCapital"].ToString());
+                        command.Parameters.AddWithValue("@dsc", Request.Form["DealerSubscribedCapital"].ToString());
+                        command.Parameters.AddWithValue("@dpuc", Request.Form["DealerPaidUpCapital"].ToString());
+                        command.Parameters.AddWithValue("@dtirn", Request.Form["DTIRegNo"].ToString());
+                        command.Parameters.AddWithValue("@dtidi", Request.Form["DTIDateIssued"].ToString());
+                        command.Parameters.AddWithValue("@dtiac", Request.Form["DTIAmtCapital"].ToString());
+                        command.Parameters.AddWithValue("@dtipuc", Request.Form["DTIPaidUpCapital"].ToString());
+                        command.Parameters.AddWithValue("@dtitan", Request.Form["DTITaxAcctNo"].ToString());
+                        command.Parameters.AddWithValue("@dt", Request.Form["DealerTerms"].ToString());
                         command.Parameters.AddWithValue("@id", Request.Form["Id"].ToString());
-                        Debug.WriteLine(Request.Form["Id"].ToString());
                         connection.Open();
                         command.ExecuteNonQuery();
                     }
