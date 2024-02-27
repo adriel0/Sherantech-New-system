@@ -1,36 +1,34 @@
 ﻿@{
     
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Sharentach Trading Inc. | Delivery Receipts";
+    ViewData["HeaderTag"] = "Delivery Receipts";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    
-    <table cellpadding="5" width="100%">
-        
-            @foreach(var i in Model)
-            {
-                <tr>
-                    <td>
-                        @i.Id
-                    </td>
-                    <td>
-                        @i.DealerName
-                    </td>
-                    <td>
-                        @i.DealerAddress
-                    </td>
-                    <td>
-                        @i.DealerAccountId
-                    </td>
-                    <td>
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                                <a class="nav-link text-dark" style="border:solid" asp-area="" asp-controller="Home" asp-action="Edit" asp-route-id="@i.Id">Edit</a>
-                        </li>
-                    </ul>
-                    </td>
-                </tr>
-            }
-    </table>
+<div class="upper-box">
+    <div class="text" style="top: 20px; left: 17px;">DR#:</div>
+    <div class="input-box" style="top: 48px; left: 20px">
+        <input type="text" class="input" placeholder="Enter here">
+    </div>
+    <div class="text" style="top: 20px; left: 350px;">Invoice#:</div>
+    <div class="input-box" style="top: 48px; left: 350px">
+        <input type="text" class="input" placeholder="Enter here">
+    </div>
+    <div class="text" style="top: 20px; left: 680px;">Terms:</div>
+    <div class="input-box" style="top: 48px; left: 680px">
+        <input type="text" class="input" placeholder="Enter here">
+    </div>
+    <div class="text" style="top: 115px; left: 15px;">Sold To:</div>
+    <div class="input-box" style="top: 140px; left: 20px">
+        <input type="text" class="input" placeholder="Enter here">
+    </div>
+    <div class="text" style="top: 115px; left: 350px;">Date Sold:</div>
+    <div class="input-box" style="top: 140px; left: 350px">
+        <input type="text" class="input" placeholder="Enter here">
+    </div>
+    <div class="save-cancel">
+        <button class="save-button" style="margin-top:160px; margin-left: 950px">Save</button>
+        <button class="cancel-button" style="margin-top:160px; margin-right: 55px">Cancel</button>
+    </div>
+</div>
+<div class="lower-box" style="height: 460px; top: 275px;">
 </div>

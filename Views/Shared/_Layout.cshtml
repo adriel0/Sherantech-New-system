@@ -4,48 +4,117 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Advent+Pro:ital,wght@0,100..900;1,100..900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApplication1</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Add">Add Data</a>
-                        </li>
-                    </ul>
+    <div class="side-bar">
+        <div class="title">
+            <h1>SHERANTECH</h1>
+            <h4>Trading Inc.</h4>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <div class="iocn-link active">
+                    <a asp-area="" asp-controller="Home" asp-action="Add">
+                        <span class="link-name active">Delivery Receipts</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
                 </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+                <ul class="sub-menu">
+                    <li><a href="#">Details</a></li>
+                    <li><a href="#">Items</a></li>
+                    <li><a href="#">Serials (J)</a></li>
+                    <li><a href="#">References (K)</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a asp-area="" asp-controller="Home" asp-action="Add">
+                        <span class="link-name">Inventory</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a href="#">Details</a></li>
+                    <li><a href="#">Items</a></li>
+                    <li><a href="#">Serials (J)</a></li>
+                    <li><a href="#">References (K)</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a asp-area="" asp-controller="Home" asp-action="Add">
+                        <span class="link-name">Dealers</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a href="#">Particolars</a></li>
+                    <li><a href="#">Bank Reference</a></li>
+                    <li><a href="#">Agents</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a asp-area="" asp-controller="Home" asp-action="Add">
+                        <span class="link-name">Receivables</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a href="#">Details</a></li>
+                    <li><a href="#">Reference No.</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a asp-area="" asp-controller="Home" asp-action="Add">
+                        <span class="link-name">Purchases</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a href="#">Details</a></li>
+                    <li><a href="#">Items</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a asp-area="" asp-controller="Home" asp-action="Add">
+                        <span class="link-name">Reports</span>
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a asp-area="" asp-controller="Home" asp-action="Add">
+                        <span class="link-name">Serial Search</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a href="#">Details</a></li>
+                </ul>
+            </li>
+        </ul>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - WebApplication1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="header">@ViewData["HeaderTag"]</div>
+    <div class="upper-nav">
+        <ul class="nav-options">
+            <li><a href="#">Transactions</a></li>
+            <li><a href="#">Accounts</a></li>
+            <li><a href="#">Profiles</a></li>
+            <li><a href="#">Reports</a></li>
+        </ul>
+    </div>
+    
+    @RenderBody()
+
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
