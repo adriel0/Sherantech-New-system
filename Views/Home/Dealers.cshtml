@@ -3,7 +3,46 @@
     ViewData["Title"] = "Sharentach Trading Inc. | Dealers";
     ViewData["HeaderTag"] = "Dealers";
 }
+@* sample
+<form method="post">
+    <label for="DealerName">Dealer Name:</label>
+    <input type="text" name="DealerName" value="" />
+    <label for="DealerAddress">Dealer Address:</label>
+    <input type="text" name="DealerAddress" value="" />
+    <label for="DealerAccountId">Dealer Account Id:</label>
+    <input type="number" name="DealerAccountId" value="" />
+    <input type="submit" value="Submit" class="submit" />
+    @*<input type="hidden" name="Id" value="@Model.Id" readonly />*@@*
+</form>
 
+<table cellpadding="5" width="100%">
+
+    @foreach (var i in Model)
+    {
+        <tr>
+            <td>
+                @i.Id
+            </td>
+            <td>
+                @i.DealerName
+            </td>
+            <td>
+                @i.DealerAddress
+            </td>
+            <td>
+                @i.DealerAccountId
+            </td>
+            <td>
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" style="border:solid" asp-area="" asp-controller="Home" asp-action="Edit" asp-route-id="@i.Id">Edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    }
+</table>
+*@
 <div class="upper-box" style="height: 385px;">
     <!-- row 1 -->
     <div class="text" style="top: 20px; left: 17px;">Business Name:</div>
@@ -86,7 +125,7 @@
         <input type="text" class="input" placeholder="Enter here">
     </div>
     <div class="save-cancel">
-        <button class="save-button" style="margin-top:320px; margin-left: 990px">Save</button>
+        <input class="save-button" style="margin-top:320px; margin-left: 990px" type="submit" value="Save" />
         <button class="cancel-button" style="margin-top:320px; margin-right: 20px">Cancel</button>
     </div>
 </div>

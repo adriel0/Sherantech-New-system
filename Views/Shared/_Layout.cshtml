@@ -19,28 +19,24 @@
         <ul class="nav-links">
             <li>
                 <div class="iocn-link active">
-                    <a asp-area="" asp-controller="Home" asp-action="Dealers">
                         <span class="link-name active">Profile</span>
-                    </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="#">Dealers</a></li>
-                    <li><a href="#">Inventory</a></li>
-                    <li><a href="#">Sales Representative</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Dealers">Dealers</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Inventory">Inventory</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Srep">Sales Representative</a></li>
                 </ul>
             </li>
             <li>
                 <div class="iocn-link">
-                    <a asp-area="" asp-controller="Home" asp-action="Inventory">
                         <span class="link-name">Transactions</span>
-                    </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="#">Delivery Receipts</a></li>
-                    <li><a href="#">Purchases</a></li>
-                    <li><a href="#">Search Serials</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Receipts">Delivery Receipts</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Purchases">Purchases</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Serials">Search Serials</a></li>
                 </ul>
             </li>
 
