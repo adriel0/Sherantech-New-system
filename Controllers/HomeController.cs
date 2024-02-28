@@ -63,7 +63,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Index()
+        public IActionResult Dealers()
         {
             List<DealersModel> dealersModels = new List<DealersModel>();
             Console.WriteLine("\nQuery data example:");
