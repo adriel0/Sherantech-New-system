@@ -1,0 +1,121 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Advent+Pro:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    align-items: center;
+    background: url('https://c.animaapp.com/2tf4hpqN/img/elements.png') no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.wrapper {
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+    padding: 30px 40px;
+    width: 420px;
+}
+
+    .wrapper h2 {
+        align-content: center;
+        background: linear-gradient(to right, #65BD83, #304B55);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 20px;
+        padding-top: 20px;
+        text-align: center;
+    }
+
+    .wrapper h1 {
+        align-content: center;
+        color: #304B55;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 36px;
+        font-weight: 800;
+        line-height: 38px;
+        text-align: center;
+    }
+
+    .wrapper .subtitle {
+        align-content: center;
+        color: #497281;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 18px;
+        text-align: center;
+    }
+
+    .wrapper .input-box {
+        height: 50px;
+        margin: 30px 0;
+        width: 100%;
+    }
+
+.input-box input {
+    background: transparent;
+    border: 1px solid;
+    border-radius: 10px;
+    font-family: 'Advent Pro', sans-serif;
+    font-size: 16px;
+    height: 100%;
+    outline: none;
+    padding: 20px 45px 20px 20px;
+    width: 100%;
+}
+
+    .input-box input::placeholder {
+        font-family: 'Advent Pro', sans-serif;
+    }
+
+.wrapper .remember-forgot {
+    display: flex;
+    font-family: 'Advent Pro', sans-serif;
+    font-size: 14.5px;
+    justify-content: space-between;
+    margin: -15px 0 15px;
+}
+
+.remember-forgot label input {
+    cursor: pointer;
+    margin-right: 3px;
+}
+
+.remember-forgot a {
+    color: black;
+    text-decoration: none;
+}
+
+    .remember-forgot a:hover {
+        text-decoration: underline;
+    }
+
+.wrapper .btn {
+    background: #304B55;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    color: aliceblue;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    height: 45px;
+    outline: none;
+    width: 100%;
+}
+
+.btn:active {
+    font-size: 14px;
+}
