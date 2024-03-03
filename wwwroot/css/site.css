@@ -11,6 +11,8 @@ body {
     background-color: #EFECF8;
 }
 
+
+/*  ---------- Sidebar Menu Design ----------   */
 .side-bar {
     background: radial-gradient(469.96% 92.35% at 42.35% 24.68%, #304B55 0%, rgba(2, 84, 114, 0.65) 100%);
     height: 100vh;
@@ -77,7 +79,7 @@ body {
     background: #4BA3C3;
 }
 
-.nav-links li .active {
+.nav-links li .iocn-link.active {
     background: #4BA3C3;
 }
 
@@ -91,21 +93,17 @@ body {
     transition: all 0.3s ease;
 }
 
-.nav-links li i:hover {
-    color: #F3D34A;
-}
-
 .nav-links li.showMenu i.arrow {
     transform: rotate(-180deg);
 }
 
-.nav-links li a {
+.nav-links li a, .nav-links li div {
     align-items: center;
     display: flex;
     text-decoration: none;
 }
 
-.nav-links li a .link-name {
+.nav-links li .link-name {
     color: whitesmoke;
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
@@ -113,11 +111,7 @@ body {
     transition: all 0.3s ease;
 }
 
-.nav-links li a .link-name:hover {
-    color: #F3D34A;
-}
-
-.nav-links li a .active {
+.nav-links li div .active {
     color: #F3D34A;
 }
 
@@ -136,7 +130,7 @@ body {
 .nav-links li .sub-menu a {
     color: whitesmoke;
     font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
+    font-size: 14px;
     font-style: italic;
     font-weight: 500;
     opacity: 70%;
@@ -146,10 +140,18 @@ body {
 }
 
 .nav-links li .sub-menu a:hover {
-    opacity: 1;
+    font-weight: bold;
+    opacity: 2;
+}
+
+.nav-links li .sub-menu a.active {
+    font-weight: bold;
+    opacity: 2;
 }
 
 
+
+/*  ---------- Header page design ----------    */
 .header {
     position: absolute;
     height: 49px;
@@ -192,6 +194,8 @@ body {
     opacity: 0.7;
 }
 
+
+/*  ---------- Body Design ----------   */
 .upper-box {
     position: absolute;
     width: 1148px;

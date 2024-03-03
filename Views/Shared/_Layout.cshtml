@@ -19,52 +19,46 @@
         <ul class="nav-links">
             <li>
                 <div class="iocn-link active">
-                        <span class="link-name active">Profile</span>
+                    <span class="link-name active">Profile</span>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Dealers">Dealers</a></li>
+                    <li><a class="active" asp-area="" asp-controller="Home" asp-action="Dealers">Dealers</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Inventory">Inventory</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Srep">Sales Representative</a></li>
                 </ul>
             </li>
             <li>
                 <div class="iocn-link">
-                        <span class="link-name">Transactions</span>
+                    <span class="link-name">Transactions</span>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Receipts">Delivery Receipts</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Purchases">Purchases</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Serials">Search Serials</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Delivery">Delivery Receipts</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Purchase">Purchases</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Search">Serial Search</a></li>
                 </ul>
             </li>
 
             <li>
                 <div class="iocn-link">
-                    <a asp-area="" asp-controller="Home" asp-action="Delivery">
-                        <span class="link-name">Accounts</span>
-                    </a>
+                    <span class="link-name">Accounts</span>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="#">Payables</a></li>
-                    <li><a href="#">Recievables</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Payable">Payables</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Receive">Recievables</a></li>
                 </ul>
             </li>
             <li>
                 <div class="iocn-link">
-                    <a asp-area="" asp-controller="Home" asp-action="Purchase">
+                    <a asp-area="" asp-controller="Home" asp-action="Report">
                         <span class="link-name">Reports</span>
                     </a>
                 </div>
             </li>
-            
-            
         </ul>
     </div>
-
-    <div class="header">@ViewData["HeaderTag"]</div>
     
     @RenderBody()
 
