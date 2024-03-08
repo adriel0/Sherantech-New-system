@@ -1,0 +1,139 @@
+﻿@{
+
+    ViewData["Title"] = "Sharentach Trading Inc. | Dealers";
+}
+@* sample
+<form method="post">
+    <label for="DealerName">Dealer Name:</label>
+    <input type="text" name="DealerName" value="" />
+    <label for="DealerAddress">Dealer Address:</label>
+    <input type="text" name="DealerAddress" value="" />
+    <label for="DealerAccountId">Dealer Account Id:</label>
+    <input type="number" name="DealerAccountId" value="" />
+    <input type="submit" value="Submit" class="submit" />
+    @*<input type="hidden" name="Id" value="@Model.Id" readonly />*@@*
+</form>
+
+<table cellpadding="5" width="100%">
+
+    @foreach (var i in Model)
+    {
+        <tr>
+            <td>
+                @i.Id
+            </td>
+            <td>
+                @i.DealerName
+            </td>
+            <td>
+                @i.DealerAddress
+            </td>
+            <td>
+                @i.DealerAccountId
+            </td>
+            <td>
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" style="border:solid" asp-area="" asp-controller="Home" asp-action="Edit" asp-route-id="@i.Id">Edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    }
+</table>
+*@
+<div class="header">DEALERS</div>
+<div class="upper-nav">
+    <ul class="nav-options">
+        <li><a asp-area="" asp-controller="Home" asp-action="#">Particulars</a></li>
+        <li><a asp-area="" asp-controller="Home" asp-action="#">Bank Reference</a></li>
+        <li><a asp-area="" asp-controller="Home" asp-action="#">Agents</a></li>
+    </ul>
+</div>
+
+<div class="upper-box" style="height: 385px;">
+    <form method="post">
+        <!-- row 1 -->
+        <label class="text" style="top: 20px; left: 17px;" for="DealerBusinessName">Business Name:</label>
+        <div class="input-box" style="width:280px; top: 48px; left: 17px">
+            <input type="text" class="input" name="DealerBusinessName" value="" placeholder="Enter here" />
+        </div>
+        <label class="text" style="top: 20px; left: 308px;" for="DealerAddress">Address:</label>
+        <div class="input-box" style="width:280px; top: 48px; left: 308px">
+            <input type="text" class="input" placeholder="Enter here" name="DealerAddress">
+        </div>
+        <label class="text" style="top: 20px; left: 600px;" for="DealerTelNo">Telephone #:</label>
+        <div class="input-box" style="width:165px; top: 48px; left: 600px">
+            <input type="text" class="input" placeholder="Enter here" name="DealerTelNo">
+        </div>
+        <label class="text" style="top: 20px; left: 780px;" for="DealerCellNo">Cellphone #:</label>
+        <div class="input-box" style="width:165px; top: 48px; left: 780px">
+            <input type="text" class="input" placeholder="Enter here" name="DealerCellNo">
+        </div>
+        <!-- row 2 -->
+        <label class="text" style="top: 115px; left: 17px;" for="DealerBusinessType">Business Type:</label>
+        <div class="input-box" style="width:280px; top: 140px; left: 17px">
+            <input type="text" class="input" placeholder="Enter here" name="DealerBusinessType">
+        </div>
+        <label class="text" style="top: 115px; left: 308px;" for="DealerDateIssued">Date Issued:</label>
+        <div class="input-box" style="width:280px; top: 140px; left: 308px">
+            <input type="text" class="input" placeholder="Enter here" name="DealerDateIssued">
+        </div>
+        <label class="text" style="top: 115px; left: 600px;" for="DealerSecNo">Sec#:</label>
+        <div class="input-box" style="width:165px; top: 140px; left: 600px">
+            <input type="text" class="input" placeholder="Enter here" name="DealerSecNo">
+        </div>
+        <label class="text" style="top: 115px; left: 780px;" for="DealerEmail">Email:</label>
+        <div class="input-box" style="width:165px; top: 140px; left: 780px">
+            <input type="text" class="input" placeholder="Enter here" name="DealerEmail">
+        </div>
+        <label class="text" style="top: 115px; left: 960px;" for="DealerWebsite">Website:</label>
+        <div class="input-box" style="width:165px; top: 140px; left: 960px">
+            <input type="text" class="input" placeholder="Enter here" name="DealerWebsite">
+        </div>
+        <!-- row 3 -->
+        <label class="text" style="top: 205px; left: 17px;" for="DealerAuthorizationCapital">Authorization Capital:</label>
+        <div class="input-box" style="width:280px; top: 230px; left: 17px">
+            <input type="text" class="input" placeholder="Enter here" name="DealerAuthorizationCapital">
+        </div>
+        <label class="text" style="top: 205px; left: 308px;" for="DealerSubscribedCapital">Subscribed Capital:</label>
+        <div class="input-box" style="width:280px; top: 230px; left: 308px">
+            <input type="text" class="input" placeholder="Enter here" name="DealerSubscribedCapital">
+        </div>
+        <label class="text" style="top: 205px; left: 600px;" for="DealerPaidUpCapital">Paid-up Capital:</label>
+        <div class="input-box" style="width:280px; top: 230px; left: 600px">
+            <input type="text" class="input" placeholder="Enter here" name="DealerPaidUpCapital">
+        </div>
+        <label class="text" style="top: 205px; left: 895px;" for="DealerTerms">Terms:</label>
+        <div class="input-box" style="width:230px; top: 230px; left: 895px">
+            <input type="text" class="input" placeholder="Enter here" name="DealerTerms">
+        </div>
+        <!-- row 4 -->
+        <label class="text" style="font-size: 17px;top: 295px; left: 17px;" for="DTIRegNo">DTI Registration #:</label>
+        <div class="input-box" style="width:180px; top: 315px; left: 17px">
+            <input type="text" class="input" placeholder="Enter here" name="DTIRegNo">
+        </div>
+        <label class="text" style="font-size: 17px;top: 295px; left: 208px;" for="DTIDateIssued">DTI Date Issued:</label>
+        <div class="input-box" style="width:180px; top: 315px; left: 208px">
+            <input type="text" class="input" placeholder="Enter here" name="DTIDateIssued">
+        </div>
+        <label class="text" style="font-size: 17px;top: 295px; left: 400px;" for="DTIAmtCapital">DTI Amnt. Capital:</label>
+        <div class="input-box" style="width:180px; top: 315px; left: 400px">
+            <input type="text" class="input" placeholder="Enter here" name="DTIAmtCapital">
+        </div>
+        <label class="text" style="font-size: 17px;top: 295px; left: 590px;" for="DTIPaidUpCapital">DTI Paid Up Capital:</label>
+        <div class="input-box" style="width:180px; top: 315px; left: 590px">
+            <input type="text" class="input" placeholder="Enter here" name="DTIPaidUpCapital">
+        </div>
+        <label class="text" style=" font-size: 17px; top: 295px; left: 785px;" for="DTITaxAcctNo">DTI Tax Account #:</label>
+        <div class="input-box" style="width:180px; top: 315px; left: 785px">
+            <input type="text" class="input" placeholder="Enter here" name="DTITaxAcctNo">
+        </div>
+        <div class="save-cancel">
+            <input class="save-button" style="margin-top:320px; margin-left: 990px" type="submit" value="Save" />
+            <button class="cancel-button" style="margin-top:320px; margin-right: 20px">Cancel</button>
+        </div>
+    </form>
+</div>
+<div class="lower-box" style="height: 280px; top: 455px;">
+</div>
