@@ -11,27 +11,34 @@
     </ul>
 </div>
 
-<div class="upper-box">
-    <div class="text" style="top: 20px; left: 17px;">Reference #:</div>
-    <div class="input-box" style="top: 48px; left: 20px">
-        <input type="text" class="input" placeholder="Enter here">
-    </div>
-    <div class="text" style="top: 20px; left: 350px;">Received by:</div>
-    <div class="input-box" style="top: 48px; left: 350px">
-        <input type="text" class="input" placeholder="Enter here">
-    </div>
-    <div class="text" style="top: 115px; left: 15px;">Purchased From:</div>
-    <div class="input-box" style="top: 140px; left: 20px">
-        <input type="text" class="input" placeholder="Enter here">
-    </div>
-    <div class="text" style="top: 115px; left: 350px;">Date Purchased:</div>
-    <div class="input-box" style="top: 140px; left: 350px">
-        <input type="text" class="input" placeholder="Enter here">
-    </div>
-    <div class="save-cancel">
-        <button class="save-button" style="margin-top:160px; margin-left: 950px">Save</button>
-        <button class="cancel-button" style="margin-top:160px; margin-right: 55px">Cancel</button>
-    </div>
+<<div class="upper-box" style="height: 385px;">
+    <form method="post">
+        <!-- row 1 -->
+        <label class="text" style="top: 20px; left: 17px;" for="referenceNo">Reference #:</label>
+        <div class="input-box" style="width:280px; top: 48px; left: 17px">
+            <input type="text" class="input" name="referenceNo" placeholder="Enter here" />
+        </div>
+        <label class="text" style="top: 20px; left: 308px;" for="purchasedFrom">Purchased From:</label>
+        <div class="input-box" style="width:280px; top: 48px; left: 308px">
+            <input type="text" class="input" placeholder="Enter here" name="purchasedFrom">
+        </div>
+        <label class="text" style="top: 20px; left: 600px;" for="datePurchased">Date Purchased:</label>
+        <div class="input-box" style="width:165px; top: 48px; left: 600px">
+            <input type="text" class="input" placeholder="Enter here" name="datePurchased">
+        </div>
+        <label class="text" style="top: 20px; left: 600px;" for="receivedBy">Received By:</label>
+        <div class="input-box" style="width:165px; top: 48px; left: 600px">
+            <input type="text" class="input" placeholder="Enter here" name="receivedBy">
+        </div>
+        <label class="text" style="top: 20px; left: 780px;" for="closed">Closed:</label>
+        <div class="input-box" style="width:165px; top: 48px; left: 780px">
+            <input type="text" class="input" placeholder="Enter here" name="closed">
+        </div>
+        <div class="save-cancel">
+            <input class="save-button" style="margin-top:320px; margin-left: 990px" type="submit" value="Save" />
+            <button class="cancel-button" style="margin-top:320px; margin-right: 20px">Cancel</button>
+        </div>
+    </form>
 </div>
 <div class="lower-box" style="height: 460px; top: 275px;">
 </div>

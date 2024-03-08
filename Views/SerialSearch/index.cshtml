@@ -10,31 +10,34 @@
     </ul>
 </div>
 
-<div class="upper-box">
-    <div class="text" style="top: 20px; left: 17px;">Serial #:</div>
-    <div class="input-box" style="top: 48px; left: 20px">
-        <input type="text" class="input" placeholder="Enter here">
-    </div>
-    <div class="text" style="top: 20px; left: 350px;">DR #:</div>
-    <div class="input-box" style="top: 48px; left: 350px">
-        <input type="text" class="input" placeholder="Enter here">
-    </div>
-    <div class="text" style="top: 20px; left: 680px;">Stock Name:</div>
-    <div class="input-box" style="top: 48px; left: 680px">
-        <input type="text" class="input" placeholder="Enter here">
-    </div>
-    <div class="text" style="top: 115px; left: 15px;">Customer:</div>
-    <div class="input-box" style="top: 140px; left: 20px">
-        <input type="text" class="input" placeholder="Enter here">
-    </div>
-    <div class="text" style="top: 115px; left: 350px;">Date Sold:</div>
-    <div class="input-box" style="top: 140px; left: 350px">
-        <input type="text" class="input" placeholder="Enter here">
-    </div>
-    <div class="save-cancel">
-        <button class="save-button" style="margin-top:160px; margin-left: 950px">Save</button>
-        <button class="cancel-button" style="margin-top:160px; margin-right: 55px">Cancel</button>
-    </div>
+<<div class="upper-box" style="height: 385px;">
+    <form method="post">
+        <!-- row 1 -->
+        <label class="text" style="top: 20px; left: 17px;" for="serialNo">Serial #:</label>
+        <div class="input-box" style="width:280px; top: 48px; left: 17px">
+            <input type="text" class="input" name="serialNo" placeholder="Enter here" />
+        </div>
+        <label class="text" style="top: 20px; left: 308px;" for="drNo">DR #:</label>
+        <div class="input-box" style="width:280px; top: 48px; left: 308px">
+            <input type="text" class="input" placeholder="Enter here" name="drNo">
+        </div>
+        <label class="text" style="top: 20px; left: 600px;" for="stockName">Stock Name:</label>
+        <div class="input-box" style="width:165px; top: 48px; left: 600px">
+            <input type="text" class="input" placeholder="Enter here" name="stockName">
+        </div>
+        <label class="text" style="top: 20px; left: 600px;" for="customer">Customer:</label>
+        <div class="input-box" style="width:165px; top: 48px; left: 600px">
+            <input type="text" class="input" placeholder="Enter here" name="customer">
+        </div>
+        <label class="text" style="top: 20px; left: 780px;" for="dateSold">Date Sold:</label>
+        <div class="input-box" style="width:165px; top: 48px; left: 780px">
+            <input type="text" class="input" placeholder="Enter here" name="Date Sold">
+        </div>
+        <div class="save-cancel">
+            <input class="save-button" style="margin-top:320px; margin-left: 990px" type="submit" value="Save" />
+            <button class="cancel-button" style="margin-top:320px; margin-right: 20px">Cancel</button>
+        </div>
+    </form>
 </div>
 <div class="lower-box" style="height: 460px; top: 275px;">
 </div>
