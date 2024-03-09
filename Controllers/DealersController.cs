@@ -22,6 +22,30 @@ namespace WebApplication1.Controllers
             //sql to get top id if no id was sent
             if(id == 0)
             {
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                    {
+                        connection.Open();
+                        String sql = "SELECT Id FROM Dealers ORDER BY DESC LIMIT 1";
+                        using (SqlCommand command = new SqlCommand(sql, connection))
+                        {
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    id = reader.GetInt32(0);
+
+                                }
+                            }
+                        }   
+
+                    }
+                } 
+                catch (SqlException e)
+                {
+                    Debug.WriteLine(e.ToString());
+                }
 
             }
 
