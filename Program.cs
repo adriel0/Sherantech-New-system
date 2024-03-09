@@ -22,7 +22,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Dealers}/{action=index}/{id?}");
-
+    name: "default", 
+    pattern: "{controller}/{action}/{id?}",
+    defaults: new { controller = "Home", action = "login"});
 app.Run();

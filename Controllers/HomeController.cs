@@ -57,10 +57,17 @@ namespace WebApplication1.Controllers
             if (password.Equals(Request.Form["Password"].ToString()))
             {
                 // change later
-                return RedirectToAction("Dealers");
+                return RedirectToRoute(new
+                {
+                    controller = "dealers",
+                    action = "index"
+                });
             }
-
-            return RedirectToAction("Index");
+            return RedirectToRoute(new
+            {
+                controller = "home",
+                action = "login"
+            });
         }
 
         public IActionResult Dealers()
