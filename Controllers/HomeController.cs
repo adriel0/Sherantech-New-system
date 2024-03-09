@@ -4,6 +4,10 @@ using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using System.Net;
 using WebApplication1.Models;
+using System.Security.Cryptography;
+using System.Collections.Generic;
+using System.Text;
+
 
 namespace WebApplication1.Controllers
 {
@@ -21,6 +25,24 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+
+        //hash stuff
+        /*
+        public static byte[] GetHash(string inputString)
+        {
+            using (HashAlgorithm algorithm = SHA256.Create())
+                return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+        }
+
+        public static string GetHashString(string inputString)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in GetHash(inputString))
+                sb.Append(b.ToString("X2"));
+
+            return sb.ToString();
+        }
+        */
 
         [HttpPost]
         public IActionResult Login_Post()
@@ -54,6 +76,8 @@ namespace WebApplication1.Controllers
                 Debug.WriteLine(e.ToString());
             }
 
+            //hash
+            // if (password.Equals(GetHashString(Request.Form["Password"].ToString())))
             if (password.Equals(Request.Form["Password"].ToString()))
             {
                 // change later

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.5" />
+    <PackageReference Include="System-Web-Helpers.dll" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
