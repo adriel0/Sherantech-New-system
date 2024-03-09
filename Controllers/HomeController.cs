@@ -25,7 +25,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult Login_Post()
         {
-            String password = "";
+            String password = "a";
             try
             {
                 using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
