@@ -27,20 +27,5 @@
                 currentSubMenu.style.height = currentSubMenu.scrollHeight + 'px';
             }
         });
-
-        const submenuItems = arrow.nextElementSibling.querySelectorAll('li');
-
-        submenuItems.forEach((item) => {
-            item.addEventListener('click', function () {
-                // Remove active class from all submenu items
-                submenuItems.forEach((subitem) => {
-                    subitem.querySelector('.link-name').classList.remove('active');
-                });
-
-                // Add active class to the clicked submenu item
-                item.querySelector('.link-name').classList.add('active');
-            });
-        });
-
     });
 });

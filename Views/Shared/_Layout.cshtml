@@ -64,5 +64,14 @@
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        // Get the height of the upper body
+        const upperBodyHeight = document.querySelector('.upper-body').offsetHeight;
+
+        // Set the top position of the lower body
+        const lowerBody = document.querySelector('.lower-body');
+        lowerBody.style.top = `${upperBodyHeight + 90}px`;
+
+    </script>
 </body>
 </html>
