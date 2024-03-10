@@ -199,7 +199,6 @@ body {
     background: white;
     box-shadow: 4px 4px 10px #00000040;
     border-radius: 20px;
-    display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     left: 265px;
@@ -208,6 +207,10 @@ body {
     top: 70px;
     max-width: 170vh;
     width: 100%;
+    display:flex;
+}
+.tabcontent {
+    display: none;
 }
 
 .form {
@@ -281,6 +284,7 @@ body {
 }
 
 .lower-body {
+    display:block;
     background: white;
     box-shadow: 4px 4px 10px #00000040;
     border-radius: 20px;
