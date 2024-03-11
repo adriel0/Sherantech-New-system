@@ -9,6 +9,8 @@ namespace WebApplication1.Models.Dealers
         [AllowNull]
         public List<DealersModel>? Details { get; set; }
         [AllowNull]
+        public List<BankReferenceModel>? CurrentBankRef { get; set; }
+        [AllowNull]
         public DealersModel? Current { get; set; }
     }
 }

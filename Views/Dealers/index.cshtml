@@ -227,7 +227,7 @@
             </div>
 
             <div class="button-horizontal">
-                <button type="submit" class="button">Save</button>
+                <input type="submit" class="button" asp-area="" asp-controller="Dealers" asp-action="edit" asp-route-id="@Model.Current.Id" value="Save"></input>
                 <button type="submit" class="button">Cancel</button>
             </div>
         </div>
@@ -235,7 +235,53 @@
 </div>
 
 <div class="tabcontent" id="Bank">
-    <form method="post">
+    <div>
+        <div class="upper-body">
+            <table cellpadding="5" width="100%">
+                <tr>
+                    <td>
+                        accountNo
+                    </td>
+                    <td>
+                        accountName
+                    </td>
+                    <td>
+                        type
+                    </td>
+                    <td>
+                        bank
+                    </td>
+                </tr>
+                @foreach (var i in Model.CurrentBankRef)
+                {
+                    <tr>
+                        <td>
+                            @i.accountNo
+                        </td>
+                        <td>
+                            @i.accountName
+                        </td>
+                        <td>
+                            @i.type
+                        </td>
+                        <td>
+                            @i.bank
+                        </td>
+                        <td>
+                            <a asp-area="" asp-controller="Dealers" asp-action="editbank" asp-route-id="@i.Id" asp-route-dealerid="@i.dealerId">
+                                edit
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+
+
+
+    @* <form method="post">
 
         <div class="upper-body">
             <div class="form large">
@@ -260,7 +306,7 @@
                 <button type="submit" class="button">Cancel</button>
             </div>
         </div>
-    </form>
+    </form> *@
 </div>
 
 <div class="tabcontent" id="Agents">
@@ -293,7 +339,7 @@
         <label class="filter-text" for="#">Filter</label>
         <input type="text" class="filter-type" name="#" value="" />
     </div>
-    <div>
+    <div class="scroll">
         <table cellpadding="5" width="100%">
             <tr>
                 <td>
@@ -427,7 +473,7 @@
         </table>
     </div>
     <div class="button-vertical">
-        <button type="submit" class="button">Add</button>
+        <a asp-area="" asp-controller="Dealers" asp-action="add" class="button">Add</a>
         <button type="submit" class="button">Edit</button>
         <button type="submit" class="button">Delete</button>
     </div>

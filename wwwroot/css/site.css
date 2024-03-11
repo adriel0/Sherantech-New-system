@@ -284,7 +284,7 @@ body {
 }
 
 .lower-body {
-    display:block;
+    display: block;
     background: white;
     box-shadow: 4px 4px 10px #00000040;
     border-radius: 20px;
@@ -319,4 +319,7 @@ body {
 
 .button:active {
     opacity: 0.7;
+}
+.scroll {
+    overflow-x: scroll;
 }
