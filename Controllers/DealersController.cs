@@ -52,56 +52,56 @@ namespace WebApplication1.Controllers
             List<DealersModel> dealersModels = new List<DealersModel>();
             Console.WriteLine("\nQuery data example:");
             Console.WriteLine("=========================================\n");
-            //try
-            //{
-            //    using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
-            //    {
-            //        Console.WriteLine("\nQuery data example:");
-            //        Console.WriteLine("=========================================\n");
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    Console.WriteLine("\nQuery data example:");
+                    Console.WriteLine("=========================================\n");
 
-            //        connection.Open();
+                    connection.Open();
 
-            //        String sql = "SELECT * FROM Dealers";
+                    String sql = "SELECT * FROM Dealers";
 
-            //        using (SqlCommand command = new SqlCommand(sql, connection))
-            //        {
-            //            using (SqlDataReader reader = command.ExecuteReader())
-            //            {
-            //                while (reader.Read())
-            //                {
-            //                    DealersModel dm = new DealersModel();
-            //                    dm.Id = reader.GetInt32(0);
-            //                    dm.DealerBusinessName = reader.GetString(1);
-            //                    dm.DealerAddress = reader.GetString(2);
-            //                    dm.DealerTelNo = reader.GetInt32(3);
-            //                    dm.DealerCellNo = reader.GetInt32(4);
-            //                    dm.DealerFaxNo = reader.GetInt32(5);
-            //                    dm.DealerEmail = reader.GetString(6);
-            //                    dm.DealerWebsite = reader.GetString(7);
-            //                    dm.DealerBusinessType = reader.GetString(8);
-            //                    dm.DealerSecNo = reader.GetInt32(9);
-            //                    dm.DealerDateIssued = reader.GetSqlDateTime(10).Value;
-            //                    dm.DealerAuthorizationCapital = reader.GetInt32(11);
-            //                    dm.DealerSubscribedCapital = reader.GetInt32(12);
-            //                    dm.DealerPaidUpCapital = reader.GetInt32(13);
-            //                    dm.DTIRegNo = reader.GetInt32(14);
-            //                    dm.DTIDateIssued = reader.GetSqlDateTime(15).Value;
-            //                    dm.DTIAmtCapital = reader.GetInt32(16);
-            //                    dm.DTIPaidUpCapital = reader.GetInt32(17);
-            //                    dm.DTITaxAcctNo = reader.GetInt32(18);
-            //                    dm.DealerTerms = reader.GetString(19);
-            //                    dealersModels.Add(dm);
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                DealersModel dm = new DealersModel();
+                                dm.Id = reader.GetInt32(0);
+                                dm.DealerBusinessName = reader.GetString(1);
+                                dm.DealerAddress = reader.GetString(2);
+                                dm.DealerTelNo = reader.GetString(3);
+                                dm.DealerCellNo = reader.GetString(4);
+                                dm.DealerFaxNo = reader.GetString(5);
+                                dm.DealerEmail = reader.GetString(6);
+                                dm.DealerWebsite = reader.GetString(7);
+                                dm.DealerBusinessType = reader.GetString(8);
+                                dm.DealerSecNo = reader.GetString(9);
+                                dm.DealerDateIssued = reader.GetSqlDateTime(10).Value;
+                                dm.DealerAuthorizationCapital = reader.GetInt64(11);
+                                dm.DealerSubscribedCapital = reader.GetInt64(12);
+                                dm.DealerPaidUpCapital = reader.GetInt64(13);
+                                dm.DTIRegNo = reader.GetInt64(14);
+                                dm.DTIDateIssued = reader.GetSqlDateTime(15).Value;
+                                dm.DTIAmtCapital = reader.GetInt64(16);
+                                dm.DTIPaidUpCapital = reader.GetInt64(17);
+                                dm.DTITaxAcctNo = reader.GetInt64(18);
+                                dm.DealerTerms = reader.GetString(19);
+                                dealersModels.Add(dm);
 
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //catch (SqlException e)
-            //{
-            //    Debug.WriteLine(e.ToString());
-            //}
-            return View();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            return View(dealersModels);
         }
         
         [HttpGet]
@@ -128,22 +128,22 @@ namespace WebApplication1.Controllers
                                 
                                 dm.DealerBusinessName = reader.GetString(1);
                                 dm.DealerAddress = reader.GetString(2);
-                                dm.DealerTelNo = reader.GetInt32(3);
-                                dm.DealerCellNo = reader.GetInt32(4);
-                                dm.DealerFaxNo = reader.GetInt32(5);
+                                dm.DealerTelNo = reader.GetString(3);
+                                dm.DealerCellNo = reader.GetString(4);
+                                dm.DealerFaxNo = reader.GetString(5);
                                 dm.DealerEmail = reader.GetString(6);
                                 dm.DealerWebsite = reader.GetString(7);
                                 dm.DealerBusinessType = reader.GetString(8);
-                                dm.DealerSecNo = reader.GetInt32(9);
+                                dm.DealerSecNo = reader.GetString(9);
                                 dm.DealerDateIssued = reader.GetSqlDateTime(10).Value;
-                                dm.DealerAuthorizationCapital = reader.GetInt32(11);
-                                dm.DealerSubscribedCapital = reader.GetInt32(12);
-                                dm.DealerPaidUpCapital = reader.GetInt32(13);
-                                dm.DTIRegNo = reader.GetInt32(14);
+                                dm.DealerAuthorizationCapital = reader.GetInt64(11);
+                                dm.DealerSubscribedCapital = reader.GetInt64(12);
+                                dm.DealerPaidUpCapital = reader.GetInt64(13);
+                                dm.DTIRegNo = reader.GetInt64(14);
                                 dm.DTIDateIssued = reader.GetSqlDateTime(15).Value;
-                                dm.DTIAmtCapital = reader.GetInt32(16);
-                                dm.DTIPaidUpCapital = reader.GetInt32(17);
-                                dm.DTITaxAcctNo = reader.GetInt32(18);
+                                dm.DTIAmtCapital = reader.GetInt64(16);
+                                dm.DTIPaidUpCapital = reader.GetInt64(17);
+                                dm.DTITaxAcctNo = reader.GetInt64(18);
                                 dm.DealerTerms = reader.GetString(19);
                             }
                         }

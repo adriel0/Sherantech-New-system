@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
 
 namespace WebApplication1.Models
 {
@@ -13,11 +14,11 @@ namespace WebApplication1.Models
         public string? DealerAddress { get; set;}
 
         [AllowNull]
-        public int? DealerTelNo { get; set; }
+        public string? DealerTelNo { get; set; }
         [AllowNull]
-        public int? DealerCellNo { get; set; }
+        public string? DealerCellNo { get; set; }
         [AllowNull]
-        public int? DealerFaxNo { get; set; }
+        public string? DealerFaxNo { get; set; }
         [AllowNull]
         public string? DealerEmail { get; set; }
         [AllowNull]
@@ -25,25 +26,25 @@ namespace WebApplication1.Models
         [AllowNull]
         public string? DealerBusinessType { get; set; }
         [AllowNull]
-        public int? DealerSecNo { get; set; }
+        public string? DealerSecNo { get; set; }
         [AllowNull]
         public DateTime? DealerDateIssued { get; set; }
         [AllowNull]
-        public int? DealerAuthorizationCapital { get; set; }
+        public BigInteger? DealerAuthorizationCapital { get; set; }
         [AllowNull]
-        public int? DealerSubscribedCapital { get; set; }
+        public BigInteger? DealerSubscribedCapital { get; set; }
         [AllowNull]
-        public int? DealerPaidUpCapital { get; set; }
+        public BigInteger? DealerPaidUpCapital { get; set; }
         [AllowNull]
-        public int? DTIRegNo { get; set; }
+        public BigInteger? DTIRegNo { get; set; }
         [AllowNull]
         public DateTime? DTIDateIssued { get; set; }
         [AllowNull]
-        public int? DTIAmtCapital { get; set; }
+        public BigInteger? DTIAmtCapital { get; set; }
         [AllowNull]
-        public int? DTIPaidUpCapital { get; set; }
+        public BigInteger? DTIPaidUpCapital { get; set; }
         [AllowNull]
-        public int? DTITaxAcctNo { get; set; }
+        public BigInteger? DTITaxAcctNo { get; set; }
         [AllowNull]
         public string? DealerTerms { get; set; }
 

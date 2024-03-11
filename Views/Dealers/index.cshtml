@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
 
     ViewData["Title"] = "Sharentach Trading Inc. | Dealers";
 }
@@ -46,7 +47,7 @@
 <div class="upper-nav">
     <ul class="nav-options">
         <li>
-            <a class="tablinks" onclick="openTab(event, 'Particulars')">Particulars</a>
+            <a class="tablinks" onclick="openTab(event, 'Particulars')" id="default">Particulars</a>
         </li>
         <li>
             <a class="tablinks" onclick="openTab(event, 'Bank')">Bank Reference</a>
@@ -292,9 +293,145 @@
         <label class="filter-text" for="#">Filter</label>
         <input type="text" class="filter-type" name="#" value="" />
     </div>
+    <div>
+        <table cellpadding="5" width="100%">
+            <tr>
+                <td>
+                    Id
+                </td>
+                <td>
+                    DealerBusinessName
+                </td>
+                <td>
+                    DealerAddress
+                </td>
+                <td>
+                    DealerTelNo
+                </td>
+                <td>
+                    DealerCellNo
+                </td>
+                <td>
+                    DealerFaxNo
+                </td>
+                <td>
+                    DealerEmail
+                </td>
+                <td>
+                    DealerWebsite
+                </td>
+                <td>
+                    DealerBusinessType
+                </td>
+                <td>
+                    DealerSecNo
+                </td>
+                <td>
+                    DealerDateIssued
+                </td>
+                <td>
+                    DealerAuthorizationCapital
+                </td>
+                <td>
+                    DealerSubscribedCapital
+                </td>
+                <td>
+                    DealerPaidUpCapital
+                </td>
+                <td>
+                    DTIRegNo
+                </td>
+                <td>
+                    DTIDateIssued
+                </td>
+                <td>
+                    DTIAmtCapital
+                </td>
+                <td>
+                    DTIPaidUpCapital
+                </td>
+                <td>
+                    DTITaxAcctNo
+                </td>
+                <td>
+                    DealerTerms
+                </td>
+            </tr>
+            @foreach (var i in Model)
+            {
+                <tr>
+                    <td><a asp-area="" asp-controller="Dealers" asp-action="index" asp-route-id="@i.Id">
+                            @i.Id
+                        </a>
+                    </td>
+                    <td>
+                        @i.DealerBusinessName
+                    </td>
+                    <td>
+                        @i.DealerAddress
+                    </td>
+                    <td>
+                        @i.DealerTelNo
+                    </td>
+                    <td>
+                        @i.DealerCellNo
+                    </td>
+                    <td>
+                        @i.DealerFaxNo
+                    </td>
+                    <td>
+                        @i.DealerEmail
+                    </td>
+                    <td>
+                        @i.DealerWebsite
+                    </td>
+                    <td>
+                        @i.DealerBusinessType
+                    </td>
+                    <td>
+                        @i.DealerSecNo
+                    </td>
+                    <td>
+                        @i.DealerDateIssued
+                    </td>
+                    <td>
+                        @i.DealerAuthorizationCapital
+                    </td>
+                    <td>
+                        @i.DealerSubscribedCapital
+                    </td>
+                    <td>
+                        @i.DealerPaidUpCapital
+                    </td>
+                    <td>
+                        @i.DTIRegNo
+                    </td>
+                    <td>
+                        @i.DTIDateIssued
+                    </td>
+                    <td>
+                        @i.DTIAmtCapital
+                    </td>
+                    <td>
+                        @i.DTIPaidUpCapital
+                    </td>
+                    <td>
+                        @i.DTITaxAcctNo
+                    </td>
+                    <td>
+                        @i.DealerTerms
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
     <div class="button-vertical">
         <button type="submit" class="button">Add</button>
         <button type="submit" class="button">Edit</button>
         <button type="submit" class="button">Delete</button>
     </div>
 </div>
+
+<script>
+    document.getElementById("default").click();
+</script>

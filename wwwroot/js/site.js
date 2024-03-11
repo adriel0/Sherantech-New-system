@@ -46,8 +46,14 @@ function openTab(evt, tabName) {
     //for (i = 0; i < tablinks.length; i++) {
     //    tablinks[i].className = tablinks[i].className.replace(" active", "");
     //}
-
+    
     // Show the current tab, and add an "active" class to the button that opened the tab
     document.getElementById(tabName).style.display = "block";
+    // Get the height of the upper body
+    const upperBodyHeight = document.getElementById(tabName).children[0].children[0].offsetHeight;
+
+    // Set the top position of the lower body
+    const lowerBody = document.querySelector('.lower-body');
+    lowerBody.style.top = `${upperBodyHeight + 90}px`;
     //evt.currentTarget.className += " active";
 }
