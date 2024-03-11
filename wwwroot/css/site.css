@@ -200,6 +200,7 @@ body {
     background: white;
     box-shadow: 4px 4px 10px #00000040;
     border-radius: 20px;
+    display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     left: 265px;
@@ -208,7 +209,6 @@ body {
     top: 70px;
     max-width: 170vh;
     width: 100%;
-    display:flex;
 }
 .tabcontent {
     display: none;
@@ -257,6 +257,10 @@ body {
     align-items: end;
     display: flex;
     flex-direction: column;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    width: 90px;
 }
 
 .button {
@@ -293,6 +297,7 @@ body {
     padding: 25px 30px;
     position: absolute;
     max-width: 170vh;
+    min-height: 400px;
     width: 100%;
 }
 
@@ -321,6 +326,26 @@ body {
 .button:active {
     opacity: 0.7;
 }
+
 .scroll {
-    overflow-x: scroll;
+    overflow: auto;
+    width: 90%;
+}
+
+.scroll th {
+    background-color: #BCDFEC;
+    color: #304B55;
+    font-weight: bold;
+    font-size: 17px;
+    padding: 10px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.scroll th td, .scroll th {
+    border: 2px solid #ddd;
+    border: 0.5px solid #3F6878;
+    font-family: "Montserrat", Helvetica;
+    font-size: 17px;
+    padding: 6px;
 }
