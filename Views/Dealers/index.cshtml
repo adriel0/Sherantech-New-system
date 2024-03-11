@@ -151,7 +151,7 @@
         <div class="upper-body">
             <div class="form large">
                 <label class="form-text" for="DealerBusinessName">Business Name:</label>
-                <input type="text" class="form-type" name="DealerBusinessName" placeholder="Enter here" />
+                <input type="text" class="form-type" name="DealerBusinessName" placeholder="Enter here" value="@Model.Current.DealerBusinessName" />
             </div>
             <div class="form large">
                 <label class="form-text" for="DealerAddress">Address:</label>
@@ -357,10 +357,11 @@
                     DealerTerms
                 </td>
             </tr>
-            @foreach (var i in Model)
+            @foreach (var i in Model.Details)
             {
                 <tr>
-                    <td><a asp-area="" asp-controller="Dealers" asp-action="index" asp-route-id="@i.Id">
+                    <td>
+                        <a asp-area="" asp-controller="Dealers" asp-action="index" asp-route-id="@i.Id">
                             @i.Id
                         </a>
                     </td>

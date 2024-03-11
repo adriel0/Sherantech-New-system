@@ -47,6 +47,5 @@ namespace WebApplication1.Models.Dealers
         public BigInteger? DTITaxAcctNo { get; set; }
         [AllowNull]
         public string? DealerTerms { get; set; }
-
     }
 }

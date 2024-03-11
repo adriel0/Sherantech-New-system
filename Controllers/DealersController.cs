@@ -20,15 +20,19 @@ namespace WebApplication1.Controllers
         }
         public IActionResult Index(int id)
         {
+
+            List<DealersModel> dealersModels = new List<DealersModel>();
+            DealersDisplayDataModel result = new DealersDisplayDataModel();
+            int nid=0;
             //sql to get top id if no id was sent
-            if(id == 0)
+            if (id == 0)
             {
                 try
                 {
                     using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
                     {
                         connection.Open();
-                        String sql = "SELECT Id FROM Dealers ORDER BY DESC LIMIT 1";
+                        String sql = "SELECT TOP 1 Id FROM Dealers ORDER BY Id DESC";
                         using (SqlCommand command = new SqlCommand(sql, connection))
                         {
                             using (SqlDataReader reader = command.ExecuteReader())
@@ -48,9 +52,8 @@ namespace WebApplication1.Controllers
                     Debug.WriteLine(e.ToString());
                 }
 
+                Debug.WriteLine($"Dealers: {nid}");
             }
-
-            List<DealersModel> dealersModels = new List<DealersModel>();
             Console.WriteLine("\nQuery data example:");
             Console.WriteLine("=========================================\n");
             try
@@ -102,7 +105,58 @@ namespace WebApplication1.Controllers
             {
                 Debug.WriteLine(e.ToString());
             }
-            return View(dealersModels);
+            result.Details= dealersModels;
+
+
+            result.Current = new DealersModel();
+            result.Current.Id = id;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    Console.WriteLine("\nQuery data example:");
+                    Console.WriteLine("=========================================\n");
+
+                    connection.Open();
+
+                    String sql = "SELECT * FROM Dealers WHERE id=@did";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@did", id);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                result.Current.DealerBusinessName = reader.GetString(1);
+                                result.Current.DealerAddress = reader.GetString(2);
+                                result.Current.DealerTelNo = reader.GetString(3);
+                                result.Current.DealerCellNo = reader.GetString(4);
+                                result.Current.DealerFaxNo = reader.GetString(5);
+                                result.Current.DealerEmail = reader.GetString(6);
+                                result.Current.DealerWebsite = reader.GetString(7);
+                                result.Current.DealerBusinessType = reader.GetString(8);
+                                result.Current.DealerSecNo = reader.GetString(9);
+                                result.Current.DealerDateIssued = reader.GetSqlDateTime(10).Value;
+                                result.Current.DealerAuthorizationCapital = reader.GetInt64(11);
+                                result.Current.DealerSubscribedCapital = reader.GetInt64(12);
+                                result.Current.DealerPaidUpCapital = reader.GetInt64(13);
+                                result.Current.DTIRegNo = reader.GetInt64(14);
+                                result.Current.DTIDateIssued = reader.GetSqlDateTime(15).Value;
+                                result.Current.DTIAmtCapital = reader.GetInt64(16);
+                                result.Current.DTIPaidUpCapital = reader.GetInt64(17);
+                                result.Current.DTITaxAcctNo = reader.GetInt64(18);
+                                result.Current.DealerTerms = reader.GetString(19);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            return View(result);
         }
         
         [HttpGet]
