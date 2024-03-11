@@ -42,6 +42,7 @@ body {
 
 .nav-options li a {
     color: #304b55;
+    cursor: pointer;
     font-family: "Montserrat", Helvetica;
     font-size: 18px;
     font-weight: 700;
