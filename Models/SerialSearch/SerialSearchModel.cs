@@ -6,6 +6,8 @@ namespace WebApplication1.Models.SerialSearch
     public class SerialSearchModel
     {
         [Key]
+        public int Id { get; set; }
+        [AllowNull]
         public int serialNo { get; set; }
         [AllowNull]
         public int drNo { get; set; }

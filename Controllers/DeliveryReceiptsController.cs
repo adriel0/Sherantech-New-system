@@ -4,7 +4,9 @@ using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using System.Net;
 using System.Reflection.PortableExecutable;
+using System.Security.Cryptography;
 using WebApplication1.Models;
+using WebApplication1.Models.Dealers;
 using WebApplication1.Models.DeliveryReceipts;
 
 namespace WebApplication1.Controllers
@@ -19,9 +21,42 @@ namespace WebApplication1.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int id)
         {
             List<DeliveryReceiptsModel> deliveryReceiptsModels = new List<DeliveryReceiptsModel>();
+            List<DeliveryReceiptsItemsModel> deliveryReceiptsItemsModels = new List<DeliveryReceiptsItemsModel>();
+            List<SerialsModel> serialsModels = new List<SerialsModel>();
+            List<RemittancesModel> remittancesModels = new List<RemittancesModel>();
+            DeliveryReceiptsDisplayDataModel result = new DeliveryReceiptsDisplayDataModel();
+
+            if (id == 0)
+            {
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                    {
+                        connection.Open();
+                        String sql = "SELECT TOP 1 drNo FROM dr ORDER BY drNo DESC";
+                        using (SqlCommand command = new SqlCommand(sql, connection))
+                        {
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    id = reader.GetInt32(0);
+
+                                }
+                            }
+                        }
+
+                    }
+                }
+                catch (SqlException e)
+                {
+                    Debug.WriteLine(e.ToString());
+                }
+            }
+
             Console.WriteLine("\nQuery data example:");
             Console.WriteLine("=========================================\n");
             try
@@ -33,7 +68,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM DeliveryReceipts";
+                    String sql = "SELECT * FROM dr";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -41,15 +76,15 @@ namespace WebApplication1.Controllers
                         {
                             while (reader.Read())
                             {
-                                DeliveryReceiptsModel drm = new DeliveryReceiptsModel();
-                                drm.drNo = reader.GetInt32(0);
-                                drm.invoiceNo = reader.GetInt32(1);
-                                drm.soldTo = reader.GetString(2);
-                                drm.dateSold = reader.GetSqlDateTime(3).Value;
-                                drm.terms = reader.GetString(4);
+                                DeliveryReceiptsModel d = new DeliveryReceiptsModel();
+                                d.drNo = reader.GetInt32(0);
+                                d.invoiceNo = reader.GetInt32(1);
+                                d.soldTo = reader.GetString(2);
+                                d.dateSold = reader.GetSqlDateTime(3).Value;
+                                d.terms = reader.GetString(4);
 
 
-                                deliveryReceiptsModels.Add(drm);
+                                deliveryReceiptsModels.Add(d);
 
                             }
                         }
@@ -60,12 +95,12 @@ namespace WebApplication1.Controllers
             {
                 Debug.WriteLine(e.ToString());
             }
-            return View(deliveryReceiptsModels);
-        }
-        [HttpGet]
-        public IActionResult Edit(int drNo)
-        {
-            DeliveryReceiptsModel drm = new DeliveryReceiptsModel();
+            result.Data = deliveryReceiptsModels;
+
+
+            result.CurrentDetails = new DeliveryReceiptsDetailsModel();
+            result.CurrentDetails.drNo = id;
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
@@ -75,19 +110,30 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM DeliveryReceipts WHERE drNo = " + drNo;
-                    Debug.WriteLine(sql);
+                    String sql = "SELECT * FROM dr WHERE drNo=@id";
+
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
+                        command.Parameters.AddWithValue("@id", id);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-
-                                drm.invoiceNo = reader.GetInt32(1);
-                                drm.soldTo = reader.GetString(2);
-                                drm.dateSold = reader.GetSqlDateTime(3).Value;
-                                drm.terms = reader.GetString(4);
+                                result.CurrentDetails.drNo = reader.GetInt32(0);
+                                result.CurrentDetails.invoiceNo = reader.GetInt32(1);
+                                result.CurrentDetails.soldTo = reader.GetString(2);
+                                result.CurrentDetails.salesRepresentative = reader.GetString(3);
+                                result.CurrentDetails.terms = reader.GetString(4);
+                                result.CurrentDetails.POnumber = reader.GetInt32(5);
+                                result.CurrentDetails.others = reader.GetString(6);
+                                result.CurrentDetails.address = reader.GetString(7);
+                                result.CurrentDetails.dateSold = reader.GetSqlDateTime(8).Value;
+                                result.CurrentDetails.remarks = reader.GetString(9);
+                                result.CurrentDetails.autoGenerate = reader.GetBoolean(10);
+                                result.CurrentDetails.salesInvoice = reader.GetString(11);
+                                result.CurrentDetails.cancelled = reader.GetBoolean(12);
+                                result.CurrentDetails.closeTransaction = reader.GetBoolean(13);
+                                
                             }
                         }
                     }
@@ -97,10 +143,137 @@ namespace WebApplication1.Controllers
             {
                 Debug.WriteLine(e.ToString());
             }
-            return View(drm);
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    Console.WriteLine("\nQuery data example:");
+                    Console.WriteLine("=========================================\n");
+
+                    connection.Open();
+
+                    String sql = "SELECT * FROM Items WHERE drNo=@id";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                DeliveryReceiptsItemsModel drim = new DeliveryReceiptsItemsModel();
+                                drim.drNo = reader.GetInt32(0);
+                                drim.qty = reader.GetInt32(1);
+                                drim.unit = reader.GetString(2);
+                                drim.article = reader.GetString(3);
+                                drim.unitPrice = reader.GetInt32(4);
+                                drim.amount = reader.GetInt32(5);
+                                drim.payTo = reader.GetString(6);
+                                drim.demo = reader.GetBoolean(7);
+                                drim.returned = reader.GetBoolean(8);
+                                drim.total = reader.GetInt32(9);
+
+                                deliveryReceiptsItemsModels.Add(drim);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            result.CurrentItems = deliveryReceiptsItemsModels;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    Console.WriteLine("\nQuery data example:");
+                    Console.WriteLine("=========================================\n");
+
+                    connection.Open();
+
+                    String sql = "SELECT * FROM Serials WHERE drNo=@id";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                SerialsModel sm = new SerialsModel();
+                                sm.drNo = reader.GetInt32(0);
+                                sm.serialNo = reader.GetInt32(1);
+                                sm.name = reader.GetString(2);
+                                sm.description = reader.GetString(3);
+                                sm.category = reader.GetString(4);
+                                sm.warranty = reader.GetInt32(5);
+                                sm.free = reader.GetBoolean(6);
+                                sm.demo = reader.GetBoolean(7);
+                                
+                                serialsModels.Add(sm);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            result.CurrentSerial = serialsModels;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    Console.WriteLine("\nQuery data example:");
+                    Console.WriteLine("=========================================\n");
+
+                    connection.Open();
+
+                    String sql = "SELECT * FROM Remittances WHERE drNo=@id";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                
+                                RemittancesModel rm = new RemittancesModel();
+                                rm.drNo = reader.GetInt32(0);
+                                rm.checkNo = reader.GetInt32(1);
+                                rm.accountNo = reader.GetInt32(2);
+                                rm.amount = reader.GetInt32(3);
+                                rm.dateIssued = reader.GetSqlDateTime(4).Value;
+                                rm.dateDue = reader.GetSqlDateTime(5).Value;
+                                rm.status = reader.GetString(6);
+                                rm.payToTheOrderOf = reader.GetString(7);
+                                rm.bankName = reader.GetString(8);
+                                rm.accountName = reader.GetString(9);
+                                
+                                remittancesModels.Add(rm);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            result.CurrentRemittances = remittancesModels;
+
+            return View(deliveryReceiptsModels);
         }
+        
         [HttpPost]
-        public IActionResult Edit()
+        public IActionResult Edit(int id)
         {
             try
             {
@@ -114,7 +287,7 @@ namespace WebApplication1.Controllers
                         command.Parameters.AddWithValue("@st", Request.Form["soldTo"].ToString());
                         command.Parameters.AddWithValue("@ds", Request.Form["dateSold"].ToString());
                         command.Parameters.AddWithValue("@t", Request.Form["terms"].ToString());
-
+                        command.Parameters.AddWithValue("@drNo", id);
                         Debug.WriteLine(Request.Form["drNo"].ToString());
                         connection.Open();
                         command.ExecuteNonQuery();
@@ -127,15 +300,8 @@ namespace WebApplication1.Controllers
             }
             return RedirectToAction("Index");
         }
-
-        [HttpGet]
+        
         public IActionResult Add()
-        {
-            return View();
-        }
-        [HttpPost]
-        [ActionName("Add")]
-        public IActionResult Addpost()
         {
             try
             {
@@ -145,11 +311,11 @@ namespace WebApplication1.Controllers
                     {
                         command.CommandText = "INSERT Into DeliveryReceipts (invoiceNo, soldTo, dateSold, terms, drNo) Values (@in, @st, @ds, @t, @drNo)";
 
-                        command.Parameters.AddWithValue("@in", Request.Form["invoiceNo"].ToString());
-                        command.Parameters.AddWithValue("@st", Request.Form["soldTo"].ToString());
-                        command.Parameters.AddWithValue("@ds", Request.Form["dateSold"].ToString());
-                        command.Parameters.AddWithValue("@t", Request.Form["terms"].ToString());
-                        command.Parameters.AddWithValue("@drNo", Request.Form["drNo"].ToString());
+                        command.Parameters.AddWithValue("@in", "");
+                        command.Parameters.AddWithValue("@st", "");
+                        command.Parameters.AddWithValue("@ds", "");
+                        command.Parameters.AddWithValue("@t", "");
+                        command.Parameters.AddWithValue("@drNo", "");
                         connection.Open();
                         command.ExecuteNonQuery();
                     }

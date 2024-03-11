@@ -19,9 +19,41 @@ namespace WebApplication1.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int id)
         {
             List<InventoryModel> inventoryModels = new List<InventoryModel>();
+            InventoryDisplayDataModel result = new InventoryDisplayDataModel();
+
+            if (id == 0)
+            {
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                    {
+                        connection.Open();
+                        String sql = "SELECT TOP 1 Id FROM Inventory ORDER BY Id DESC";
+                        using (SqlCommand command = new SqlCommand(sql, connection))
+                        {
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    id = reader.GetInt32(0);
+
+                                }
+                            }
+                        }
+
+                    }
+                }
+                catch (SqlException e)
+                {
+                    Debug.WriteLine(e.ToString());
+                }
+            }
+
+
+
             Console.WriteLine("\nQuery data example:");
             Console.WriteLine("=========================================\n");
             try
@@ -59,12 +91,12 @@ namespace WebApplication1.Controllers
             {
                 Debug.WriteLine(e.ToString());
             }
-            return View(inventoryModels);
-        }
-        [HttpGet]
-        public IActionResult Edit(string name)
-        {
-            InventoryModel im = new InventoryModel();
+            result.Data = inventoryModels;
+
+
+            result.CurrentDetails = new InventoryDetailsModel();
+            result.CurrentDetails.Id = id;
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
@@ -74,17 +106,33 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM Inventory WHERE name = " + name;
-                    Debug.WriteLine(sql);
+                    String sql = "SELECT * FROM Inventory WHERE id=@id";
+
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
+                        command.Parameters.AddWithValue("@id", id);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                im.description = reader.GetString(1);
-                                im.category = reader.GetString(2);
-                                im.unitPrice = reader.GetInt32(3);
+                                result.CurrentDetails.Id = reader.GetInt32(0);
+                                result.CurrentDetails.name = reader.GetString(1);
+                                result.CurrentDetails.description = reader.GetString(2);
+                                result.CurrentDetails.category = reader.GetString(3);
+                                result.CurrentDetails.unitPrice = reader.GetInt32(4);
+                                result.CurrentDetails.unit = reader.GetString(5);
+                                result.CurrentDetails.qtyPerBox = reader.GetInt32(6);
+                                result.CurrentDetails.purchasePrice = reader.GetInt32(7);
+                                result.CurrentDetails.volumePrice = reader.GetInt32(8);
+                                result.CurrentDetails.volumeQuantity = reader.GetInt32(9);
+                                result.CurrentDetails.warrantyPeriod = reader.GetInt32(10);
+                                result.CurrentDetails.extendedWarranty = reader.GetInt32(11);
+                                result.CurrentDetails.supplier = reader.GetString(12);
+                                result.CurrentDetails.minLvl = reader.GetInt32(13);
+                                result.CurrentDetails.maxLvl = reader.GetInt32(14);
+                                result.CurrentDetails.markUp = reader.GetInt32(15);
+                                result.CurrentDetails.hasSerial = reader.GetBoolean(16);
+                                
                             }
                         }
                     }
@@ -94,10 +142,12 @@ namespace WebApplication1.Controllers
             {
                 Debug.WriteLine(e.ToString());
             }
-            return View(im);
+
+            return View(inventoryModels);
         }
+        
         [HttpPost]
-        public IActionResult Edit()
+        public IActionResult Edit(int id)
         {
             try
             {
@@ -105,13 +155,14 @@ namespace WebApplication1.Controllers
                 {
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "UPDATE Inventory SET description = @d, category = @c, unitPrice = @up WHERE name = @name";
+                        command.CommandText = "UPDATE Inventory SET name = @n, description = @d, category = @c, unitPrice = @up WHERE id = @id";
 
+                        command.Parameters.AddWithValue("@n", Request.Form["name"].ToString());
                         command.Parameters.AddWithValue("@d", Request.Form["description"].ToString());
                         command.Parameters.AddWithValue("@c", Request.Form["category"].ToString());
                         command.Parameters.AddWithValue("@up", Request.Form["unitPrice"].ToString());
-
-                        Debug.WriteLine(Request.Form["name"].ToString());
+                        command.Parameters.AddWithValue("@id", id);
+                        Debug.WriteLine(Request.Form["id"].ToString());
                         connection.Open();
                         command.ExecuteNonQuery();
                     }
@@ -124,14 +175,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
         public IActionResult Add()
-        {
-            return View();
-        }
-        [HttpPost]
-        [ActionName("Add")]
-        public IActionResult Addpost()
         {
             try
             {
@@ -141,10 +185,10 @@ namespace WebApplication1.Controllers
                     {
                         command.CommandText = "INSERT Into Inventory (description, category, unitPrice, name) Values (@d, @c, @up, @name)";
 
-                        command.Parameters.AddWithValue("@d", Request.Form["description"].ToString());
-                        command.Parameters.AddWithValue("@c", Request.Form["category"].ToString());
-                        command.Parameters.AddWithValue("@up", Request.Form["unitPrice"].ToString());
-                        command.Parameters.AddWithValue("@name", Request.Form["name"].ToString());
+                        command.Parameters.AddWithValue("@d", "");
+                        command.Parameters.AddWithValue("@c", "");
+                        command.Parameters.AddWithValue("@up", "");
+                        command.Parameters.AddWithValue("@name", "");
                         connection.Open();
                         command.ExecuteNonQuery();
                     }

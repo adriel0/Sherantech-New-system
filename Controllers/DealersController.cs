@@ -23,6 +23,7 @@ namespace WebApplication1.Controllers
 
             List<DealersModel> dealersModels = new List<DealersModel>();
             List<BankReferenceModel> bankReferenceModel = new List<BankReferenceModel>();
+            List<AgentsModel> agentsModel = new List<AgentsModel>();
             DealersDisplayDataModel result = new DealersDisplayDataModel();
             int nid=0;
             //sql to get top id if no id was sent
@@ -120,7 +121,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM Dealers WHERE id=@did";
+                    String sql = "SELECT * FROM Dealers WHERE DealerId=@did";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -195,6 +196,41 @@ namespace WebApplication1.Controllers
             }
             result.CurrentBankRef = bankReferenceModel;
 
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    Console.WriteLine("\nQuery data example:");
+                    Console.WriteLine("=========================================\n");
+
+                    connection.Open();
+
+                    String sql = "SELECT * FROM DealerAgents WHERE DealerId=@did";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@did", id);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                AgentsModel am = new AgentsModel();
+                                am.Id = reader.GetInt32(0);
+                                am.lastName = reader.GetString(1);
+                                am.firstName = reader.GetString(2);
+                                am.isDefault = reader.GetBoolean(3);
+                                am.dealerId = reader.GetInt32(5);
+                                agentsModel.Add(am);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            result.CurrentAgents = agentsModel;
             return View(result);
         }
         
@@ -214,7 +250,7 @@ namespace WebApplication1.Controllers
                                                                  "DealerDateIssued = @ddi, DealerAuthorizationCapital = @dac, DealerSubscribedCapital = @dsc, " +
                                                                  "DealerPaidUpCapital = @dpuc, DTIRegNo = @dtirn, DTIDateIssued = @dtidi, " +
                                                                  "DTIAmtCapital = @dtiac, DTIPaidUpCapital = @dtipuc, DTITaxAcctNo = @dtitan, " +
-                                                                 "DealerTerms = @dt  WHERE Id = @id";
+                                                                 "DealerTerms = @dt  WHERE DealerId = @did";
 
                         command.Parameters.AddWithValue("@dbn", Request.Form["DealerBusinessName"].ToString());
                         command.Parameters.AddWithValue("@da", Request.Form["DealerAddress"].ToString());
@@ -235,8 +271,8 @@ namespace WebApplication1.Controllers
                         command.Parameters.AddWithValue("@dtipuc", Request.Form["DTIPaidUpCapital"].ToString());
                         command.Parameters.AddWithValue("@dtitan", Request.Form["DTITaxAcctNo"].ToString());
                         command.Parameters.AddWithValue("@dt", Request.Form["DealerTerms"].ToString());
-                        command.Parameters.AddWithValue("@id", id);
-                        Debug.WriteLine(Request.Form["Id"].ToString());
+                        command.Parameters.AddWithValue("@did", id);
+                        Debug.WriteLine(Request.Form["DealerId"].ToString());
                         connection.Open();
                         command.ExecuteNonQuery();
                     }

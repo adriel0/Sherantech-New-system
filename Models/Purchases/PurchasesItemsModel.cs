@@ -6,6 +6,10 @@ namespace WebApplication1.Models.Purchases
     public class PurchasesItemsModel
     {
         [Key]
+        public int Id { get; set; }
+        [DisallowNull]
+        public int purchaseId {  get; set; }
+        [AllowNull]
         public int referenceNo { get; set; }
         [AllowNull]
         public int qty { get; set; }

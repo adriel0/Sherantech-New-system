@@ -6,6 +6,8 @@ namespace WebApplication1.Models.Inventory
     public class InventoryDetailsModel
     {
         [Key]
+        public int Id { get; set; }
+        [AllowNull]
         public string? name { get; set; }
         [AllowNull]
         public string? description { get; set; }

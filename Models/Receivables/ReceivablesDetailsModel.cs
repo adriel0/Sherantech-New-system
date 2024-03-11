@@ -6,6 +6,8 @@ namespace WebApplication1.Models.Receivables
     public class ReceivablesDetailsModel
     {
         [Key]
+        public int Id { get; set; }
+        [AllowNull]
         public int accountNo { get; set; }
         [AllowNull]
         public string? dealer { get; set; }

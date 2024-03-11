@@ -6,6 +6,10 @@ namespace WebApplication1.Models.Receivables
     public class ReferenceNoModel
     {
         [Key]
+        public int Id { get; set; }
+        [DisallowNull]
+        public int receivablesId { get; set; }
+        [AllowNull]
         public int accountNo { get; set; }
         [AllowNull]
         public int drNo { get; set; }

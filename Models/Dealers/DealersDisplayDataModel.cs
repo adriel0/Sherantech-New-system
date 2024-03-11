@@ -11,6 +11,8 @@ namespace WebApplication1.Models.Dealers
         [AllowNull]
         public List<BankReferenceModel>? CurrentBankRef { get; set; }
         [AllowNull]
+        public List<AgentsModel>? CurrentAgents { get; set; }
+        [AllowNull]
         public DealersModel? Current { get; set; }
     }
 }
