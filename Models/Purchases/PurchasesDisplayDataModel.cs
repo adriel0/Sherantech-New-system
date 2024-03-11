@@ -9,6 +9,8 @@ namespace WebApplication1.Models.Purchases
         [AllowNull]
         public List<PurchasesModel>? Details { get; set; }
         [AllowNull]
-        public PurchasesItemsModel? CurrentItems { get; set; }
+        public List<PurchasesItemsModel>? CurrentItems { get; set; }
+        [AllowNull]
+        public PurchasesModel? Current { get; set; }
     }
 }

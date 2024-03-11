@@ -25,6 +25,7 @@ namespace WebApplication1.Controllers
             List<PurchasesModel> purchasesModels = new List<PurchasesModel>();
             List<PurchasesItemsModel> purchasesItemsModels = new List<PurchasesItemsModel>(); 
             PurchasesDisplayDataModel result = new PurchasesDisplayDataModel();
+            result.Current = new PurchasesModel();
 
             if (id == 0)
             {
@@ -74,11 +75,12 @@ namespace WebApplication1.Controllers
                             while (reader.Read())
                             {
                                 PurchasesModel pm = new PurchasesModel();
-                                pm.referenceNo = reader.GetInt32(0);
-                                pm.purchasedFrom = reader.GetString(1);
-                                pm.datePurchased = reader.GetSqlDateTime(2).Value;
-                                pm.receivedBy = reader.GetString(3);
-                                pm.closed = reader.GetBoolean(4);
+                                pm.Id = reader.GetInt32(0);
+                                pm.referenceNo = reader.GetInt32(1);
+                                pm.purchasedFrom = reader.GetString(2);
+                                pm.datePurchased = reader.GetSqlDateTime(3).Value;
+                                pm.receivedBy = reader.GetString(4);
+                                pm.closed = reader.GetBoolean(5);
 
                                 purchasesModels.Add(pm);
 
@@ -93,8 +95,45 @@ namespace WebApplication1.Controllers
             }
             result.Details = purchasesModels;
 
-            result.CurrentItems = new PurchasesItemsModel();
-            result.CurrentItems.Id = id;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    Console.WriteLine("\nQuery data example:");
+                    Console.WriteLine("=========================================\n");
+
+                    connection.Open();
+
+                    String sql = "SELECT * FROM Purchases WHERE purchaseId=@id";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                PurchasesItemsModel pim = new PurchasesItemsModel();
+                                pim.Id = reader.GetInt32(0);
+                                pim.qty = reader.GetInt32(1);
+                                pim.unit = reader.GetString(2);
+                                pim.stockNo = reader.GetInt32(3);
+                                pim.unitPrice = reader.GetInt32(4);
+                                pim.amount = reader.GetInt32(5);
+                                pim.remarks = reader.GetString(6);
+                                purchasesItemsModels.Add(pim);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+
+            result.CurrentItems = purchasesItemsModels;
 
             try
             {
@@ -114,14 +153,13 @@ namespace WebApplication1.Controllers
                         {
                             while (reader.Read())
                             {
-                                result.CurrentItems.Id = reader.GetInt32(0);
-                                result.CurrentItems.qty = reader.GetInt32(1);
-                                result.CurrentItems.unit = reader.GetString(2);
-                                result.CurrentItems.stockNo = reader.GetInt32(3);
-                                result.CurrentItems.unitPrice = reader.GetInt32(4);
-                                result.CurrentItems.amount = reader.GetInt32(5);
-                                result.CurrentItems.remarks = reader.GetString(6);
                                 
+                                result.Current.Id = reader.GetInt32(0);
+                                result.Current.referenceNo = reader.GetInt32(1);
+                                result.Current.purchasedFrom = reader.GetString(2);
+                                result.Current.datePurchased = reader.GetSqlDateTime(3).Value;
+                                result.Current.receivedBy = reader.GetString(4);
+                                result.Current.closed = reader.GetBoolean(5);
                             }
                         }
                     }
@@ -176,13 +214,13 @@ namespace WebApplication1.Controllers
                     using (SqlCommand command = connection.CreateCommand())
                     {
                         command.CommandText = "INSERT Into Purchases (purchasedFrom, datePurchased, receivedBy, closed, referenceNo) " +
-                                              "Values (@pf, @dp, @rb, @c, @referenceNo)";
+                                              "Values (@pf, @dp, @rb, @c, @rn)";
 
                         command.Parameters.AddWithValue("@pf", Request.Form["purchasedFrom"].ToString());
                         command.Parameters.AddWithValue("@dp", Request.Form["datePurchased"].ToString());
                         command.Parameters.AddWithValue("@rb", Request.Form["receivedBy"].ToString());
                         command.Parameters.AddWithValue("@c", Request.Form["closed"].ToString());
-                        command.Parameters.AddWithValue("@referenceNo", Request.Form["referenceNo"].ToString());
+                        command.Parameters.AddWithValue("@rn", Request.Form["referenceNo"].ToString());
                         connection.Open();
                         command.ExecuteNonQuery();
                     }

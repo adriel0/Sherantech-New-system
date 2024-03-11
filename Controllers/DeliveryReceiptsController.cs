@@ -281,13 +281,13 @@ namespace WebApplication1.Controllers
                 {
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "UPDATE DeliverReceipts SET invoiceNo = @in, soldTo = @st, dateSold = @ds, terms = @t  WHERE drNo = @drNo";
+                        command.CommandText = "UPDATE DeliverReceipts SET invoiceNo = @in, soldTo = @st, dateSold = @ds, terms = @t  WHERE drNo = @dn";
 
                         command.Parameters.AddWithValue("@in", Request.Form["invoiceNo"].ToString());
                         command.Parameters.AddWithValue("@st", Request.Form["soldTo"].ToString());
                         command.Parameters.AddWithValue("@ds", Request.Form["dateSold"].ToString());
                         command.Parameters.AddWithValue("@t", Request.Form["terms"].ToString());
-                        command.Parameters.AddWithValue("@drNo", id);
+                        command.Parameters.AddWithValue("@dn", id);
                         Debug.WriteLine(Request.Form["drNo"].ToString());
                         connection.Open();
                         command.ExecuteNonQuery();
@@ -309,13 +309,13 @@ namespace WebApplication1.Controllers
                 {
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "INSERT Into DeliveryReceipts (invoiceNo, soldTo, dateSold, terms, drNo) Values (@in, @st, @ds, @t, @drNo)";
+                        command.CommandText = "INSERT Into DeliveryReceipts (invoiceNo, soldTo, dateSold, terms, drNo) Values (@in, @st, @ds, @t, @dn)";
 
                         command.Parameters.AddWithValue("@in", "");
                         command.Parameters.AddWithValue("@st", "");
                         command.Parameters.AddWithValue("@ds", "");
                         command.Parameters.AddWithValue("@t", "");
-                        command.Parameters.AddWithValue("@drNo", "");
+                        command.Parameters.AddWithValue("@dn", "");
                         connection.Open();
                         command.ExecuteNonQuery();
                     }

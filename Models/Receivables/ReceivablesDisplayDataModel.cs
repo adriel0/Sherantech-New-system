@@ -10,8 +10,8 @@ namespace WebApplication1.Models.Receivables
         [AllowNull]
         public List<ReceivablesModel>? Data { get; set; }
         [AllowNull]
-        public ReceivablesDetailsModel? CurrentDetails { get; set; }
+        public ReceivablesDetailsModel? Current { get; set; }
         [AllowNull]
-        public List<ReferenceNoModel>? ReferenceNo { get; set; }
+        public List<ReferenceNoModel>? CurrentReferenceNo { get; set; }
     }
 }

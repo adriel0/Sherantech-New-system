@@ -183,12 +183,12 @@ namespace WebApplication1.Controllers
                 {
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "INSERT Into Inventory (description, category, unitPrice, name) Values (@d, @c, @up, @name)";
+                        command.CommandText = "INSERT Into Inventory (description, category, unitPrice, name) Values (@d, @c, @up, @n)";
 
                         command.Parameters.AddWithValue("@d", "");
                         command.Parameters.AddWithValue("@c", "");
                         command.Parameters.AddWithValue("@up", "");
-                        command.Parameters.AddWithValue("@name", "");
+                        command.Parameters.AddWithValue("@n", "");
                         connection.Open();
                         command.ExecuteNonQuery();
                     }
