@@ -7,6 +7,7 @@ using WebApplication1.Models;
 using System.Security.Cryptography;
 using System.Collections.Generic;
 using System.Text;
+using WebApplication1.Models.Dealers;
 
 
 namespace WebApplication1.Controllers

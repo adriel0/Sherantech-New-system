@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Reflection.PortableExecutable;
 using WebApplication1.Models;
+using WebApplication1.Models.Inventory;
 
 namespace WebApplication1.Controllers
 {
