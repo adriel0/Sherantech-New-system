@@ -121,7 +121,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM Dealers WHERE DealerId=@did";
+                    String sql = "SELECT * FROM Dealers WHERE Id=@did";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -168,7 +168,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM DealerBankRef WHERE DealerId=@did";
+                    String sql = "SELECT * FROM DealerBankRef WHERE Id=@did";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -205,7 +205,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM DealerAgents WHERE DealerId=@did";
+                    String sql = "SELECT * FROM DealerAgents WHERE Id=@did";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -250,7 +250,7 @@ namespace WebApplication1.Controllers
                                                                  "DealerDateIssued = @ddi, DealerAuthorizationCapital = @dac, DealerSubscribedCapital = @dsc, " +
                                                                  "DealerPaidUpCapital = @dpuc, DTIRegNo = @dtirn, DTIDateIssued = @dtidi, " +
                                                                  "DTIAmtCapital = @dtiac, DTIPaidUpCapital = @dtipuc, DTITaxAcctNo = @dtitan, " +
-                                                                 "DealerTerms = @dt  WHERE DealerId = @did";
+                                                                 "DealerTerms = @dt  WHERE Id = @did";
 
                         command.Parameters.AddWithValue("@dbn", Request.Form["DealerBusinessName"].ToString());
                         command.Parameters.AddWithValue("@da", Request.Form["DealerAddress"].ToString());
@@ -272,7 +272,7 @@ namespace WebApplication1.Controllers
                         command.Parameters.AddWithValue("@dtitan", Request.Form["DTITaxAcctNo"].ToString());
                         command.Parameters.AddWithValue("@dt", Request.Form["DealerTerms"].ToString());
                         command.Parameters.AddWithValue("@did", id);
-                        Debug.WriteLine(Request.Form["DealerId"].ToString());
+                        Debug.WriteLine(Request.Form["Id"].ToString());
                         connection.Open();
                         command.ExecuteNonQuery();
                     }

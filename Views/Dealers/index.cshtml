@@ -316,6 +316,7 @@
                 }
             </table>
         </div>
+    </div>
 </div>
 
 
@@ -458,7 +459,7 @@
         </table>
     </div>
     <div class="button-vertical">
-        <a asp-area="" asp-controller="Dealers" asp-action="add" class="button">Add</a>
+        <button onclick='document.getElementById("addbutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Dealers" asp-action="add" id="addbutton">Add</a></button>
         <button type="submit" class="button">Edit</button>
         <button type="submit" class="button">Delete</button>
     </div>
