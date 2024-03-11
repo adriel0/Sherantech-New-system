@@ -1,16 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace WebApplication1.Models
+namespace WebApplication1.Models.Dealers
 {
     public class DealersModel
     {
         [Key]
-        public int Id { get; set;}
+        public int Id { get; set; }
         [AllowNull]
-        public string? DealerBusinessName { get; set;}
+        public string? DealerBusinessName { get; set; }
         [AllowNull]
-        public string? DealerAddress { get; set;}
+        public string? DealerAddress { get; set; }
 
         [AllowNull]
         public int? DealerTelNo { get; set; }

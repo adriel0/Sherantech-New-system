@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace WebApplication1.Models
+namespace WebApplication1.Models.Inventory
 {
     public class InventoryModel
     {

@@ -1,19 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace WebApplication1.Models
+namespace WebApplication1.Models.DeliveryReceipts
 {
-    public class SerialSearchModel
+    public class DeliveryReceiptsModel
     {
         [Key]
-        public int serialNo { get; set; }
-        [AllowNull]
         public int drNo { get; set; }
         [AllowNull]
-        public string? stockName { get; set; }
+        public int invoiceNo { get; set; }
         [AllowNull]
-        public string? customer { get; set; }
+        public string? soldTo { get; set; }
         [AllowNull]
         public DateTime? dateSold { get; set; }
+        [AllowNull]
+        public string? terms { get; set; }
     }
 }
