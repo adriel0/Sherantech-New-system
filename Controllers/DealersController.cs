@@ -285,7 +285,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index");
         }
 
-        //[HttpPost]
+        
         public IActionResult Add()
         {
             try
@@ -330,7 +330,65 @@ namespace WebApplication1.Controllers
             }
             return RedirectToAction("Index");
         }
+        public IActionResult delete(int id)
+        {
+            
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "DELETE FROM DealerBankRef WHERE dealerId=@did";
 
+                        command.Parameters.AddWithValue("@did", id);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "DELETE FROM DealerAgents WHERE dealerId=@did";
+
+                        command.Parameters.AddWithValue("@did", id);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "DELETE FROM Dealers WHERE id=@did";
+
+                        command.Parameters.AddWithValue("@did", id);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            return RedirectToAction("Index");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

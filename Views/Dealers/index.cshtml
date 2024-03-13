@@ -229,6 +229,7 @@
             <div class="button-horizontal">
                 <input type="submit" class="button" asp-area="" asp-controller="Dealers" asp-action="edit" asp-route-id="@Model.Current.Id" value="Save"></input>
                 <button type="submit" class="button">Cancel</button>
+                <button onclick='document.getElementById("deletebutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Dealers" asp-action="delete" asp-route-id="@Model.Current.Id" id="deletebutton">Delete</a></button>
             </div>
         </div>
     </form>
