@@ -46,108 +46,14 @@
 <div class="header">DEALERS</div>
 <div class="upper-nav">
     <ul class="nav-options">
-        <li>
-            <a class="tablinks" onclick="openTab(event, 'Particulars')" id="default">Particulars</a>
-        </li>
-        <li>
-            <a class="tablinks" onclick="openTab(event, 'Bank')">Bank Reference</a>
-        </li>
-        <li>
-            <a class="tablinks" onclick="openTab(event, 'Agents')">Agents</a>
-        </li>
+        <li><a class="tablinks" onclick="openTab(event, 'Particulars')" id="default">Particulars</a></li>
+        <li><a class="tablinks" onclick="openTab(event, 'Bank')">Bank Reference</a></li>
+        <li><a class="tablinks" onclick="openTab(event, 'Agents')">Agents</a></li>
     </ul>
 </div>
 
-@* <form method="post">
-
-    <div class="upper-body">
-        <div class="form large">
-            <label class="form-text" for="DealerBusinessName">Business Name:</label>
-            <input type="text" class="form-type" name="DealerBusinessName" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="DealerAddress">Address:</label>
-            <input type="text" class="form-type" name="DealerAddress" placeholder="Enter here" />
-        </div>
-        <div class="form">
-            <label class="form-text" for="DealerTelNo">Telephone #:</label>
-            <input type="text" class="form-type" name="DealerTelNo" placeholder="Enter here" />
-        </div>
-        <div class="form">
-            <label class="form-text" for="DealerCellNo">Cellphone #:</label>
-            <input type="text" class="form-type" name="DealerCellNo" placeholder="Enter here" />
-        </div>
-        <div class="form">
-            <label class="form-text" for="DealerFaxNo">Fax #:</label>
-            <input type="text" class="form-type" name="DealerFaxNo" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="DealerBusinessType">Business Type:</label>
-            <input type="text" class="form-type" name="DealerBusinessType" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="DealerDateIssued">Date Issued:</label>
-            <input type="text" class="form-type" name="DealerDateIssued" placeholder="Enter here" />
-        </div>
-        <div class="form">
-            <label class="form-text" for="DealerSecNo">Sec #:</label>
-            <input type="text" class="form-type" name="DealerSecNo" placeholder="Enter here" />
-        </div>
-        <div class="form">
-            <label class="form-text" for="DealerEmail">Email:</label>
-            <input type="text" class="form-type" name="DealerEmail" placeholder="Enter here" />
-        </div>
-        <div class="form">
-            <label class="form-text" for="DealerWebsite">Website:</label>
-            <input type="text" class="form-type" name="DealerWebsite" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="DealerAuthorizationCapital">Authorization Capital:</label>
-            <input type="text" class="form-type" name="DealerAuthorizationCapital" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="DealerSubscribedCapital">Subscribed Capital:</label>
-            <input type="text" class="form-type" name="DealerSubscribedCapital" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="DealerPaidUpCapital">Paid Up Capital:</label>
-            <input type="text" class="form-type" name="DealerPaidUpCapital" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="DealerTerms">Terms:</label>
-            <input type="text" class="form-type" name="DealerTerms" placeholder="Enter here" />
-        </div>
-        <div class="form">
-            <label class="form-text" for="DTIRegNo">DTI Registration #:</label>
-            <input type="text" class="form-type" name="DTIRegNo" placeholder="Enter here" />
-        </div>
-        <div class="form">
-            <label class="form-text" for="DTIDateIssued">DTI Date Issued:</label>
-            <input type="text" class="form-type" name="DTIDateIssued" placeholder="Enter here" />
-        </div>
-        <div class="form">
-            <label class="form-text" for="DTIAmtCapital">DTI Amnt. Capital:</label>
-            <input type="text" class="form-type" name="DTIAmtCapital" placeholder="Enter here" />
-        </div>
-        <div class="form">
-            <label class="form-text" for="DTIPaidUpCapital">DTI Paid Up Capital:</label>
-            <input type="text" class="form-type" name="DTIPaidUpCapital" placeholder="Enter here" />
-        </div>
-        <div class="form">
-            <label class="form-text" for="DTITaxAcctNo">DTI Tax Account #:</label>
-            <input type="text" class="form-type" name="DTITaxAcctNo" placeholder="Enter here" />
-        </div>
-
-        <div class="button-horizontal">
-            <button type="submit" class="button">Save</button>
-            <button type="submit" class="button">Cancel</button>
-        </div>
-    </div>
-</form> *@
-
 <div class="tabcontent" id="Particulars">
     <form method="post">
-
         <div class="upper-body">
             <div class="form large">
                 <label class="form-text" for="DealerBusinessName">Business Name:</label>
@@ -237,8 +143,8 @@
 
 <div class="tabcontent" id="Bank">
     <div>
-        <div class="upper-body scroll">
-            <table cellpadding="5" width="100%">
+        <div class="upper-body">
+            <table class="scroll" cellpadding="5" width="100%">
                 <tr>
                     <th>
                         accountNo
@@ -276,25 +182,29 @@
                     </tr>
                 }
             </table>
+            <div class="button-horizontal">
+                <button type="submit" class="button">Add</button>
+                <button type="submit" class="button">Edit</button>
+                <button type="submit" class="button">Delete</button>
+            </div>
         </div>
     </div>
 </div>
 
 <div class="tabcontent" id="Agents">
-
     <div>
-        <div class="upper-body scroll">
-            <table cellpadding="5" width="100%">
+        <div class="upper-body">
+            <table class="scroll" cellpadding="5" width="100%">
                 <tr>
-                    <td>
+                    <th>
                         lastName
-                    </td>
-                    <td>
+                    </th>
+                    <th>
                         firstName
-                    </td>
-                    <td>
+                    </th>
+                    <th>
                         default
-                    </td>
+                    </th>
                 </tr>
                 @foreach (var i in Model.CurrentAgents)
                 {
@@ -316,6 +226,12 @@
                     </tr>
                 }
             </table>
+
+            <div class="button-horizontal">
+                <button type="submit" class="button">Add</button>
+                <button type="submit" class="button">Edit</button>
+                <button type="submit" class="button">Delete</button>
+            </div>
         </div>
     </div>
 </div>
@@ -465,7 +381,3 @@
         <button type="submit" class="button">Delete</button>
     </div>
 </div>
-
-<script>
-    document.getElementById("default").click();
-</script>

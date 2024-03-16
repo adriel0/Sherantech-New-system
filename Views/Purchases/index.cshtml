@@ -6,43 +6,107 @@
 <div class="header">PURCHASES</div>
 <div class="upper-nav">
     <ul class="nav-options">
-        <li><a asp-area="" asp-controller="Home" asp-action="#">Details</a></li>
-        <li><a asp-area="" asp-controller="Home" asp-action="#">Items</a></li>
+        <li><a class="tablinks" onclick="openTab(event, 'Details')" id="default">Details</a></li>
+        <li><a class="tablinks" onclick="openTab(event, 'Item')">Items</a></li>
     </ul>
 </div>
 
-<form method="post">
-    <div class="upper-body">
-        <div class="form large">
-            <label class="form-text" for="referenceNo">Reference #:</label>
-            <input type="text" class="form-type" name="referenceNo" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="receivedBy">Received By:</label>
-            <input type="text" class="form-type" name="receivedBy" placeholder="Enter here" />
-        </div>
-        <div class="form xlarge">
-            <label class="form-text" for="purchasedFrom">Purchased From:</label>
-            <input type="text" class="form-type" name="purchasedFrom" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="datePurchased">Date Purchased:</label>
-            <input type="text" class="form-type" name="datePurchased" placeholder="Enter here" />
-        </div>
+<div class="tabcontent" id="Details">
+    <form method="post">
+        <div class="upper-body">
+            <div class="form large">
+                <label class="form-text" for="referenceNo">Reference #:</label>
+                <input type="text" class="form-type" name="referenceNo" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="receivedBy">Received By:</label>
+                <input type="text" class="form-type" name="receivedBy" placeholder="Enter here" />
+            </div>
+            <div class="form xlarge">
+                <label class="form-text" for="purchasedFrom">Purchased From:</label>
+                <input type="text" class="form-type" name="purchasedFrom" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="datePurchased">Date Purchased:</label>
+                <input type="text" class="form-type" name="datePurchased" placeholder="Enter here" />
+            </div>
 
-        <div class="button-horizontal">
-            <label class="check">
-                <input type="checkbox" class="check-space" name="#">Close Transaction
-            </label>
-            <input type="submit" class="button" value="Save" />
-            <button type="submit" class="button">Cancel</button>
+            <div class="button-horizontal">
+                <label class="check">
+                    <input type="checkbox" class="check-space" name="closed">Close Transaction
+                </label>
+                <input type="submit" class="button" value="Save" />
+                <button type="submit" class="button">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="tabcontent" id="Item">
+    <div>
+        <div class="upper-body">
+            <table class="scroll" cellpadding="5" width="100%">
+                <tr>
+                    <th>
+                        qty
+                    </th>
+                    <th>
+                        unit
+                    </th>
+                    <th>
+                        stockNo
+                    </th>
+                    <th>
+                        unitPrice
+                    </th>
+                    <th>
+                        amount
+                    </th>
+                    <th>
+                        remarks
+                    </th>
+                </tr>
+            </table>
+
+            <div class="button-horizontal">
+                <button type="submit" class="button">Add</button>
+                <button type="submit" class="button">Edit</button>
+                <button type="submit" class="button">Delete</button>
+            </div>
         </div>
     </div>
-</form>
+</div>
 
 <div class="lower-body">
     <div class="filter-form">
         <label class="filter-text" for="#">Filter</label>
         <input type="text" class="filter-type" name="#" value="" />
     </div>
+    <div class="scroll">
+        <table cellpadding="5" width="100%">
+            <tr>
+                <th>
+                    referenceNo
+                </th>
+                <th>
+                    receivedBy
+                </th>
+                <th>
+                    datePurchased
+                </th>
+                <th>
+                    purchasedFrom
+                </th>
+                <th>
+                    closed
+                </th>
+            </tr>
+        </table>
+    </div>
+    <div class="button-vertical">
+        <button type="submit" class="button">Add</button>
+        <button type="submit" class="button">Edit</button>
+        <button type="submit" class="button">Delete</button>
+    </div>
 </div>
+

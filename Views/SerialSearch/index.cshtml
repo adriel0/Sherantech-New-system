@@ -6,43 +6,66 @@
 <div class="header">SERIAL SEARCH</div>
 <div class="upper-nav">
     <ul class="nav-options">
-        <li><a asp-area="" asp-controller="Home" asp-action="#">Details</a></li>
+        <li><a class="tablinks" onclick="openTab(event, 'Details')" id="default">Details</a></li>
     </ul>
 </div>
 
-<form method="post">
-    <div class="upper-body">
-        <div class="form large">
-            <label class="form-text" for="serialNo">Serial #:</label>
-            <input type="text" class="form-type" name="serialNo" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="customer">Customer:</label>
-            <input type="text" class="form-type" name="customer" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="drNo">DR #:</label>
-            <input type="text" class="form-type" name="drNo" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="dateSold">Date Sold:</label>
-            <input type="text" class="form-type" name="dateSold" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="stockName">Stock Name:</label>
-            <input type="text" class="form-type" name="stockName" placeholder="Enter here" />
-        </div>
+<div class="tabcontent" id="Details">
+    <form method="post">
+        <div class="upper-body">
+            <div class="form large">
+                <label class="form-text" for="serialNo">Serial #:</label>
+                <input type="text" class="form-type" name="serialNo" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="customer">Customer:</label>
+                <input type="text" class="form-type" name="customer" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="drNo">DR #:</label>
+                <input type="text" class="form-type" name="drNo" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="dateSold">Date Sold:</label>
+                <input type="text" class="form-type" name="dateSold" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="stockName">Stock Name:</label>
+                <input type="text" class="form-type" name="stockName" placeholder="Enter here" />
+            </div>
 
-        <div class="button-horizontal">
-            <input type="submit" class="button" value="Save" />
-            <button type="submit" class="button">Cancel</button>
+            <div class="button-horizontal">
+                <input type="submit" class="button" value="Save" />
+                <button type="submit" class="button">Cancel</button>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 
 <div class="lower-body">
     <div class="filter-form">
         <label class="filter-text" for="#">Filter</label>
         <input type="text" class="filter-type" name="#" value="" />
+    </div>
+    <div class="scroll">
+        <table cellpadding="5" width="100%">
+            <tr>
+                <th>
+                    serialNo
+                </th>
+                <th>
+                    drNo
+                </th>
+                <th>
+                    stockName
+                </th>
+                <th>
+                    customer
+                </th>
+                <th>
+                    dateSold
+                </th>
+            </tr>
+        </table>
     </div>
 </div>
