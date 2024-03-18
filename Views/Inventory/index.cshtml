@@ -6,43 +6,60 @@
 <div class="header">STOCKS</div>
 <div class="upper-nav">
     <ul class="nav-options">
-        <li><a asp-area="" asp-controller="Home" asp-action="#">Details</a></li>
-        <li><a asp-area="" asp-controller="Home" asp-action="#">Items</a></li>
-        <li><a asp-area="" asp-controller="Home" asp-action="#">Serials</a></li>
-        <li><a asp-area="" asp-controller="Home" asp-action="#">References</a></li>
+        <li><a class="tablinks" onclick="openTab(event, 'Details')" id="default">Details</a></li>
     </ul>
 </div>
 
-<form method="post">
-    <div class="upper-body">
-        <div class="form xlarge">
-            <label class="form-text" for="name">Name:</label>
-            <input type="text" class="form-type" name="name" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="category">Category:</label>
-            <input type="text" class="form-type" name="category" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="unitPrice">Unit Price:</label>
-            <input type="text" class="form-type" name="unitPrice" placeholder="Enter here" />
-        </div>
-        <div class="form xlarge">
-            <label class="form-text" for="description">Description:</label>
-            <input type="text" class="form-type" name="description" placeholder="Enter here" />
-        </div>
+<div class="tabcontent" id="Details">
+    <form method="post">
+        <div class="upper-body">
+            <div class="form xlarge">
+                <label class="form-text" for="name">Name:</label>
+                <input type="text" class="form-type" name="name" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="category">Category:</label>
+                <input type="text" class="form-type" name="category" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="unitPrice">Unit Price:</label>
+                <input type="text" class="form-type" name="unitPrice" placeholder="Enter here" />
+            </div>
+            <div class="form xlarge">
+                <label class="form-text" for="description">Description:</label>
+                <input type="text" class="form-type" name="description" placeholder="Enter here" />
+            </div>
 
-        <div class="button-horizontal">
-            <input type="submit" class="button" value="Save" />
-            <button type="submit" class="button">Cancel</button>
+            <div class="button-horizontal">
+                <input type="submit" class="button" value="Save" />
+                <button type="submit" class="button">Cancel</button>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 
 <div class="lower-body">
     <div class="filter-form">
         <label class="filter-text" for="#">Filter</label>
         <input type="text" class="filter-type" name="#" value="" />
+    </div>
+    <div class="scroll">
+        <table cellpadding="5" width="100%">
+            <tr>
+                <th>
+                    name
+                </th>
+                <th>
+                    category
+                </th>
+                <th>
+                    unitPrice
+                </th>
+                <th>
+                    description
+                </th>
+            </tr>
+        </table>
     </div>
     <div class="button-vertical">
         <button type="submit" class="button">Add</button>

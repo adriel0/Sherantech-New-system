@@ -6,65 +6,138 @@
 <div class="header">RECEIVABLES</div>
 <div class="upper-nav">
     <ul class="nav-options">
-        <li><a asp-area="" asp-controller="Home" asp-action="#">Details</a></li>
-        <li><a asp-area="" asp-controller="Home" asp-action="#">Reference No.</a></li>
+        <li><a class="tablinks" onclick="openTab(event, 'Details')" id="default">Details</a></li>
+        <li><a class="tablinks" onclick="openTab(event, 'Reference')">Reference No.</a></li>
     </ul>
 </div>
 
-<form method ="post">
-    <div class="upper-body">
-        <div class="form large">
-            <label class="form-text" for="accountNo">Account #:</label>
-            <input type="text" class="form-type" name="accountNo" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="dealer">Dealer:</label>
-            <input type="text" class="form-type" name="dealer" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="bankName">Bank Name:</label>
-            <input type="text" class="form-type" name="bankName" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="checkNo">Check #:</label>
-            <input type="text" class="form-type" name="checkNo" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="payToTheOrderOf">Pay To the Order of:</label>
-            <input type="text" class="form-type" name="payToTheOrderOf" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="dateIssued">Date Issued:</label>
-            <input type="text" class="form-type" name="dateIssued" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="rtNo">RT #:</label>
-            <input type="text" class="form-type" name="rtNo" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="amount">Amount:</label>
-            <input type="text" class="form-type" name="amount" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="status">Status:</label>
-            <input type="text" class="form-type" name="status" placeholder="Enter here" />
-        </div>
-        <div class="form large">
-            <label class="form-text" for="remarks">Remarks:</label>
-            <input type="text" class="form-type" name="remarks" placeholder="Enter here" />
-        </div>
+<div class="tabcontent" id="Details">
+    <form method="post">
+        <div class="upper-body">
+            <div class="form large">
+                <label class="form-text" for="accountNo">Account #:</label>
+                <input type="text" class="form-type" name="accountNo" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="dealer">Dealer:</label>
+                <input type="text" class="form-type" name="dealer" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="bankName">Bank Name:</label>
+                <input type="text" class="form-type" name="bankName" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="checkNo">Check #:</label>
+                <input type="text" class="form-type" name="checkNo" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="payToTheOrderOf">Pay To the Order of:</label>
+                <input type="text" class="form-type" name="payToTheOrderOf" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="dateIssued">Date Issued:</label>
+                <input type="text" class="form-type" name="dateIssued" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="rtNo">RT #:</label>
+                <input type="text" class="form-type" name="rtNo" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="amount">Amount:</label>
+                <input type="text" class="form-type" name="amount" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="status">Status:</label>
+                <input type="text" class="form-type" name="status" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="remarks">Remarks:</label>
+                <input type="text" class="form-type" name="remarks" placeholder="Enter here" />
+            </div>
 
-        <div class="button-horizontal">
-            <input type="submit" class="button" value="Save" />
-            <button type="submit" class="button">Cancel</button>
+            <div class="button-horizontal">
+                <input type="submit" class="button" value="Save" />
+                <button type="submit" class="button">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="tabcontent" id="Reference">
+    <div>
+        <div class="upper-body">
+            <table class="scroll" cellpadding="5" width="100%">
+                <tr>
+                    <th>
+                        drNo
+                    </th>
+                    <th>
+                        invoiceNo
+                    </th>
+                    <th>
+                        date
+                    </th>
+                    <th>
+                        dealer
+                    </th>
+                    <th>
+                        drAmount
+                    </th>
+                    <th>
+                        amount
+                    </th>
+                </tr>
+            </table>
+
+            <div class="button-horizontal">
+                <button type="submit" class="button">Save</button>
+                <button type="submit" class="button">Manage</button>
+                <button type="submit" class="button">Delete</button>
+            </div>
         </div>
     </div>
-</form>
+</div>
 
 <div class="lower-body">
     <div class="filter-form">
         <label class="filter-text" for="#">Filter</label>
         <input type="text" class="filter-type" name="#" value="" />
+    </div>
+    <div class="scroll">
+        <table cellpadding="5" width="100%">
+            <tr>
+                <th>
+                    accountNo
+                </th>
+                <th>
+                    dealer
+                </th>
+                <th>
+                    bankName
+                </th>
+                <th>
+                    checkNo
+                </th>
+                <th>
+                    rtNo
+                </th>
+                <th>
+                    payToTheOrderOf
+                </th>
+                <th>
+                    dateIssued
+                </th>
+                <th>
+                    dateDue
+                </th>
+                <th>
+                    amount
+                </th>
+                <th>
+                    status
+                </th>
+            </tr>
+        </table>
     </div>
     <div class="button-vertical">
         <button type="submit" class="button">Add</button>
