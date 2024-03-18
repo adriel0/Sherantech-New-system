@@ -20,7 +20,8 @@ namespace WebApplication1.Controllers
         }
         public IActionResult Index(int id)
         {
-
+            SqlConnection disp = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]);
+            Debug.WriteLine(disp.ToString());
             List<DealersModel> dealersModels = new List<DealersModel>();
             List<BankReferenceModel> bankReferenceModel = new List<BankReferenceModel>();
             List<AgentsModel> agentsModel = new List<AgentsModel>();
@@ -86,12 +87,12 @@ namespace WebApplication1.Controllers
                                 dm.DealerWebsite = reader.GetString(7);
                                 dm.DealerBusinessType = reader.GetString(8);
                                 dm.DealerSecNo = reader.GetString(9);
-                                dm.DealerDateIssued = reader.GetSqlDateTime(10).Value;
+                                dm.DealerDateIssued = reader.GetDateTime(10);
                                 dm.DealerAuthorizationCapital = reader.GetInt64(11);
                                 dm.DealerSubscribedCapital = reader.GetInt64(12);
                                 dm.DealerPaidUpCapital = reader.GetInt64(13);
                                 dm.DTIRegNo = reader.GetInt64(14);
-                                dm.DTIDateIssued = reader.GetSqlDateTime(15).Value;
+                                dm.DTIDateIssued = reader.GetDateTime(15);
                                 dm.DTIAmtCapital = reader.GetInt64(16);
                                 dm.DTIPaidUpCapital = reader.GetInt64(17);
                                 dm.DTITaxAcctNo = reader.GetInt64(18);
@@ -139,12 +140,12 @@ namespace WebApplication1.Controllers
                                 result.Current.DealerWebsite = reader.GetString(7);
                                 result.Current.DealerBusinessType = reader.GetString(8);
                                 result.Current.DealerSecNo = reader.GetString(9);
-                                result.Current.DealerDateIssued = reader.GetSqlDateTime(10).Value;
+                                result.Current.DealerDateIssued = reader.GetDateTime(10);
                                 result.Current.DealerAuthorizationCapital = reader.GetInt64(11);
                                 result.Current.DealerSubscribedCapital = reader.GetInt64(12);
                                 result.Current.DealerPaidUpCapital = reader.GetInt64(13);
                                 result.Current.DTIRegNo = reader.GetInt64(14);
-                                result.Current.DTIDateIssued = reader.GetSqlDateTime(15).Value;
+                                result.Current.DTIDateIssued = reader.GetDateTime(15);
                                 result.Current.DTIAmtCapital = reader.GetInt64(16);
                                 result.Current.DTIPaidUpCapital = reader.GetInt64(17);
                                 result.Current.DTITaxAcctNo = reader.GetInt64(18);
@@ -168,7 +169,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM DealerBankRef WHERE Id=@did";
+                    String sql = "SELECT * FROM DealerBankRef WHERE dealerId=@did";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -205,7 +206,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM DealerAgents WHERE Id=@did";
+                    String sql = "SELECT * FROM DealerAgents WHERE dealerId=@did";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -218,8 +219,8 @@ namespace WebApplication1.Controllers
                                 am.Id = reader.GetInt32(0);
                                 am.lastName = reader.GetString(1);
                                 am.firstName = reader.GetString(2);
-                                am.isDefault = reader.GetBoolean(3);
-                                am.dealerId = reader.GetInt32(5);
+                                am.isDefault = reader.GetString(3);
+                                am.dealerId = reader.GetInt32(4);
                                 agentsModel.Add(am);
                             }
                         }

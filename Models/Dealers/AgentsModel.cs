@@ -12,7 +12,7 @@ namespace WebApplication1.Models.Dealers
         [AllowNull]
         public string? firstName { get; set; }
         [AllowNull]
-        public bool? isDefault { get; set; }
+        public string? isDefault { get; set; }
         [DisallowNull]
         public int dealerId { get; set; }
     }
