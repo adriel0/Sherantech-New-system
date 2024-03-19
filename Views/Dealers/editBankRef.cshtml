@@ -1,0 +1,73 @@
+﻿
+@{
+
+    ViewData["Title"] = "Sharentach Trading Inc. | Dealers";
+}
+@* sample
+<form method="post">
+    <label for="DealerName">Dealer Name:</label>
+    <input type="text" name="DealerName" value="" />
+    <label for="DealerAddress">Dealer Address:</label>
+    <input type="text" name="DealerAddress" value="" />
+    <label for="DealerAccountId">Dealer Account Id:</label>
+    <input type="number" name="DealerAccountId" value="" />
+    <input type="submit" value="Submit" class="submit" />
+    @*<input type="hidden" name="Id" value="@Model.Id" readonly />*@@*
+</form>
+
+<table cellpadding="5" width="100%">
+
+    @foreach (var i in Model)
+    {
+        <tr>
+            <td>
+                @i.Id
+            </td>
+            <td>
+                @i.DealerName
+            </td>
+            <td>
+                @i.DealerAddress
+            </td>
+            <td>
+                @i.DealerAccountId
+            </td>
+            <td>
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" style="border:solid" asp-area="" asp-controller="Home" asp-action="Edit" asp-route-id="@i.Id">Edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    }
+</table>
+*@
+<div class="header">DEALERS</div>
+
+<form method="post">
+    <div class="upper-body">
+        <div class="form large">
+            <label class="form-text" for="AccountNo">Account Number:</label>
+            <input type="text" class="form-type" name="AccountNo" placeholder="Enter here" value="@Model.accountNo" />
+        </div>
+        <div class="form large">
+            <label class="form-text" for="AccountName">Account Name:</label>
+            <input type="text" class="form-type" name="AccountName" placeholder="Enter here" value="@Model.accountName" />
+        </div>
+        <div class="form large">
+            <label class="form-text" for="Type">Type:</label>
+            <input type="text" class="form-type" name="Type" placeholder="Enter here" value="@Model.type" />
+        </div>
+        <div class="form large">
+            <label class="form-text" for="BankName">Bank Name:</label>
+            <input type="text" class="form-type" name="BankName" placeholder="Enter here" value="@Model.bank" />
+        </div>
+            
+
+        <div class="button-horizontal">
+            <input type="submit" class="button" value="Save" asp-area="" asp-controller="Dealers" asp-action="editbankrefpost" asp-route-id="@Model.Id">
+            <button onclick='document.getElementById("deletebutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Dealers" asp-action="DeleteBankRef" asp-route-id="@Model.Id" id="deletebutton">Delete</a></button>
+        </div>
+    </div>
+</form>

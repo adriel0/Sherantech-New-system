@@ -175,7 +175,7 @@
                             @i.bank
                         </td>
                         <td>
-                            <a asp-area="" asp-controller="Dealers" asp-action="editbank" asp-route-id="@i.Id" asp-route-dealerid="@i.dealerId">
+                            <a asp-area="" asp-controller="Dealers" asp-action="EditBankRef" asp-route-id="@i.Id" asp-route-dealerid="@i.dealerId">
                                 edit
                             </a>
                         </td>
@@ -183,9 +183,7 @@
                 }
             </table>
             <div class="button-horizontal">
-                <button type="submit" class="button">Add</button>
-                <button type="submit" class="button">Edit</button>
-                <button type="submit" class="button">Delete</button>
+                <button onclick='document.getElementById("addbankrefbutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Dealers" asp-action="addBankRef" asp-route-id="@Model.Current.Id" id="addbankrefbutton">Add</a></button>
             </div>
         </div>
     </div>
@@ -228,9 +226,7 @@
             </table>
 
             <div class="button-horizontal">
-                <button type="submit" class="button">Add</button>
-                <button type="submit" class="button">Edit</button>
-                <button type="submit" class="button">Delete</button>
+                <button onclick='document.getElementById("addagentsbutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Dealers" asp-action="addAgents" asp-route-id="@Model.Current.Id" id="addagentsbutton">Add</a></button>
             </div>
         </div>
     </div>

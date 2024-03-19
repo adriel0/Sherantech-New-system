@@ -286,7 +286,257 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index");
         }
 
-        
+        //CRUD for bankref
+        public IActionResult addBankRef(int id)
+        {
+            DataModel dm = new DataModel();
+            dm.Id = id;
+            return View(dm);
+        }
+        public IActionResult addbankrefpost(int id)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "INSERT Into DealerBankRef (accountNo, accountName, type, bank, dealerId) " +
+                                                                   " Values (@anum, @an, @bt, @bn, @did)";
+
+                        command.Parameters.AddWithValue("@anum", Request.Form["AccountNo"].ToString());
+                        command.Parameters.AddWithValue("@an", Request.Form["AccountName"].ToString());
+                        command.Parameters.AddWithValue("@bt", Request.Form["Type"].ToString());
+                        command.Parameters.AddWithValue("@bn", Request.Form["BankName"].ToString());
+                        command.Parameters.AddWithValue("@did", id);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult EditBankRef(int id)
+        {
+            BankReferenceModel brm = new BankReferenceModel();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    connection.Open();
+
+                    String sql = "SELECT * FROM DealerBankRef WHERE Id=@id";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                brm.Id = reader.GetInt32(0);
+                                brm.accountNo = reader.GetString(1);
+                                brm.accountName = reader.GetString(2);
+                                brm.type = reader.GetString(3);
+                                brm.bank = reader.GetString(4);
+                                brm.dealerId = reader.GetInt32(5);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            return View(brm);
+        }
+
+        [HttpPost]
+        public IActionResult EditBankRefPost(int id)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "UPDATE DealerBankRef SET accountNo = @anum, accountName = @an, type = @bt, " +
+                                                                 "bank = @bn WHERE Id = @id";
+
+                        command.Parameters.AddWithValue("@anum", Request.Form["AccountNo"].ToString());
+                        command.Parameters.AddWithValue("@an", Request.Form["AccountName"].ToString());
+                        command.Parameters.AddWithValue("@bt", Request.Form["Type"].ToString());
+                        command.Parameters.AddWithValue("@bn", Request.Form["BankName"].ToString());
+                        command.Parameters.AddWithValue("@id", id);
+                        Debug.WriteLine(Request.Form["Id"].ToString());
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult DeleteBankRef(int id)
+        {
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "DELETE FROM DealerBankRef WHERE Id=@id";
+                        command.Parameters.AddWithValue("@id", id);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            return RedirectToAction("Index");
+        }
+
+        //CRUD for agents
+        public IActionResult addAgents(int id)
+        {
+            DataModel dm = new DataModel();
+            dm.Id = id;
+            return View(dm);
+        }
+        public IActionResult addAgentspost(int id)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "INSERT Into DealerAgents (firstName, lastName, isDefault, dealerId) " +
+                                                                   " Values (@fn, @ln, @isd, @did)";
+
+                        command.Parameters.AddWithValue("@fn", Request.Form["firstname"].ToString());
+                        command.Parameters.AddWithValue("@ln", Request.Form["lastname"].ToString());
+                        command.Parameters.AddWithValue("@isd", Request.Form["isDefault"].ToString());
+                        command.Parameters.AddWithValue("@did", id);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            return RedirectToAction("Index");
+        }
+
+
+
+
+        [HttpGet]
+        public IActionResult EditAgents(int id)
+        {
+            AgentsModel am = new AgentsModel();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    connection.Open();
+
+                    String sql = "SELECT * FROM DealerAgents WHERE Id=@id";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                am.Id = reader.GetInt32(0);
+                                am.lastName = reader.GetString(1);
+                                am.firstName = reader.GetString(2);
+                                am.isDefault = reader.GetString(3);
+                                am.dealerId = reader.GetInt32(4);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            return View(am);
+        }
+
+        [HttpPost]
+        public IActionResult EditAgentsPost(int id)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "UPDATE DealerAgents SET firstName = @fn, lastName = @ln, isDefault = @isd " +
+                                                                 "WHERE Id = @id";
+
+                        command.Parameters.AddWithValue("@fn", Request.Form["firstname"].ToString());
+                        command.Parameters.AddWithValue("@ln", Request.Form["lastname"].ToString());
+                        command.Parameters.AddWithValue("@isd", Request.Form["isDefault"].ToString());
+                        command.Parameters.AddWithValue("@id", id);
+                        Debug.WriteLine(Request.Form["Id"].ToString());
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult DeleteAgents(int id)
+        {
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "DELETE FROM DealerAgents WHERE Id=@id";
+                        command.Parameters.AddWithValue("@id", id);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            return RedirectToAction("Index");
+        }
+
+
         public IActionResult Add()
         {
             try
