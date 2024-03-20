@@ -15,47 +15,56 @@
     <form method="post">
         <div class="upper-body">
             <div class="form large">
-                <label class="form-text" for="accountNo">Account #:</label>
-                <input type="text" class="form-type" name="accountNo" placeholder="Enter here" />
+                <label class="form-text" for="ReceiveAccountNo">Account #:</label>
+                <input type="text" class="form-type" name="ReceiveAccountNo" placeholder="Enter here" />
             </div>
             <div class="form large">
-                <label class="form-text" for="dealer">Dealer:</label>
-                <input type="text" class="form-type" name="dealer" placeholder="Enter here" />
+                <label class="form-text" for="ReceiveDealer">Dealer:</label>
+                <input type="text" class="form-type" name="ReceiveDealer" placeholder="Enter here" />
             </div>
             <div class="form large">
-                <label class="form-text" for="bankName">Bank Name:</label>
-                <input type="text" class="form-type" name="bankName" placeholder="Enter here" />
+                <label class="form-text" for="ReceiveCheckNo">Check #:</label>
+                <input type="text" class="form-type" name="ReceiveCheckNo" placeholder="Enter here" />
             </div>
             <div class="form large">
-                <label class="form-text" for="checkNo">Check #:</label>
-                <input type="text" class="form-type" name="checkNo" placeholder="Enter here" />
+                <label class="form-text" for="ReceiveRtNo">RT #:</label>
+                <input type="text" class="form-type" name="ReceiveRtNo" placeholder="Enter here" />
             </div>
             <div class="form large">
-                <label class="form-text" for="payToTheOrderOf">Pay To the Order of:</label>
-                <input type="text" class="form-type" name="payToTheOrderOf" placeholder="Enter here" />
+                <label class="form-text" for="ReceivePayToTheOrderOf">Pay To the Order of:</label>
+                <input type="text" class="form-type" name="ReceivePayToTheOrderOf" placeholder="Enter here" />
             </div>
             <div class="form large">
-                <label class="form-text" for="dateIssued">Date Issued:</label>
-                <input type="text" class="form-type" name="dateIssued" placeholder="Enter here" />
+                <label class="form-text" for="ReceiveDateIssued">Date Issued:</label>
+                <input type="text" class="form-type" name="ReceiveDateIssued" placeholder="Enter here" />
             </div>
             <div class="form large">
-                <label class="form-text" for="rtNo">RT #:</label>
-                <input type="text" class="form-type" name="rtNo" placeholder="Enter here" />
+                <label class="form-text" for="ReceiveDateDue">Date Due:</label>
+                <input type="text" class="form-type" name="ReceiveDateDue" placeholder="Enter here" />
             </div>
             <div class="form large">
-                <label class="form-text" for="amount">Amount:</label>
-                <input type="text" class="form-type" name="amount" placeholder="Enter here" />
+                <label class="form-text" for="ReceiveAmount">Amount:</label>
+                <input type="text" class="form-type" name="ReceiveAmount" placeholder="Enter here" />
             </div>
             <div class="form large">
-                <label class="form-text" for="status">Status:</label>
-                <input type="text" class="form-type" name="status" placeholder="Enter here" />
+                <label class="form-text" for="ReceiveStatus">Status:</label>
+                <input type="text" class="form-type" name="ReceiveStatus" placeholder="Enter here" />
             </div>
             <div class="form large">
-                <label class="form-text" for="remarks">Remarks:</label>
-                <input type="text" class="form-type" name="remarks" placeholder="Enter here" />
+                <label class="form-text" for="ReceiveRemarks">Remarks:</label>
+                <input type="text" class="form-type" name="ReceiveRemarks" placeholder="Enter here" />
             </div>
 
             <div class="button-horizontal">
+                <label class="check">
+                    <input type="checkbox" class="check-space" name="ReceiveNotYetDue">Not Yet Due
+                </label>
+                <label class="check">
+                    <input type="checkbox" class="check-space" name="ReceiveClear">Cleared
+                </label>
+                <label class="check">
+                    <input type="checkbox" class="check-space" name="ReceiveOnHold">On Hold
+                </label>
                 <input type="submit" class="button" value="Save" />
                 <button type="submit" class="button">Cancel</button>
             </div>
@@ -86,10 +95,16 @@
                     <th>
                         amount
                     </th>
+                    <th>
+                        checkAmount
+                    </th>
+                    <th>
+                        checkBalance
+                    </th>
                 </tr>
             </table>
 
-            <div class="button-horizontal">
+            <div class="button-vertical">
                 <button type="submit" class="button">Save</button>
                 <button type="submit" class="button">Manage</button>
                 <button type="submit" class="button">Delete</button>
@@ -107,34 +122,37 @@
         <table cellpadding="5" width="100%">
             <tr>
                 <th>
-                    accountNo
+                    ReceiveAccountNo
                 </th>
                 <th>
-                    dealer
+                    ReceiveDealer
                 </th>
                 <th>
-                    bankName
+                    ReceiveBankName
                 </th>
                 <th>
-                    checkNo
+                    ReceiveCheckNo
                 </th>
                 <th>
-                    rtNo
+                    ReceiveRtNo
                 </th>
                 <th>
-                    payToTheOrderOf
+                    ReceivePayToTheOrderOf
                 </th>
                 <th>
-                    dateIssued
+                    ReceiveDateIssued
                 </th>
                 <th>
-                    dateDue
+                    ReceiveDateDue
                 </th>
                 <th>
-                    amount
+                    ReceiveAmount
                 </th>
                 <th>
-                    status
+                    ReceiveStatus
+                </th>
+                <th>
+                    ReceiveRemarks
                 </th>
             </tr>
         </table>

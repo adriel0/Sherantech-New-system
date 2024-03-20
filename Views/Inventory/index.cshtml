@@ -14,23 +14,73 @@
     <form method="post">
         <div class="upper-body">
             <div class="form xlarge">
-                <label class="form-text" for="name">Name:</label>
-                <input type="text" class="form-type" name="name" placeholder="Enter here" />
-            </div>
-            <div class="form large">
-                <label class="form-text" for="category">Category:</label>
-                <input type="text" class="form-type" name="category" placeholder="Enter here" />
-            </div>
-            <div class="form large">
-                <label class="form-text" for="unitPrice">Unit Price:</label>
-                <input type="text" class="form-type" name="unitPrice" placeholder="Enter here" />
+                <label class="form-text" for="StockName">Name:</label>
+                <input type="text" class="form-type" name="StockName" placeholder="Enter here" />
             </div>
             <div class="form xlarge">
-                <label class="form-text" for="description">Description:</label>
-                <input type="text" class="form-type" name="description" placeholder="Enter here" />
+                <label class="form-text" for="StockDescription">Description:</label>
+                <input type="text" class="form-type" name="StockDescription" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="StockCategory">Category:</label>
+                <div class="input-with-button">
+                    <input type="text" class="form-type" name="StockCategory" placeholder="Enter here" />
+                    <button type="submit" class="button">New Category</button>
+                </div>
+            </div>
+            <div class="form">
+                <label class="form-text" for="StockUnitPrice">Unit Price:</label>
+                <input type="text" class="form-type" name="StockUnitPrice" placeholder="Enter here" />
+            </div>
+            <div class="form">
+                <label class="form-text" for="StockUnit">Unit:</label>
+                <input type="text" class="form-type" name="StockUnit" placeholder="Enter here" />
+            </div>
+            <div class="form">
+                <label class="form-text" for="StockQtyPerBox">Quantity Per Box:</label>
+                <input type="text" class="form-type" name="StockQtyPerBox" placeholder="Enter here" />
+            </div>
+            <div class="form">
+                <label class="form-text" for="StockPurchasePrice">Purchase Price:</label>
+                <input type="text" class="form-type" name="StockPurchasePrice" placeholder="Enter here" />
+            </div>
+            <div class="form">
+                <label class="form-text" for="StockVolPrice">Volume Price:</label>
+                <input type="text" class="form-type" name="StockVolPrice" placeholder="Enter here" />
+            </div>
+            <div class="form">
+                <label class="form-text" for="StockVolQty">Volume Quantity:</label>
+                <input type="text" class="form-type" name="StockVolQty" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="StockWarrantyPeriod">Warranty Period:</label>
+                <input type="text" class="form-type" name="StockWarrantyPeriod" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="StockExtendedWarranty">Extended Warranty:</label>
+                <input type="text" class="form-type" name="StockExtendedWarranty" placeholder="Enter here" />
+            </div>
+            <div class="form xlarge">
+                <label class="form-text" for="StockSupplier">Supplier:</label>
+                <input type="text" class="form-type" name="StockSupplier" placeholder="Enter here" />
+            </div>
+            <div class="form">
+                <label class="form-text" for="StockMaxLvl">Max Value:</label>
+                <input type="text" class="form-type" name="StockMaxLvl" placeholder="Enter here" />
+            </div>
+            <div class="form">
+                <label class="form-text" for="StockMinLvl">Min Value:</label>
+                <input type="text" class="form-type" name="StockMinLvl" placeholder="Enter here" />
+            </div>
+            <div class="form">
+                <label class="form-text" for="StockMarkUp">MarkUp:</label>
+                <input type="text" class="form-type" name="StockMarkUp" placeholder="Enter here" />
             </div>
 
             <div class="button-horizontal">
+                <label class="check">
+                    <input type="checkbox" class="check-space" name="StockSerial">Has Serial
+                </label>
                 <input type="submit" class="button" value="Save" />
                 <button type="submit" class="button">Cancel</button>
             </div>
@@ -47,16 +97,16 @@
         <table cellpadding="5" width="100%">
             <tr>
                 <th>
-                    name
+                    StockName
                 </th>
                 <th>
-                    category
+                    StockCategory
                 </th>
                 <th>
-                    unitPrice
+                    StockUnitPrice
                 </th>
                 <th>
-                    description
+                    StockDescription
                 </th>
             </tr>
         </table>

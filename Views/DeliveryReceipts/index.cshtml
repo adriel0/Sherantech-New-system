@@ -9,7 +9,7 @@
         <li><a class="tablinks" onclick="openTab(event, 'Details')" id="default">Details</a></li>
         <li><a class="tablinks" onclick="openTab(event, 'Item')">Items</a></li>
         <li><a class="tablinks" onclick="openTab(event, 'Serial')">Serials</a></li>
-        <li><a class="tablinks" onclick="openTab(event, 'Reference')">References</a></li>
+        <li><a class="tablinks" onclick="openTab(event, 'Remittance')">Remittances</a></li>
     </ul>
 </div>
 
@@ -17,28 +17,50 @@
     <form method="post">
         <div class="upper-body">
             <div class="form large">
-                <label class="form-text" for="drNo">DR #:</label>
-                <input type="text" class="form-type" name="drNo" placeholder="Enter here" />
+                <label class="form-text" for="DeliveryDrNo">DR #:</label>
+                <input type="text" class="form-type" name="DeliveryDrNo" placeholder="Enter here" />
             </div>
             <div class="form large">
-                <label class="form-text" for="invoiceNo">Invoice #:</label>
-                <input type="text" class="form-type" name="invoiceNo" placeholder="Enter here" />
+                <label class="form-text" for="DeliveryInvoiceNo">Invoice #:</label>
+                <input type="text" class="form-type" name="DeliveryInvoiceNo" placeholder="Enter here" />
             </div>
             <div class="form large">
-                <label class="form-text" for="terms">Terms:</label>
-                <input type="text" class="form-type" name="terms" placeholder="Enter here" />
+                <label class="form-text" for="DeliverySoldTo">Sold To:</label>
+                <input type="text" class="form-type" name="DeliverySoldTo" placeholder="Enter here" />
             </div>
             <div class="form large">
-                <label class="form-text" for="soldTo">Sold To:</label>
-                <input type="text" class="form-type" name="soldTo" placeholder="Enter here" />
+                <label class="form-text" for="DeliverySRep">Sales Representative:</label>
+                <input type="text" class="form-type" name="DeliverySRep" placeholder="Enter here" />
             </div>
             <div class="form large">
-                <label class="form-text" for="dateSold">Date Sold:</label>
-                <input type="text" class="form-type" name="dateSold" placeholder="Enter here" />
+                <label class="form-text" for="DeliveryTerms">Terms:</label>
+                <div class="input-with-button">
+                    <input type="text" class="form-type" name="DeliveryTerms" placeholder="Enter here" />
+                    <button type="submit" class="button">New Term</button>
+                </div>
+            </div>
+            <div class="form large">
+                <label class="form-text" for="DeliveryPONum">P.O. #:</label>
+                <input type="text" class="form-type" name="DeliveryPONum" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="DeliveryAddress">Address:</label>
+                <input type="text" class="form-type" name="DeliveryAddress" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="DeliveryDateSold">Date Sold:</label>
+                <input type="text" class="form-type" name="DeliveryDateSold" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="DeliveryRemarks">Remarks:</label>
+                <input type="text" class="form-type" name="DeliveryRemarks" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="DeliverySaleInvoice">Sales Invoice:</label>
+                <input type="text" class="form-type" name="DeliverySaleInvoice" placeholder="Enter here" />
             </div>
 
             <div class="button-horizontal">
-                <button type="submit" class="button">New Term</button>
                 <input type="submit" class="button" value="Save" />
                 <button type="submit" class="button">Cancel</button>
             </div>
@@ -48,8 +70,8 @@
 
 <div class="tabcontent" id="Item">
     <div>
-        <div class="upper-body scroll">
-            <table cellpadding="5" width="100%">
+        <div class="upper-body">
+            <table class="scroll" cellpadding="5" width="100%">
                 <tr>
                     <th>
                         qty
@@ -57,7 +79,7 @@
                     <th>
                         unit
                     </th>
-                    <th width="300px">
+                    <th>
                         article
                     </th>
                     <th>
@@ -84,7 +106,7 @@
                 </tr>
             </table>
 
-            <div class="button-horizontal">
+            <div class="button-vertical">
                 <button type="submit" class="button">Add</button>
                 <button type="submit" class="button">Edit</button>
                 <button type="submit" class="button">Delete</button>
@@ -101,7 +123,7 @@
                     <th>
                         serialNo
                     </th>
-                    <th width="300px">
+                    <th>
                         name
                     </th>
                     <th>
@@ -122,7 +144,7 @@
                 </tr>
             </table>
 
-            <div class="button-horizontal">
+            <div class="button-vertical">
                 <button type="submit" class="button">Add</button>
                 <button type="submit" class="button">Edit</button>
                 <button type="submit" class="button">Delete</button>
@@ -132,7 +154,7 @@
     </div>
 </div>
 
-<div class="tabcontent" id="Reference">
+<div class="tabcontent" id="Remittance">
     <div>
         <div class="upper-body">
             <table class="scroll" cellpadding="5" width="100%">
@@ -179,19 +201,19 @@
         <table cellpadding="5" width="100%">
             <tr>
                 <th>
-                    drNo
+                    DeliveryDrNo
                 </th>
                 <th>
-                    invoiceNo
+                    DeliveryInvoiceNo
                 </th>
                 <th>
-                    soldTo
+                    DeliverySoldTo
                 </th>
                 <th>
-                    dateSold
+                    DeliveryDateSold
                 </th>
                 <th>
-                    terms
+                    DeliveryTerms
                 </th>
             </tr>
         </table>

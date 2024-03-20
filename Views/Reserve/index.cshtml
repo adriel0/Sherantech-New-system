@@ -1,0 +1,34 @@
+﻿@{
+
+    ViewData["Title"] = "Sharentach Trading Inc. | Reservation";
+}
+
+<div class="header">RESERVATION</div>
+
+<form method="post">
+    <div class="upper-body">
+        <div class="form xlarge">
+            <label class="form-text" for="ReserveName">Name:</label>
+            <input type="text" class="form-type" name="ReserveName" placeholder="Enter here" />
+        </div>
+        <div class="form xlarge">
+            <label class="form-text" for="ReserveDescription">Description:</label>
+            <input type="text" class="form-type" name="ReserveDescription" placeholder="Enter here" />
+        </div>
+        <div class="form large">
+            <label class="form-text" for="ReserveCategory">Category:</label>
+            <div class="input-with-button">
+                <input type="text" class="form-type" name="ReserveCategory" placeholder="Enter here" />
+                <button type="submit" class="button">New Category</button>
+            </div>
+        </div>
+        <div class="form">
+            <label class="form-text" for="ReserveUnitPrice">Unit Price:</label>
+            <input type="text" class="form-type" name="ReserveUnitPrice" placeholder="Enter here" />
+        </div>
+
+        <div class="button-horizontal">
+            <button type="submit" class="button">Reserve</button>
+        </div>
+    </div>
+</form>

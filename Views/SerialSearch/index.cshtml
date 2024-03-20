@@ -14,24 +14,58 @@
     <form method="post">
         <div class="upper-body">
             <div class="form large">
-                <label class="form-text" for="serialNo">Serial #:</label>
-                <input type="text" class="form-type" name="serialNo" placeholder="Enter here" />
+                <label class="form-text" for="SerialNo">Serial #:</label>
+                <input type="text" class="form-type" name="SerialNo" placeholder="Enter here" />
             </div>
             <div class="form large">
-                <label class="form-text" for="customer">Customer:</label>
-                <input type="text" class="form-type" name="customer" placeholder="Enter here" />
+                <label class="form-text" for="SerialStockName">Stock Name:</label>
+                <input type="text" class="form-type" name="SerialStockName" placeholder="Enter here" />
             </div>
             <div class="form large">
-                <label class="form-text" for="drNo">DR #:</label>
-                <input type="text" class="form-type" name="drNo" placeholder="Enter here" />
+                <label class="form-text" for="SerialCustomer">Customer:</label>
+                <input type="text" class="form-type" name="SerialCustomer" placeholder="Enter here" />
             </div>
             <div class="form large">
-                <label class="form-text" for="dateSold">Date Sold:</label>
-                <input type="text" class="form-type" name="dateSold" placeholder="Enter here" />
+                <label class="form-text" for="SerialDrNo">DR #:</label>
+                <input type="text" class="form-type" name="SerialDrNo" placeholder="Enter here" />
             </div>
             <div class="form large">
-                <label class="form-text" for="stockName">Stock Name:</label>
-                <input type="text" class="form-type" name="stockName" placeholder="Enter here" />
+                <label class="form-text" for="SerialDateSold">Date Sold:</label>
+                <input type="text" class="form-type" name="SerialDateSold" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="SerialTerms">Terms:</label>
+                <div class="input-with-button">
+                    <input type="text" class="form-type" name="SerialTerms" placeholder="Enter here" />
+                    <button type="submit" class="button">New Term</button>
+                </div>
+            </div>
+            <div class="form large">
+                <label class="form-text" for="SerialWarrantyPeriod">Warranty Period:</label>
+                <input type="text" class="form-type" name="SerialWarrantyPeriod" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="SerialEndOfWarranty">End Of Warranty:</label>
+                <input type="text" class="form-type" name="SerialEndOfWarranty" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="SerialExtendedWarranty">Extended Warranty:</label>
+                <input type="text" class="form-type" name="SerialExtendedWarranty" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="SerialOFExtended">End Of Extended:</label>
+                <input type="text" class="form-type" name="SerialExtendedWarranty" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="SerialCategory">Category:</label>
+                <div class="input-with-button">
+                    <input type="text" class="form-type" name="SerialCategory" placeholder="Enter here" />
+                    <button type="submit" class="button">New Category</button>
+                </div>
+            </div>
+            <div class="form large">
+                <label class="form-text" for="SerialRemarks">Remarks:</label>
+                <input type="text" class="form-type" name="SerialRemarks" placeholder="Enter here" />
             </div>
 
             <div class="button-horizontal">
@@ -51,21 +85,25 @@
         <table cellpadding="5" width="100%">
             <tr>
                 <th>
-                    serialNo
+                    SerialNo
                 </th>
                 <th>
-                    drNo
+                    SerialDrNo
                 </th>
                 <th>
-                    stockName
+                    SerialStockName
                 </th>
                 <th>
-                    customer
+                    SerialCustomer
                 </th>
                 <th>
-                    dateSold
+                    SerialDateSold
                 </th>
             </tr>
         </table>
+
+        <div class="button-vertical">
+            <button type="submit" class="button">Search</button>
+        </div>
     </div>
 </div>

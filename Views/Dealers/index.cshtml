@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
 
     ViewData["Title"] = "Sharentach Trading Inc. | Dealers";
 }
@@ -182,7 +181,7 @@
                     </tr>
                 }
             </table>
-            <div class="button-horizontal">
+            <div class="button-vertical">
                 <button onclick='document.getElementById("addbankrefbutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Dealers" asp-action="addBankRef" asp-route-id="@Model.Current.Id" id="addbankrefbutton">Add</a></button>
             </div>
         </div>
@@ -225,7 +224,7 @@
                 }
             </table>
 
-            <div class="button-horizontal">
+            <div class="button-vertical">
                 <button onclick='document.getElementById("addagentsbutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Dealers" asp-action="addAgents" asp-route-id="@Model.Current.Id" id="addagentsbutton">Add</a></button>
             </div>
         </div>

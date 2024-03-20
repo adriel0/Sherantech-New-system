@@ -26,6 +26,7 @@
                     <li><a class="active" asp-area="" asp-controller="Dealers" asp-action="index">Dealers</a></li>
                     <li><a asp-area="" asp-controller="Inventory" asp-action="index">Inventory</a></li>
                     <li><a asp-area="" asp-controller="Srep" asp-action="index">Sales Representative</a></li>
+                    <li><a asp-area="" asp-controller="Reserve" asp-action="index">Reservation</a></li>
                 </ul>
             </li>
             <li>
@@ -46,7 +47,6 @@
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a asp-area="" asp-controller="Payable" asp-action="index">Payables</a></li>
                     <li><a asp-area="" asp-controller="Receivables" asp-action="index">Receivables</a></li>
                 </ul>
             </li>
@@ -64,8 +64,10 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @* @await RenderSectionAsync("Scripts", required: false) *@
 
-    @RenderBody()
-
+    <div class="scroll">
+        @RenderBody()
+    </div>
+    
     <script>
         document.getElementById("default").click();
     </script>
