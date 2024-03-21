@@ -105,7 +105,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM Purchases WHERE purchaseId=@id";
+                    String sql = "SELECT * FROM PurchaceItems WHERE purchaseId=@id";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {

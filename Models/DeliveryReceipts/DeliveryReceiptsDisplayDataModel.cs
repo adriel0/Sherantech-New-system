@@ -13,7 +13,7 @@ namespace WebApplication1.Models.DeliveryReceipts
         [AllowNull]
         public List<SerialsModel>? CurrentSerial { get; set; }
         [AllowNull]
-        public List<RemittancesModel>? CurrentRemittances { get; set; }
+        public List<RemittanceModel>? CurrentReferences { get; set; }
         [AllowNull]
         public DeliveryReceiptsDetailsModel? CurrentDetails { get; set; }
     }

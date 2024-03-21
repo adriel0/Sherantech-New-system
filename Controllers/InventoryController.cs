@@ -65,7 +65,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM Inventory";
+                    String sql = "SELECT inv.id,inv.name,inv.description,c.category,inv.unitPrice FROM Inventory as inv INNER JOIN category as c on c.id=inv.category";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -106,7 +106,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM Inventory WHERE id=@id";
+                    String sql = "SELECT inv.id,inv.name,inv.description,c.category,inv.unitPrice,inv.unit,inv.qtyPerBox,d.name,inv.hasSerial FROM Inventory as inv INNER JOIN category as c on c.id=inv.category INNER JOIN dealers as d on d.id=inv.supplier WHERE id=@id";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -122,16 +122,8 @@ namespace WebApplication1.Controllers
                                 result.CurrentDetails.unitPrice = reader.GetInt32(4);
                                 result.CurrentDetails.unit = reader.GetString(5);
                                 result.CurrentDetails.qtyPerBox = reader.GetInt32(6);
-                                result.CurrentDetails.purchasePrice = reader.GetInt32(7);
-                                result.CurrentDetails.volumePrice = reader.GetInt32(8);
-                                result.CurrentDetails.volumeQuantity = reader.GetInt32(9);
-                                result.CurrentDetails.warrantyPeriod = reader.GetInt32(10);
-                                result.CurrentDetails.extendedWarranty = reader.GetInt32(11);
-                                result.CurrentDetails.supplier = reader.GetString(12);
-                                result.CurrentDetails.minLvl = reader.GetInt32(13);
-                                result.CurrentDetails.maxLvl = reader.GetInt32(14);
-                                result.CurrentDetails.markUp = reader.GetInt32(15);
-                                result.CurrentDetails.hasSerial = reader.GetBoolean(16);
+                                result.CurrentDetails.supplier = reader.GetString(7);
+                                result.CurrentDetails.hasSerial = reader.GetBoolean(8);
                                 
                             }
                         }

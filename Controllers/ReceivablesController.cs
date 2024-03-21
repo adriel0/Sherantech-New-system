@@ -112,7 +112,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM Receivables WHERE receivablesId=@id";
+                    String sql = "SELECT * FROM ReceivablesRefNo WHERE receivablesId=@id";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {

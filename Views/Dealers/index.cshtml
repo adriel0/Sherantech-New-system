@@ -108,7 +108,13 @@
             </div>
             <div class="form large">
                 <label class="form-text" for="DealerTerms">Terms:</label>
-                <input type="text" class="form-type" name="DealerTerms" placeholder="Enter here" value="@Model.Current.DealerTerms" />
+                @* <input type="text" class="form-type" name="DealerTerms" placeholder="Enter here" value="@Model.Current.DealerTerms" /> *@
+                <select class="form-type" name="DealerTerms" id="termsselector" value="audi">
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                    <option value="fiat">Fiat</option>
+                    <option value="audi">Audi</option>
+                </select>
             </div>
             <div class="form">
                 <label class="form-text" for="DTIRegNo">DTI Registration #:</label>
@@ -375,3 +381,13 @@
         @* <button type="submit" class="button">Edit</button> *@
     </div>
 </div>
+<script>
+    var t = document.getElementById("termsselector");
+    var val = audi//@Model.
+    var l = t.childElementCount;
+    for (let i = 0; i < l; i++) {
+        if (t.children[i].value.toString().localeCompare(val) == 0) {
+            t.children[i].selected = "selected";
+        }
+    }
+</script>

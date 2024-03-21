@@ -26,7 +26,7 @@ namespace WebApplication1.Controllers
             List<DeliveryReceiptsModel> deliveryReceiptsModels = new List<DeliveryReceiptsModel>();
             List<DeliveryReceiptsItemsModel> deliveryReceiptsItemsModels = new List<DeliveryReceiptsItemsModel>();
             List<SerialsModel> serialsModels = new List<SerialsModel>();
-            List<RemittancesModel> remittancesModels = new List<RemittancesModel>();
+            List<RemittanceModel> referencesModels = new List<RemittanceModel>();
             DeliveryReceiptsDisplayDataModel result = new DeliveryReceiptsDisplayDataModel();
 
             if (id == 0)
@@ -68,7 +68,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM dr";
+                    String sql = "SELECT drNo, invoiceNo, soldTo, dateSold, terms FROM dr";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -153,7 +153,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM Items WHERE drNo=@id";
+                    String sql = "SELECT dri.drno, dri.qty, dri.unit, inv.name, dri.unitPrice, dri.amount, dri.payTo, dri.demo, dri.returned FROM drItems as dri INNER JOIN inventory as inv on dri.article=inv.id WHERE drNo=@id";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -172,7 +172,6 @@ namespace WebApplication1.Controllers
                                 drim.payTo = reader.GetString(6);
                                 drim.demo = reader.GetBoolean(7);
                                 drim.returned = reader.GetBoolean(8);
-                                drim.total = reader.GetInt32(9);
 
                                 deliveryReceiptsItemsModels.Add(drim);
                             }
@@ -195,7 +194,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM Serials WHERE drNo=@id";
+                    String sql = "SELECT * FROM drSerials WHERE drNo=@id";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -235,7 +234,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM Remittances WHERE drNo=@id";
+                    String sql = "SELECT * FROM drRemittance WHERE drNo=@id";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -244,8 +243,8 @@ namespace WebApplication1.Controllers
                         {
                             while (reader.Read())
                             {
-                                
-                                RemittancesModel rm = new RemittancesModel();
+
+                                RemittanceModel rm = new RemittanceModel();
                                 rm.drNo = reader.GetInt32(0);
                                 rm.checkNo = reader.GetInt32(1);
                                 rm.accountNo = reader.GetInt32(2);
@@ -257,7 +256,7 @@ namespace WebApplication1.Controllers
                                 rm.bankName = reader.GetString(8);
                                 rm.accountName = reader.GetString(9);
                                 
-                                remittancesModels.Add(rm);
+                                referencesModels.Add(rm);
                             }
                         }
                     }
@@ -267,7 +266,7 @@ namespace WebApplication1.Controllers
             {
                 Debug.WriteLine(e.ToString());
             }
-            result.CurrentRemittances = remittancesModels;
+            result.CurrentReferences = referencesModels;
 
             return View(deliveryReceiptsModels);
         }
@@ -281,7 +280,7 @@ namespace WebApplication1.Controllers
                 {
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "UPDATE DeliverReceipts SET invoiceNo = @in, soldTo = @st, dateSold = @ds, terms = @t  WHERE drNo = @dn";
+                        command.CommandText = "UPDATE dr SET invoiceNo = @in, soldTo = @st, dateSold = @ds, terms = @t  WHERE drNo = @dn";
 
                         command.Parameters.AddWithValue("@in", Request.Form["invoiceNo"].ToString());
                         command.Parameters.AddWithValue("@st", Request.Form["soldTo"].ToString());
@@ -309,7 +308,7 @@ namespace WebApplication1.Controllers
                 {
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "INSERT Into DeliveryReceipts (invoiceNo, soldTo, dateSold, terms, drNo) Values (@in, @st, @ds, @t, @dn)";
+                        command.CommandText = "INSERT Into dr (invoiceNo, soldTo, dateSold, terms, drNo) Values (@in, @st, @ds, @t, @dn)";
 
                         command.Parameters.AddWithValue("@in", "");
                         command.Parameters.AddWithValue("@st", "");

@@ -470,7 +470,7 @@ namespace WebApplication1.Controllers
                                 am.Id = reader.GetInt32(0);
                                 am.lastName = reader.GetString(1);
                                 am.firstName = reader.GetString(2);
-                                am.isDefault = reader.GetString(3);
+                                am.isDefault = reader.GetSqlBinary(3).ToString();
                                 am.dealerId = reader.GetInt32(4);
                             }
                         }

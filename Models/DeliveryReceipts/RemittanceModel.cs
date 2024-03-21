@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace WebApplication1.Models.DeliveryReceipts
 {
-    public class RemittancesModel
+    public class RemittanceModel
     {
         [Key]
         public int drNo { get; set; }
