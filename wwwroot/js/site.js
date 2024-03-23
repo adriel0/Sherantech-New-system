@@ -57,3 +57,12 @@ function openTab(evt, tabName) {
     lowerBody.style.top = `${upperBodyHeight + 90}px`;
     //evt.currentTarget.className += " active";
 }
+
+function uncheckOthers(currentCheckbox) {
+    var checkboxes = document.querySelectorAll('.check-space');
+    checkboxes.forEach(function(checkbox) {
+        if (checkbox !== currentCheckbox) {
+            checkbox.checked = false;
+        }
+    });
+}

@@ -56,17 +56,19 @@
             </div>
 
             <div class="button-horizontal">
-                <label class="check">
-                    <input type="checkbox" class="check-space" name="ReceiveNotYetDue">Not Yet Due
-                </label>
-                <label class="check">
-                    <input type="checkbox" class="check-space" name="ReceiveClear">Cleared
-                </label>
-                <label class="check">
-                    <input type="checkbox" class="check-space" name="ReceiveOnHold">On Hold
-                </label>
-                <input type="submit" class="button" value="Save" />
-                <button type="submit" class="button">Cancel</button>
+                <div class="button-horizontal">
+                    <label class="check">
+                        <input type="checkbox" class="check-space" name="ReceiveNotYetDue" onclick="uncheckOthers(this)">Not Yet Due
+                    </label>
+                    <label class="check">
+                        <input type="checkbox" class="check-space" name="ReceiveClear" onclick="uncheckOthers(this)">Cleared
+                    </label>
+                    <label class="check">
+                        <input type="checkbox" class="check-space" name="ReceiveOnHold" onclick="uncheckOthers(this)">On Hold
+                    </label>
+                    <input type="submit" class="button" value="Save" />
+                    <button type="submit" class="button">Cancel</button>
+                </div>
             </div>
         </div>
     </form>
