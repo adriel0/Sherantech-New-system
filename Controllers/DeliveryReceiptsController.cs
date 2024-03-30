@@ -299,8 +299,12 @@ namespace WebApplication1.Controllers
             }
             return RedirectToAction("Index");
         }
-        
-        public IActionResult Add()
+
+        public IActionResult addDR()
+        {
+            return View();
+        }
+        public IActionResult Addpost()
         {
             try
             {

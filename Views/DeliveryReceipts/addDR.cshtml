@@ -1,0 +1,235 @@
+﻿@{
+    
+    ViewData["Title"] = "Sharentach Trading Inc. | Delivery Receipts";
+}
+
+<div class="header">DELIVERY RECEIPTS</div>
+<div class="upper-nav">
+    <ul class="nav-options">
+        <li><a class="tablinks" onclick="openTab(event, 'Details')" id="default">Details</a></li>
+        <li><a class="tablinks" onclick="openTab(event, 'Item')">Items</a></li>
+        <li><a class="tablinks" onclick="openTab(event, 'Serial')">Serials</a></li>
+        <li><a class="tablinks" onclick="openTab(event, 'Remittance')">Remittances</a></li>
+    </ul>
+</div>
+
+<div class="tabcontent" id="Details">
+    <form method="post">
+        <div class="upper-body">
+            <div class="form large">
+                <label class="form-text" for="DeliveryDrNo">DR #:</label>
+                <input type="text" class="form-type" name="DeliveryDrNo" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="DeliveryInvoiceNo">Invoice #:</label>
+                <input type="text" class="form-type" name="DeliveryInvoiceNo" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="DeliverySoldTo">Sold To:</label>
+                <input type="text" class="form-type" name="DeliverySoldTo" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="DeliverySRep">Sales Representative:</label>
+                <input type="text" class="form-type" name="DeliverySRep" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="DeliveryTerms">Terms:</label>
+                <div class="input-with-button">
+                    <input type="text" class="form-type" name="DeliveryTerms" placeholder="Enter here" />
+                    <button type="submit" class="button">New Term</button>
+                </div>
+            </div>
+            <div class="form large">
+                <label class="form-text" for="DeliveryPONum">P.O. #:</label>
+                <input type="text" class="form-type" name="DeliveryPONum" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="DeliveryAddress">Address:</label>
+                <input type="text" class="form-type" name="DeliveryAddress" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="DeliveryDateSold">Date Sold:</label>
+                <input type="text" class="form-type" name="DeliveryDateSold" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="DeliveryRemarks">Remarks:</label>
+                <input type="text" class="form-type" name="DeliveryRemarks" placeholder="Enter here" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="DeliverySaleInvoice">Sales Invoice:</label>
+                <input type="text" class="form-type" name="DeliverySaleInvoice" placeholder="Enter here" />
+            </div>
+
+            <div class="button-horizontal">
+                <label class="check">
+                    <input type="checkbox" class="check-space" name="DeliveryCancelled" onclick="uncheckOthers(this)">Cancelled
+                </label>
+                <label class="check">
+                    <input type="checkbox" class="check-space" name="DeliveryClosed" onclick="uncheckOthers(this)">Closed Transaction
+                </label>
+                <input type="submit" class="button" value="Save" />
+                <button type="submit" class="button">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="tabcontent" id="Item">
+    <div>
+        <div class="upper-body">
+            <table class="scroll" cellpadding="5" width="100%">
+                <tr>
+                    <th>
+                        qty
+                    </th>
+                    <th>
+                        unit
+                    </th>
+                    <th>
+                        article
+                    </th>
+                    <th>
+                        unitPrice
+                    </th>
+                    <th>
+                        discount
+                    </th>
+                    <th>
+                        amount
+                    </th>
+                    <th>
+                        commission
+                    </th>
+                    <th>
+                        payTo
+                    </th>
+                    <th>
+                        demo
+                    </th>
+                    <th>
+                        returned
+                    </th>
+                </tr>
+            </table>
+
+            <div class="button-vertical">
+                <button type="submit" class="button">Add</button>
+                <button type="submit" class="button">Edit</button>
+                <button type="submit" class="button">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tabcontent" id="Serial">
+    <div>
+        <div class="upper-body">
+            <table class="scroll" cellpadding="5" width="100%">
+                <tr>
+                    <th>
+                        serialNo
+                    </th>
+                    <th>
+                        name
+                    </th>
+                    <th>
+                        desc
+                    </th>
+                    <th>
+                        category
+                    </th>
+                    <th>
+                        warranty
+                    </th>
+                    <th>
+                        free
+                    </th>
+                    <th>
+                        demo
+                    </th>
+                </tr>
+            </table>
+
+            <div class="button-vertical">
+                <button type="submit" class="button">Add</button>
+                <button type="submit" class="button">Edit</button>
+                <button type="submit" class="button">Delete</button>
+                <button type="submit" class="button">Batch Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tabcontent" id="Remittance">
+    <div>
+        <div class="upper-body">
+            <table class="scroll" cellpadding="5" width="100%">
+                <tr>
+                    <th>
+                        checkNo
+                    </th>
+                    <th>
+                        accountNo
+                    </th>
+                    <th>
+                        amount
+                    </th>
+                    <th>
+                        dateIssued
+                    </th>
+                    <th>
+                        dateDue
+                    </th>
+                    <th>
+                        status
+                    </th>
+                    <th>
+                        payToTheOrderOf
+                    </th>
+                    <th>
+                        bankName
+                    </th>
+                    <th>
+                        accountName
+                    </th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="lower-body">
+    <div class="filter-form">
+        <label class="filter-text" for="#">Filter</label>
+        <input type="text" class="filter-type" name="#" value="" />
+    </div>
+    <div class="scroll">
+        <table cellpadding="5" width="100%">
+            <tr>
+                <th>
+                    DeliveryDrNo
+                </th>
+                <th>
+                    DeliveryInvoiceNo
+                </th>
+                <th>
+                    DeliverySoldTo
+                </th>
+                <th>
+                    DeliveryDateSold
+                </th>
+                <th>
+                    DeliveryTerms
+                </th>
+            </tr>
+        </table>
+    </div>
+    <div class="button-vertical">
+        <button type="submit" class="button">Add</button>
+        <button type="submit" class="button">Edit</button>
+        <button type="submit" class="button">Delete</button>
+        <button type="submit" class="button">Jump DR</button>
+        <button type="submit" class="button">Print DR</button>
+        <button type="submit" class="button">Print SI</button>
+    </div>
+</div>
