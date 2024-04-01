@@ -7,6 +7,6 @@ namespace WebApplication1.Models.Srep
     public class SrepDisplayDataModel
     {
         [AllowNull]
-        public List<SrepModel>? CurrentSrep { get; set; }
+        public List<SrepModel>? data { get; set; }
     }
 }

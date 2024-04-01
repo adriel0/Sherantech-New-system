@@ -1,0 +1,20 @@
+﻿
+@{
+
+    ViewData["Title"] = "Sharentach Trading Inc. | Sales Representative";
+}
+<div class="header">Sales Representative</div>
+
+<form method="post">
+    <div class="upper-body">
+        <div class="form large">
+            <label class="form-text" for="name">Name:</label>
+            <input type="text" class="form-type" name="name" placeholder="Enter here" value="@Model.name" />
+        </div>
+            
+
+        <div class="button-horizontal">
+            <input type="submit" class="button" value="Save" asp-area="" asp-controller="sRep" asp-action="editpost" asp-route-id="@Model.Id">
+        </div>
+    </div>
+</form>

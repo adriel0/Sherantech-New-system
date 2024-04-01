@@ -9,19 +9,29 @@
     <table class="scroll" cellpadding="5" width="100%">
         <tr>
             <th>
-                lastName
-            </th>
-            <th>
-                middleName
-            </th>
-            <th>
-                firstName
+                Name
             </th>
         </tr>
+        @foreach (var i in Model.data)
+        {
+            <tr>
+                <td>
+                    @i.name
+                </td>
+                <td>
+                    <a asp-area="" asp-controller="Srep" asp-action="edit" asp-route-id="@i.Id">
+                        edit
+                    </a>
+                </td>
+                <td>
+                    <a asp-area="" asp-controller="Srep" asp-action="delete" asp-route-id="@i.Id">
+                        delete
+                    </a>
+                </td>
+            </tr>
+        }
     </table>
     <div class="button-vertical">
-        <button type="submit" class="button">Add</button>
-        <button type="submit" class="button">Edit</button>
-        <button type="submit" class="button">Delete</button>
+        <button onclick='document.getElementById("addbutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="sRep" asp-action="add" id="addbutton">Add</a></button>
     </div>
 </div>
