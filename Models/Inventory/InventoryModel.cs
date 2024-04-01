@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
 
 namespace WebApplication1.Models.Inventory
 {
@@ -14,6 +15,6 @@ namespace WebApplication1.Models.Inventory
         [AllowNull]
         public string? category { get; set; }
         [AllowNull]
-        public int unitPrice { get; set; }
+        public BigInteger unitPrice { get; set; }
     }
 }

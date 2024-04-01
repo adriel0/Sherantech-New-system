@@ -6,6 +6,7 @@ using System.Net;
 using System.Reflection.PortableExecutable;
 using WebApplication1.Models;
 using WebApplication1.Models.Inventory;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebApplication1.Controllers
 {
@@ -65,7 +66,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT inv.id,inv.name,inv.description,c.category,inv.unitPrice FROM Inventory as inv INNER JOIN category as c on c.id=inv.category";
+                    String sql = "SELECT inv.id,inv.name,inv.description,inv.category,inv.unitPrice FROM Inventory as inv";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -74,10 +75,11 @@ namespace WebApplication1.Controllers
                             while (reader.Read())
                             {
                                 InventoryModel im = new InventoryModel();
-                                im.name = reader.GetString(0);
-                                im.description = reader.GetString(1);
-                                im.category = reader.GetString(2);
-                                im.unitPrice = reader.GetInt32(3);
+                                im.Id = reader.GetInt32(0);
+                                im.name = reader.GetString(1);
+                                im.description = reader.GetString(2);
+                                im.category = reader.GetString(3);
+                                im.unitPrice = reader.GetInt64(4);
 
 
                                 inventoryModels.Add(im);
@@ -106,7 +108,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT inv.id,inv.name,inv.description,c.category,inv.unitPrice,inv.unit,inv.qtyPerBox,d.name,inv.hasSerial FROM Inventory as inv INNER JOIN category as c on c.id=inv.category INNER JOIN dealers as d on d.id=inv.supplier WHERE id=@id";
+                    String sql = "SELECT inv.id,inv.name,inv.description,inv.category,inv.unitPrice,inv.unit,inv.qtyPerBox,inv.Supplier,inv.hasSerial FROM Inventory as inv WHERE inv.id=@id";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -119,10 +121,10 @@ namespace WebApplication1.Controllers
                                 result.CurrentDetails.name = reader.GetString(1);
                                 result.CurrentDetails.description = reader.GetString(2);
                                 result.CurrentDetails.category = reader.GetString(3);
-                                result.CurrentDetails.unitPrice = reader.GetInt32(4);
-                                result.CurrentDetails.unit = reader.GetString(5);
-                                result.CurrentDetails.qtyPerBox = reader.GetInt32(6);
-                                result.CurrentDetails.supplier = reader.GetString(7);
+                                result.CurrentDetails.unitPrice = reader.GetInt64(4);
+                                result.CurrentDetails.unit = reader.GetInt64(5);
+                                result.CurrentDetails.qtyPerBox = reader.GetInt64(6);
+                                result.CurrentDetails.supplier = reader.GetInt32(7);
                                 result.CurrentDetails.hasSerial = reader.GetBoolean(8);
                                 
                             }
@@ -134,8 +136,41 @@ namespace WebApplication1.Controllers
             {
                 Debug.WriteLine(e.ToString());
             }
+            List<SelectListItem> dl = new List<SelectListItem>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    Console.WriteLine("\nQuery data example:");
+                    Console.WriteLine("=========================================\n");
 
-            return View(inventoryModels);
+                    connection.Open();
+
+                    String sql = "SELECT id,DealerBusinessName FROM Dealers";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                SelectListItem d = new SelectListItem();
+                                d.Value = reader.GetInt32(0).ToString();
+                                d.Text = reader.GetString(1);
+                                dl.Add(d);
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            result.dealers = dl;
+
+            return View(result);
         }
         
         [HttpPost]

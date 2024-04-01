@@ -15,71 +15,37 @@
         <div class="upper-body">
             <div class="form xlarge">
                 <label class="form-text" for="StockName">Name:</label>
-                <input type="text" class="form-type" name="StockName" placeholder="Enter here" />
+                <input type="text" class="form-type" name="StockName" placeholder="Enter here" value="@Model.CurrentDetails.name" />
             </div>
             <div class="form xlarge">
                 <label class="form-text" for="StockDescription">Description:</label>
-                <input type="text" class="form-type" name="StockDescription" placeholder="Enter here" />
+                <input type="text" class="form-type" name="StockDescription" placeholder="Enter here" value="@Model.CurrentDetails.description" />
             </div>
             <div class="form large">
                 <label class="form-text" for="StockCategory">Category:</label>
-                <div class="input-with-button">
-                    <input type="text" class="form-type" name="StockCategory" placeholder="Enter here" />
-                    <button type="submit" class="button">New Category</button>
-                </div>
+                <input type="text" class="form-type" name="StockCategory" placeholder="Enter here" value="@Model.CurrentDetails.category" />
             </div>
             <div class="form">
                 <label class="form-text" for="StockUnitPrice">Unit Price:</label>
-                <input type="text" class="form-type" name="StockUnitPrice" placeholder="Enter here" />
+                <input type="text" class="form-type" name="StockUnitPrice" placeholder="Enter here" value="@Model.CurrentDetails.unitPrice" />
             </div>
             <div class="form">
                 <label class="form-text" for="StockUnit">Unit:</label>
-                <input type="text" class="form-type" name="StockUnit" placeholder="Enter here" />
+                <input type="text" class="form-type" name="StockUnit" placeholder="Enter here" value="@Model.CurrentDetails.unit" />
             </div>
             <div class="form">
                 <label class="form-text" for="StockQtyPerBox">Quantity Per Box:</label>
-                <input type="text" class="form-type" name="StockQtyPerBox" placeholder="Enter here" />
-            </div>
-            <div class="form">
-                <label class="form-text" for="StockPurchasePrice">Purchase Price:</label>
-                <input type="text" class="form-type" name="StockPurchasePrice" placeholder="Enter here" />
-            </div>
-            <div class="form">
-                <label class="form-text" for="StockVolPrice">Volume Price:</label>
-                <input type="text" class="form-type" name="StockVolPrice" placeholder="Enter here" />
-            </div>
-            <div class="form">
-                <label class="form-text" for="StockVolQty">Volume Quantity:</label>
-                <input type="text" class="form-type" name="StockVolQty" placeholder="Enter here" />
-            </div>
-            <div class="form large">
-                <label class="form-text" for="StockWarrantyPeriod">Warranty Period:</label>
-                <input type="text" class="form-type" name="StockWarrantyPeriod" placeholder="Enter here" />
-            </div>
-            <div class="form large">
-                <label class="form-text" for="StockExtendedWarranty">Extended Warranty:</label>
-                <input type="text" class="form-type" name="StockExtendedWarranty" placeholder="Enter here" />
+                <input type="text" class="form-type" name="StockQtyPerBox" placeholder="Enter here" value="@Model.CurrentDetails.qtyPerBox" />
             </div>
             <div class="form xlarge">
                 <label class="form-text" for="StockSupplier">Supplier:</label>
-                <input type="text" class="form-type" name="StockSupplier" placeholder="Enter here" />
+                @Html.DropDownList("soldTo", (List<SelectListItem>)Model.dealers, new { @class = "form-type" })
             </div>
-            <div class="form">
-                <label class="form-text" for="StockMaxLvl">Max Value:</label>
-                <input type="text" class="form-type" name="StockMaxLvl" placeholder="Enter here" />
-            </div>
-            <div class="form">
-                <label class="form-text" for="StockMinLvl">Min Value:</label>
-                <input type="text" class="form-type" name="StockMinLvl" placeholder="Enter here" />
-            </div>
-            <div class="form">
-                <label class="form-text" for="StockMarkUp">MarkUp:</label>
-                <input type="text" class="form-type" name="StockMarkUp" placeholder="Enter here" />
-            </div>
+          
 
             <div class="button-horizontal">
                 <label class="check">
-                    <input type="checkbox" class="check-space" name="StockSerial">Has Serial
+                    <input type="checkbox" class="check-space" name="StockSerial" checked="@Model.CurrentDetails.hasSerial">Has Serial
                 </label>
                 <input type="submit" class="button" value="Save" />
                 <button type="submit" class="button">Cancel</button>
@@ -97,6 +63,9 @@
         <table cellpadding="5" width="100%">
             <tr>
                 <th>
+                    id
+                </th>
+                <th>
                     StockName
                 </th>
                 <th>
@@ -109,6 +78,28 @@
                     StockDescription
                 </th>
             </tr>
+            @foreach (var i in Model.Data)
+            {
+                <tr>
+                    <td>
+                        <a asp-area="" asp-controller="Inventory" asp-action="index" asp-route-id="@i.Id">
+                            @i.Id
+                        </a>
+                    </td>
+                    <td>
+                        @i.name
+                    </td>
+                    <td>
+                        @i.category
+                    </td>
+                    <td>
+                        @i.unitPrice
+                    </td>
+                    <td>
+                        @i.description
+                    </td>
+                </tr>
+            }
         </table>
     </div>
     <div class="button-vertical">
