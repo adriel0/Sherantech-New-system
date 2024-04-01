@@ -8,10 +8,12 @@ using System.Security.Cryptography;
 using WebApplication1.Models;
 using WebApplication1.Models.Dealers;
 using WebApplication1.Models.DeliveryReceipts;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 
 namespace WebApplication1.Controllers
 {
-    public class DeliveryReceiptsController : Controller
+    public class DeliveryReceiptsController : Microsoft.AspNetCore.Mvc.Controller
     {
         private readonly ILogger<DeliveryReceiptsController> _logger;
 
@@ -129,10 +131,7 @@ namespace WebApplication1.Controllers
                                 result.CurrentDetails.address = reader.GetString(7);
                                 result.CurrentDetails.dateSold = reader.GetSqlDateTime(8).Value;
                                 result.CurrentDetails.remarks = reader.GetString(9);
-                                result.CurrentDetails.autoGenerate = reader.GetBoolean(10);
-                                result.CurrentDetails.salesInvoice = reader.GetString(11);
-                                result.CurrentDetails.cancelled = reader.GetBoolean(12);
-                                result.CurrentDetails.closeTransaction = reader.GetBoolean(13);
+                                result.CurrentDetails.closeTransaction = reader.GetBoolean(10);
                                 
                             }
                         }
@@ -207,8 +206,6 @@ namespace WebApplication1.Controllers
                                 sm.drNo = reader.GetInt32(0);
                                 sm.serialNo = reader.GetInt32(1);
                                 sm.name = reader.GetString(2);
-                                sm.description = reader.GetString(3);
-                                sm.category = reader.GetString(4);
                                 sm.warranty = reader.GetInt32(5);
                                 sm.free = reader.GetBoolean(6);
                                 sm.demo = reader.GetBoolean(7);
@@ -268,10 +265,45 @@ namespace WebApplication1.Controllers
             }
             result.CurrentReferences = referencesModels;
 
-            return View(deliveryReceiptsModels);
+
+            List < SelectListItem > dl = new List < SelectListItem >();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    Console.WriteLine("\nQuery data example:");
+                    Console.WriteLine("=========================================\n");
+
+                    connection.Open();
+
+                    String sql = "SELECT id,DealerBusinessName FROM Dealers";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                SelectListItem d = new SelectListItem();
+                                d.Value = reader.GetInt32(0).ToString();
+                                d.Text = reader.GetString(1);
+                                dl.Add(d);
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            result.dealers = dl;
+
+            return View(result);
         }
         
-        [HttpPost]
+        [Microsoft.AspNetCore.Mvc.HttpPost]
         public IActionResult Edit(int id)
         {
             try
@@ -300,7 +332,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult addDR()
+        public IActionResult addDr()
         {
             return View();
         }

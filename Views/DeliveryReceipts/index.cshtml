@@ -1,8 +1,7 @@
 ﻿@{
-    
+
     ViewData["Title"] = "Sharentach Trading Inc. | Delivery Receipts";
 }
-
 <div class="header">DELIVERY RECEIPTS</div>
 <div class="upper-nav">
     <ul class="nav-options">
@@ -26,7 +25,8 @@
             </div>
             <div class="form large">
                 <label class="form-text" for="DeliverySoldTo">Sold To:</label>
-                <input type="text" class="form-type" name="DeliverySoldTo" placeholder="Enter here" />
+                @Html.DropDownList("DeliverySoldTo", (List<SelectListItem>)Model.dealers, new { @class = "form-type" })@*, new { @class = "form-control" })*
+                <input type="text" class="form-type" name="DeliverySoldTo" placeholder="Enter here" />*@
             </div>
             <div class="form large">
                 <label class="form-text" for="DeliverySRep">Sales Representative:</label>
@@ -55,17 +55,10 @@
                 <label class="form-text" for="DeliveryRemarks">Remarks:</label>
                 <input type="text" class="form-type" name="DeliveryRemarks" placeholder="Enter here" />
             </div>
-            <div class="form large">
-                <label class="form-text" for="DeliverySaleInvoice">Sales Invoice:</label>
-                <input type="text" class="form-type" name="DeliverySaleInvoice" placeholder="Enter here" />
-            </div>
 
             <div class="button-horizontal">
                 <label class="check">
-                    <input type="checkbox" class="check-space" name="DeliveryCancelled" onclick="uncheckOthers(this)">Cancelled
-                </label>
-                <label class="check">
-                    <input type="checkbox" class="check-space" name="DeliveryClosed" onclick="uncheckOthers(this)">Closed Transaction
+                    <input type="checkbox" class="check-space" name="DeliveryClosed">Closed Transaction
                 </label>
                 <input type="submit" class="button" value="Save" />
                 <button type="submit" class="button">Cancel</button>

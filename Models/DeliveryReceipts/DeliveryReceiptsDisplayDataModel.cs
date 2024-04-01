@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebApplication1.Models.DeliveryReceipts
 {
@@ -16,5 +17,7 @@ namespace WebApplication1.Models.DeliveryReceipts
         public List<RemittanceModel>? CurrentReferences { get; set; }
         [AllowNull]
         public DeliveryReceiptsDetailsModel? CurrentDetails { get; set; }
+        [AllowNull]
+        public List<SelectListItem> dealers { get; set; }
     }
 }
