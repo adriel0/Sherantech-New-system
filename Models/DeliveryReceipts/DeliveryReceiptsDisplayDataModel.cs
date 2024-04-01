@@ -19,5 +19,8 @@ namespace WebApplication1.Models.DeliveryReceipts
         public DeliveryReceiptsDetailsModel? CurrentDetails { get; set; }
         [AllowNull]
         public List<SelectListItem> dealers { get; set; }
+
+        [AllowNull]
+        public List<SelectListItem> sRep { get; set; }
     }
 }

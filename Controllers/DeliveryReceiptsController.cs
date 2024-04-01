@@ -300,6 +300,42 @@ namespace WebApplication1.Controllers
             }
             result.dealers = dl;
 
+
+            List<SelectListItem> sl = new List<SelectListItem>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    Console.WriteLine("\nQuery data example:");
+                    Console.WriteLine("=========================================\n");
+
+                    connection.Open();
+
+                    String sql = "SELECT id,name FROM salesrep";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                SelectListItem s = new SelectListItem();
+                                s.Value = reader.GetInt32(0).ToString();
+                                s.Text = reader.GetString(1);
+                                sl.Add(s);
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            result.sRep = sl;
+
+
             return View(result);
         }
         

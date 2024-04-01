@@ -30,7 +30,8 @@
             </div>
             <div class="form large">
                 <label class="form-text" for="DeliverySRep">Sales Representative:</label>
-                <input type="text" class="form-type" name="DeliverySRep" placeholder="Enter here" />
+                @Html.DropDownList("DeliverySRep", (List<SelectListItem>)Model.sRep, new { @class = "form-type" })@*
+                <input type="text" class="form-type" name="DeliverySRep" placeholder="Enter here" />*@
             </div>
             <div class="form large">
                 <label class="form-text" for="DeliveryTerms">Terms:</label>
