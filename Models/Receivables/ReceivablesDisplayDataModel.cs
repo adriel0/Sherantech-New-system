@@ -2,6 +2,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using WebApplication1.Models.Purchases;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 
 namespace WebApplication1.Models.Receivables
 {
@@ -13,5 +15,7 @@ namespace WebApplication1.Models.Receivables
         public ReceivablesDetailsModel? Current { get; set; }
         [AllowNull]
         public List<ReferenceNoModel>? CurrentReferenceNo { get; set; }
+        [AllowNull]
+        public List<SelectListItem> dealers { get; set; }
     }
 }

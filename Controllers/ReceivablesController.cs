@@ -8,6 +8,7 @@ using WebApplication1.Models;
 using WebApplication1.Models.Dealers;
 using WebApplication1.Models.Purchases;
 using WebApplication1.Models.Receivables;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebApplication1.Controllers
 {
@@ -68,7 +69,9 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM Receivables";
+                    String sql = "SELECT r.accountNo, d.DealerBusinessName, dbr.bank, r.checkNo, r.rtNo, r.payToTheorderOf, r.dateIssued, r.dateDue, r.amount, r.status, r.remarks FROM Receivables as r " +
+                        "INNER JOIN Dealers as d on d.id = r.dealer " +
+                        "INNER JOIN DealerBankRef as dbr on dbr.DealerId = r.dealer AND dbr.id = r.bankName";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -83,11 +86,12 @@ namespace WebApplication1.Controllers
                                 rm.checkNo = reader.GetInt32(3);
                                 rm.rtNo = reader.GetInt32(4);
                                 rm.payToTheOrderOf = reader.GetString(5);
-                                rm.dateIssued = reader.GetSqlDateTime(6).Value;
-                                rm.dateDue = reader.GetSqlDateTime(7).Value;
+                                rm.dateIssued = reader.GetDateTime(6);
+                                rm.dateDue = reader.GetDateTime(7);
                                 rm.amount = reader.GetInt32(8);
                                 rm.status = reader.GetString(9);
                                 rm.remarks = reader.GetString(10);
+                                rm.Id = reader.GetInt32(11);
 
                                 receivablesModels.Add(rm);
 
@@ -145,7 +149,7 @@ namespace WebApplication1.Controllers
             }
 
             result.CurrentReferenceNo = referenceNoModels;
-
+            List<SelectListItem> dl = new List<SelectListItem>();
             try
             {
                 using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
@@ -155,30 +159,19 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM Dealers WHERE Id=@did";
+                    String sql = "SELECT id,DealerBusinessName FROM Dealers";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
-                        command.Parameters.AddWithValue("@did", id);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                result.Current.Id = reader.GetInt32(0);
-                                result.Current.accountNo = reader.GetInt32(1);
-                                result.Current.dealer = reader.GetString(2);
-                                result.Current.checkNo = reader.GetInt32(3);
-                                result.Current.rtNo = reader.GetInt32(4);
-                                result.Current.payToTheOrderOf = reader.GetString(5);
-                                result.Current.dateIssued = reader.GetSqlDateTime(6).Value;
-                                result.Current.dateDue = reader.GetSqlDateTime(7).Value;
-                                result.Current.amount = reader.GetInt32(8);
-                                result.Current.status = reader.GetString(9);
-                                result.Current.remarks = reader.GetString(10);
-                                result.Current.notYetDue = reader.GetBoolean(11);
-                                result.Current.cleared = reader.GetBoolean(12);
-                                result.Current.onHold = reader.GetBoolean(13);
-                                result.Current.others = reader.GetString(14);
+                                SelectListItem d = new SelectListItem();
+                                d.Value = reader.GetInt32(0).ToString();
+                                d.Text = reader.GetString(1);
+                                dl.Add(d);
+
                             }
                         }
                     }
@@ -188,9 +181,10 @@ namespace WebApplication1.Controllers
             {
                 Debug.WriteLine(e.ToString());
             }
+            result.dealers = dl;
 
 
-            return View(receivablesModels);
+            return View(result);
         }
         
         [HttpPost]

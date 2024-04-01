@@ -6,8 +6,8 @@
 <div class="upper-nav">
     <ul class="nav-options">
         <li><a class="tablinks" onclick="openTab(event, 'Details')" id="default">Details</a></li>
-        <li><a class="tablinks" onclick="openTab(event, 'Item')">Items</a></li>
-        <li><a class="tablinks" onclick="openTab(event, 'Serial')">Serials</a></li>
+        <li><a class="tablinks" onclick="openTab(event, 'Item')">Items</a></li>@* 
+        <li><a class="tablinks" onclick="openTab(event, 'Serial')">Serials</a></li> *@
         <li><a class="tablinks" onclick="openTab(event, 'Remittance')">Remittances</a></li>
     </ul>
 </div>
@@ -86,13 +86,7 @@
                         unitPrice
                     </th>
                     <th>
-                        discount
-                    </th>
-                    <th>
                         amount
-                    </th>
-                    <th>
-                        commission
                     </th>
                     <th>
                         payTo
@@ -104,6 +98,35 @@
                         returned
                     </th>
                 </tr>
+                @foreach (var i in Model.CurrentItems)
+                {
+                    <tr>
+                        <td>
+                            @i.qty
+                        </td>
+                        <td>
+                            @i.unit
+                        </td>
+                        <td>
+                            @i.article
+                        </td>
+                        <td>
+                            @i.unitPrice
+                        </td>
+                        <td>
+                            @i.amount
+                        </td>
+                        <td>
+                            @i.payTo
+                        </td>
+                        <td>
+                            @i.demo
+                        </td>
+                        <td>
+                            @i.returned
+                        </td>
+                    </tr>
+                }
             </table>
 
             <div class="button-vertical">
@@ -216,6 +239,30 @@
                     DeliveryTerms
                 </th>
             </tr>
+            @foreach (var i in Model.Data)
+            {
+
+                <tr>
+                    <td>
+                       <a asp-area="" asp-controller="DeliveryReceipts" asp-action="index" asp-route-id="@i.drNo">
+                            @i.drNo
+                        </a>
+                    </td>
+                    <td>
+                        @i.invoiceNo
+                    </td>
+                    <td>
+                        @i.soldTo
+                    </td>
+                    <td>
+                        @i.dateSold
+                    </td>
+                    <td>
+                        @i.terms
+                    </td>
+                </tr>
+
+            }
         </table>
     </div>
     <div class="button-vertical">

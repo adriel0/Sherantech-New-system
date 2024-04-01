@@ -70,7 +70,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT drNo, invoiceNo, soldTo, dateSold, terms FROM dr";
+                    String sql = "SELECT drNo, invoiceNo, Dealers.DealerBusinessName, dateSold, terms FROM dr INNER JOIN Dealers on dr.soldTo = Dealers.id";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -82,7 +82,7 @@ namespace WebApplication1.Controllers
                                 d.drNo = reader.GetInt32(0);
                                 d.invoiceNo = reader.GetInt32(1);
                                 d.soldTo = reader.GetString(2);
-                                d.dateSold = reader.GetSqlDateTime(3).Value;
+                                d.dateSold = reader.GetDateTime(3);
                                 d.terms = reader.GetString(4);
 
 
@@ -123,13 +123,13 @@ namespace WebApplication1.Controllers
                             {
                                 result.CurrentDetails.drNo = reader.GetInt32(0);
                                 result.CurrentDetails.invoiceNo = reader.GetInt32(1);
-                                result.CurrentDetails.soldTo = reader.GetString(2);
-                                result.CurrentDetails.salesRepresentative = reader.GetString(3);
+                                result.CurrentDetails.soldTo = reader.GetInt32(2);
+                                result.CurrentDetails.salesRepresentative = reader.GetInt32(3);
                                 result.CurrentDetails.terms = reader.GetString(4);
-                                result.CurrentDetails.POnumber = reader.GetInt32(5);
+                                result.CurrentDetails.POnumber = reader.GetInt64(5);
                                 result.CurrentDetails.others = reader.GetString(6);
                                 result.CurrentDetails.address = reader.GetString(7);
-                                result.CurrentDetails.dateSold = reader.GetSqlDateTime(8).Value;
+                                result.CurrentDetails.dateSold = reader.GetDateTime(8);
                                 result.CurrentDetails.remarks = reader.GetString(9);
                                 result.CurrentDetails.closeTransaction = reader.GetBoolean(10);
                                 
@@ -152,7 +152,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT dri.drno, dri.qty, dri.unit, inv.name, dri.unitPrice, dri.amount, dri.payTo, dri.demo, dri.returned FROM drItems as dri INNER JOIN inventory as inv on dri.article=inv.id WHERE drNo=@id";
+                    String sql = "SELECT dri.drno, dri.qty, dri.unit, inv.name, dri.unitPrice, dri.amount, dri.payTo, dri.demo, dri.returned, dri.article FROM drItems as dri INNER JOIN inventory as inv on dri.article=inv.id WHERE drNo=@id";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -163,14 +163,15 @@ namespace WebApplication1.Controllers
                             {
                                 DeliveryReceiptsItemsModel drim = new DeliveryReceiptsItemsModel();
                                 drim.drNo = reader.GetInt32(0);
-                                drim.qty = reader.GetInt32(1);
+                                drim.qty = reader.GetInt64(1);
                                 drim.unit = reader.GetString(2);
                                 drim.article = reader.GetString(3);
-                                drim.unitPrice = reader.GetInt32(4);
-                                drim.amount = reader.GetInt32(5);
+                                drim.unitPrice = reader.GetInt64(4);
+                                drim.amount = reader.GetInt64(5);
                                 drim.payTo = reader.GetString(6);
                                 drim.demo = reader.GetBoolean(7);
                                 drim.returned = reader.GetBoolean(8);
+                                drim.articlenum = reader.GetInt32(9);
 
                                 deliveryReceiptsItemsModels.Add(drim);
                             }
@@ -193,7 +194,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM drSerials WHERE drNo=@id";
+                    String sql = "SELECT drs.drNo, drs.serialNo, inv.name, drs.warranty, drs.free, drs.demo, drs.name FROM drSerials as drs INNER JOIN inventory as inv on drSerials.name=inv.id WHERE drNo=@id";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -206,10 +207,11 @@ namespace WebApplication1.Controllers
                                 sm.drNo = reader.GetInt32(0);
                                 sm.serialNo = reader.GetInt32(1);
                                 sm.name = reader.GetString(2);
-                                sm.warranty = reader.GetInt32(5);
-                                sm.free = reader.GetBoolean(6);
-                                sm.demo = reader.GetBoolean(7);
-                                
+                                sm.warranty = reader.GetInt32(3);
+                                sm.free = reader.GetBoolean(4);
+                                sm.demo = reader.GetBoolean(5);
+                                sm.namenum = reader.GetInt32(5);
+
                                 serialsModels.Add(sm);
                             }
                         }
@@ -372,8 +374,8 @@ namespace WebApplication1.Controllers
                             {
                                 result.CurrentDetails.drNo = reader.GetInt32(0);
                                 result.CurrentDetails.invoiceNo = reader.GetInt32(1);
-                                result.CurrentDetails.soldTo = reader.GetString(2);
-                                result.CurrentDetails.salesRepresentative = reader.GetString(3);
+                                result.CurrentDetails.soldTo = reader.GetInt32(2);
+                                result.CurrentDetails.salesRepresentative = reader.GetInt32(3);
                                 result.CurrentDetails.terms = reader.GetString(4);
                                 result.CurrentDetails.POnumber = reader.GetInt32(5);
                                 result.CurrentDetails.others = reader.GetString(6);

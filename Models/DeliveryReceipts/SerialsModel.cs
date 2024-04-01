@@ -21,5 +21,7 @@ namespace WebApplication1.Models.DeliveryReceipts
         public bool? free { get; set; }
         [AllowNull]
         public bool? demo { get; set; }
+        [AllowNull]
+        public int? namenum { get; set; }
     }
 }

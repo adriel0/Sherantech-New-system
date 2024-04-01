@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
 
 namespace WebApplication1.Models.DeliveryReceipts
 {
@@ -10,13 +11,13 @@ namespace WebApplication1.Models.DeliveryReceipts
         [AllowNull]
         public int invoiceNo { get; set; }
         [AllowNull]
-        public string? soldTo { get; set; }
+        public int? soldTo { get; set; }
         [AllowNull]
-        public string? salesRepresentative { get; set; }
+        public int? salesRepresentative { get; set; }
         [AllowNull]
         public string? terms { get; set; }
         [AllowNull]
-        public int POnumber { get; set; }
+        public BigInteger POnumber { get; set; }
         [AllowNull]
         public string? others { get; set; }
         [AllowNull]
