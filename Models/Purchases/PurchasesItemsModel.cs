@@ -23,5 +23,7 @@ namespace WebApplication1.Models.Purchases
         public int amount { get; set; }
         [AllowNull]
         public string? remarks { get; set; }
+        [AllowNull]
+        public string stockName { get; set; }
     }
 }

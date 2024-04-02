@@ -95,6 +95,35 @@
                         checkBalance
                     </th>
                 </tr>
+                @foreach (var i in Model.CurrentReferenceNo)
+                {
+                    <tr>
+                        <td>
+                            @i.drNo
+                        </td>
+                        <td>
+                            @i.invoiceNo
+                        </td>
+                        <td>
+                            @i.date
+                        </td>
+                        <td>
+                            @i.dealer
+                        </td>
+                        <td>
+                            @i.drAmount
+                        </td>
+                        <td>
+                            @i.amount
+                        </td>
+                        <td>
+                            @i.checkAmount
+                        </td>
+                        <td>
+                            @i.checkBalance
+                        </td>
+                    </tr>
+                }
             </table>
 
             <div class="button-vertical">
@@ -114,6 +143,9 @@
     <div class="scroll">
         <table cellpadding="5" width="100%">
             <tr>
+                <th>
+                    Id
+                </th>
                 <th>
                     ReceiveAccountNo
                 </th>
@@ -148,6 +180,49 @@
                     ReceiveRemarks
                 </th>
             </tr>
+            @foreach (var i in Model.Data)
+            {
+                <tr>
+                    <td>
+                        <a asp-area="" asp-controller="Receivables" asp-action="index" asp-route-id="@i.Id">
+                            @i.Id
+                        </a>
+                    </td>
+                    <td>
+                        @i.accountNo
+                    </td>
+                    <td>
+                        @i.dealer
+                    </td>
+                    <td>
+                        @i.bankName
+                    </td>
+                    <td>
+                        @i.checkNo
+                    </td>
+                    <td>
+                        @i.rtNo
+                    </td>
+                    <td>
+                        @i.payToTheOrderOf
+                    </td>
+                    <td>
+                        @i.dateIssued
+                    </td>
+                    <td>
+                        @i.dateDue
+                    </td>
+                    <td>
+                        @i.amount
+                    </td>
+                    <td>
+                        @i.status
+                    </td>
+                    <td>
+                        @i.remarks
+                    </td>
+                </tr>
+            }
         </table>
     </div>
     <div class="button-vertical">

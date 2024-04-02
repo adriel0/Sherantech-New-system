@@ -69,7 +69,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT r.accountNo, d.DealerBusinessName, dbr.bank, r.checkNo, r.rtNo, r.payToTheorderOf, r.dateIssued, r.dateDue, r.amount, r.status, r.remarks FROM Receivables as r " +
+                    String sql = "SELECT r.accountNo, d.DealerBusinessName, dbr.bank, r.checkNo, r.rtNo, r.payToTheorderOf, r.dateIssued, r.dateDue, r.amount, r.status, r.remarks, r.id FROM Receivables as r " +
                         "INNER JOIN Dealers as d on d.id = r.dealer " +
                         "INNER JOIN DealerBankRef as dbr on dbr.DealerId = r.dealer AND dbr.id = r.bankName";
 
@@ -83,7 +83,7 @@ namespace WebApplication1.Controllers
                                 rm.accountNo = reader.GetInt32(0);
                                 rm.dealer = reader.GetString(1);
                                 rm.bankName = reader.GetString(2);
-                                rm.checkNo = reader.GetInt32(3);
+                                rm.checkNo = reader.GetString(3);
                                 rm.rtNo = reader.GetInt32(4);
                                 rm.payToTheOrderOf = reader.GetString(5);
                                 rm.dateIssued = reader.GetDateTime(6);
@@ -116,7 +116,10 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM ReceivablesRefNo WHERE receivablesId=@id";
+                    String sql = "SELECT rn.id,rn.drNo,rn.invoiceNo,rn.date,d.DealerBusinessName,rn.drAmount,rn.checkAmount FROM ReceivablesRefNo as rn " +
+                        "INNER JOIN dr on dr.drNo = rn.drNo " +
+                        "INNER JOIN Dealers as d on d.id = dr.soldTo " +
+                        "WHERE receivablesId=@id";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -129,13 +132,10 @@ namespace WebApplication1.Controllers
                                 rnm.Id = reader.GetInt32(0);
                                 rnm.drNo = reader.GetInt32(1);
                                 rnm.invoiceNo = reader.GetInt32(2);
-                                rnm.date = reader.GetSqlDateTime(3).Value;
+                                rnm.date = reader.GetDateTime(3);
                                 rnm.dealer = reader.GetString(4);
                                 rnm.drAmount = reader.GetInt32(5);
-                                rnm.amount = reader.GetInt32(6);
-                                rnm.checkAmount = reader.GetInt32(7);
-                                rnm.checkBalance = reader.GetInt32(8);
-                                rnm.total = reader.GetInt32(9);
+                                rnm.checkAmount = reader.GetInt32(6);
 
                                 referenceNoModels.Add(rnm);
                             }

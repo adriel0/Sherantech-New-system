@@ -17,5 +17,7 @@ namespace WebApplication1.Models.Purchases
         public string? receivedBy { get; set; }
         [AllowNull]
         public bool? closed { get; set; }
+        [AllowNull]
+        public int? purchasedFromNum { get; set; }
     }
 }

@@ -7,6 +7,8 @@ using System.Reflection.PortableExecutable;
 using System.Security.Cryptography;
 using WebApplication1.Models;
 using WebApplication1.Models.Purchases;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using WebApplication1.Models.DeliveryReceipts;
 
 namespace WebApplication1.Controllers
 {
@@ -66,7 +68,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM Purchases";
+                    String sql = "SELECT p.id, p.referenceNo, d.DealerBusinessName, p.datePurchased, p.receivedBy, p.closed, p.purchasedFrom FROM Purchases as p INNER JOIN dealers as d on d.id=p.purchasedFrom";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -78,10 +80,10 @@ namespace WebApplication1.Controllers
                                 pm.Id = reader.GetInt32(0);
                                 pm.referenceNo = reader.GetInt32(1);
                                 pm.purchasedFrom = reader.GetString(2);
-                                pm.datePurchased = reader.GetSqlDateTime(3).Value;
+                                pm.datePurchased = reader.GetDateTime(3);
                                 pm.receivedBy = reader.GetString(4);
                                 pm.closed = reader.GetBoolean(5);
-
+                                pm.purchasedFromNum = reader.GetInt32(6);
                                 purchasesModels.Add(pm);
 
                             }
@@ -105,7 +107,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM PurchaceItems WHERE purchaseId=@id";
+                    String sql = "SELECT pi.id, pi.qty, pi.unit, pi.stockNo, pi.unitPrice, pi.amount, pi.remarks, inv.name FROM PurchaceItems as pi INNER JOIN inventory as inv on pi.stockNo=inv.id WHERE pi.purchaseId=@id";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -122,6 +124,7 @@ namespace WebApplication1.Controllers
                                 pim.unitPrice = reader.GetInt32(4);
                                 pim.amount = reader.GetInt32(5);
                                 pim.remarks = reader.GetString(6);
+                                pim.stockName = reader.GetString(7);
                                 purchasesItemsModels.Add(pim);
                             }
                         }
@@ -153,11 +156,11 @@ namespace WebApplication1.Controllers
                         {
                             while (reader.Read())
                             {
-                                
+
                                 result.Current.Id = reader.GetInt32(0);
                                 result.Current.referenceNo = reader.GetInt32(1);
-                                result.Current.purchasedFrom = reader.GetString(2);
-                                result.Current.datePurchased = reader.GetSqlDateTime(3).Value;
+                                result.Current.purchasedFromNum = reader.GetInt32(2);
+                                result.Current.datePurchased = reader.GetDateTime(3);
                                 result.Current.receivedBy = reader.GetString(4);
                                 result.Current.closed = reader.GetBoolean(5);
                             }
@@ -170,7 +173,52 @@ namespace WebApplication1.Controllers
                 Debug.WriteLine(e.ToString());
             }
 
-            return View(purchasesModels);
+            
+
+
+
+
+            List<SelectListItem> dl = new List<SelectListItem>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    Console.WriteLine("\nQuery data example:");
+                    Console.WriteLine("=========================================\n");
+
+                    connection.Open();
+
+                    String sql = "SELECT id,DealerBusinessName FROM Dealers";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                SelectListItem d = new SelectListItem();
+                                d.Value = reader.GetInt32(0).ToString();
+                                d.Text = reader.GetString(1);
+                                if (result.Current.purchasedFromNum != null && result.Current.purchasedFromNum.Equals(d.Value))
+                                {
+                                    d.Selected = true;
+                                }
+                                dl.Add(d);
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            result.dealers = dl;
+
+            
+
+            return View(result);
         }
         
         [HttpPost]

@@ -66,6 +66,29 @@
                         remarks
                     </th>
                 </tr>
+                @foreach (var i in Model.CurrentItems)
+                {
+                    <tr>
+                        <td>
+                            @i.qty
+                        </td>
+                        <td>
+                            @i.unit
+                        </td>
+                        <td>
+                            @i.stockName
+                        </td>
+                        <td>
+                            @i.unitPrice
+                        </td>
+                        <td>
+                            @i.amount
+                        </td>
+                        <td>
+                            @i.remarks
+                        </td>
+                    </tr>
+                }
             </table>
 
             <div class="button-vertical">
@@ -86,6 +109,9 @@
         <table cellpadding="5" width="100%">
             <tr>
                 <th>
+                    Id
+                </th>
+                <th>
                     PurchaseReferenceNo
                 </th>
                 <th>
@@ -101,6 +127,32 @@
                     PurchaseClosed
                 </th>
             </tr>
+
+            @foreach (var i in Model.Details)
+            {
+                <tr>
+                    <td>
+                        <a asp-area="" asp-controller="Purchases" asp-action="index" asp-route-id="@i.Id">
+                            @i.Id
+                        </a>
+                    </td>
+                    <td>
+                        @i.referenceNo
+                    </td>
+                    <td>
+                        @i.receivedBy
+                    </td>
+                    <td>
+                        @i.purchasedFrom
+                    </td>
+                    <td>
+                        @i.datePurchased
+                    </td>
+                    <td>
+                        @i.closed
+                    </td>
+                </tr>
+            }
         </table>
     </div>
     <div class="button-vertical">
