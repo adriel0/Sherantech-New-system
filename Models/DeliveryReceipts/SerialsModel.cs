@@ -16,7 +16,7 @@ namespace WebApplication1.Models.DeliveryReceipts
         [AllowNull]
         public string? category { get; set; }
         [AllowNull]
-        public int warranty { get; set; }
+        public string warranty { get; set; }
         [AllowNull]
         public bool? free { get; set; }
         [AllowNull]

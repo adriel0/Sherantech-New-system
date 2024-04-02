@@ -1,0 +1,27 @@
+﻿
+@{
+
+    ViewData["Title"] = "Sharentach Trading Inc. | Receivables";
+}
+<div class="header">Receivables</div>
+
+<form method="post">
+    <div class="upper-body">
+
+       
+        <div class="form large">
+            <label class="form-text" for="dr">DR# Amount:</label>
+            @Html.DropDownList("dr", (List<SelectListItem>)Model.drs, new { @class = "form-type" })@*, new { @class = "form-control" })*
+            <input type="text" class="form-type" name="DeliverySoldTo" placeholder="Enter here" />*@
+        </div>
+        <div class="form large">
+            <label class="form-text" for="amount">amount:</label>
+            <input type="text" class="form-type" name="amount" placeholder="Enter here" />
+        </div>
+
+
+        <div class="button-horizontal">
+            <input type="submit" class="button" value="Save" asp-area="" asp-controller="Receivables" asp-action="managepost" asp-route-id="@Model.id">
+        </div>
+    </div>
+</form>

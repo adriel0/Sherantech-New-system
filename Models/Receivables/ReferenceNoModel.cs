@@ -18,7 +18,7 @@ namespace WebApplication1.Models.Receivables
         [AllowNull]
         public DateTime? date { get; set; }
         [AllowNull]
-        public string? dealer { get; set; }
+        public int dealer { get; set; }
         [AllowNull]
         public int drAmount { get; set; }
         [AllowNull]

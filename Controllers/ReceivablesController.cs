@@ -9,6 +9,8 @@ using WebApplication1.Models.Dealers;
 using WebApplication1.Models.Purchases;
 using WebApplication1.Models.Receivables;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Text.RegularExpressions;
+using System.Security.Cryptography;
 
 namespace WebApplication1.Controllers
 {
@@ -27,7 +29,7 @@ namespace WebApplication1.Controllers
             List<ReceivablesModel> receivablesModels = new List<ReceivablesModel>();
             List<ReferenceNoModel> referenceNoModels = new List<ReferenceNoModel>();
             ReceivablesDisplayDataModel result = new ReceivablesDisplayDataModel();
-            result.Current = new ReceivablesDetailsModel();
+            result.Current = new ReceivablesModel();
 
             if (id == 0)
             {
@@ -56,7 +58,52 @@ namespace WebApplication1.Controllers
                     Debug.WriteLine(e.ToString());
                 }
             }
-            
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    Console.WriteLine("\nQuery data example:");
+                    Console.WriteLine("=========================================\n");
+
+                    connection.Open();
+
+                    String sql = "SELECT r.accountNo, d.DealerBusinessName, dbr.bank, r.checkNo, r.rtNo, r.payToTheorderOf, r.dateIssued, r.dateDue, r.amount, r.status, r.remarks, r.id, r.dealers FROM Receivables as r " +
+                        "INNER JOIN Dealers as d on d.id = r.dealers " +
+                        "INNER JOIN DealerBankRef as dbr on dbr.DealerId = r.dealers AND dbr.id = r.bankName WHERE r.id = @id";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                result.Current.accountNo = reader.GetInt32(0);
+                                result.Current.dealer = reader.GetString(1);
+                                result.Current.bankName = reader.GetString(2);
+                                result.Current.checkNo = reader.GetString(3);
+                                result.Current.rtNo = reader.GetInt32(4);
+                                result.Current.payToTheOrderOf = reader.GetString(5);
+                                result.Current.dateIssued = reader.GetDateTime(6);
+                                result.Current.dateDue = reader.GetDateTime(7);
+                                result.Current.amount = reader.GetInt32(8);
+                                result.Current.status = reader.GetString(9);
+                                result.Current.remarks = reader.GetString(10);
+                                result.Current.Id = reader.GetInt32(11);
+                                result.Current.dealerNum = reader.GetInt32(12);
+
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+
 
             Console.WriteLine("\nQuery data example:");
             Console.WriteLine("=========================================\n");
@@ -70,8 +117,8 @@ namespace WebApplication1.Controllers
                     connection.Open();
 
                     String sql = "SELECT r.accountNo, d.DealerBusinessName, dbr.bank, r.checkNo, r.rtNo, r.payToTheorderOf, r.dateIssued, r.dateDue, r.amount, r.status, r.remarks, r.id FROM Receivables as r " +
-                        "INNER JOIN Dealers as d on d.id = r.dealer " +
-                        "INNER JOIN DealerBankRef as dbr on dbr.DealerId = r.dealer AND dbr.id = r.bankName";
+                        "INNER JOIN Dealers as d on d.id = r.dealers " +
+                        "INNER JOIN DealerBankRef as dbr on dbr.DealerId = r.dealers AND dbr.id = r.bankName";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -116,9 +163,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT rn.id,rn.drNo,rn.invoiceNo,rn.date,d.DealerBusinessName,rn.drAmount,rn.checkAmount FROM ReceivablesRefNo as rn " +
-                        "INNER JOIN dr on dr.drNo = rn.drNo " +
-                        "INNER JOIN Dealers as d on d.id = dr.soldTo " +
+                    String sql = "SELECT rn.id,rn.drNo,rn.amount FROM ReceivablesRefNo as rn " +
                         "WHERE receivablesId=@id";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
@@ -131,11 +176,7 @@ namespace WebApplication1.Controllers
                                 ReferenceNoModel rnm = new ReferenceNoModel();
                                 rnm.Id = reader.GetInt32(0);
                                 rnm.drNo = reader.GetInt32(1);
-                                rnm.invoiceNo = reader.GetInt32(2);
-                                rnm.date = reader.GetDateTime(3);
-                                rnm.dealer = reader.GetString(4);
-                                rnm.drAmount = reader.GetInt32(5);
-                                rnm.checkAmount = reader.GetInt32(6);
+                                rnm.amount = reader.GetInt32(2);
 
                                 referenceNoModels.Add(rnm);
                             }
@@ -187,6 +228,76 @@ namespace WebApplication1.Controllers
             return View(result);
         }
         
+        public IActionResult manage(int id,int dealerid)
+        {
+            ManageDisplayDataModel result = new ManageDisplayDataModel();
+            List<SelectListItem> drp = new List<SelectListItem>();
+            result.id = id;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    Console.WriteLine("\nQuery data example:");
+                    Console.WriteLine("=========================================\n");
+
+                    connection.Open();
+
+                    String sql = "SELECT dr.drNo,SUM(dri.amount) as amount FROM dr INNER JOIN drItems as dri on dri.drNo = dr.drNo WHERE soldTo=@did GROUP BY dr.drNo";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@did", dealerid);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                SelectListItem d = new SelectListItem();
+                                d.Value = reader.GetInt32(0).ToString();
+                                d.Text = reader.GetInt32(0).ToString() +" : "+ reader.GetInt64(1).ToString();
+                                drp.Add(d);
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            result.drs = drp;
+
+            return View(result);
+        }
+
+        public IActionResult managepost(int id)
+        {
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "INSERT Into ReceivablesRefNo (drno, amount, receivablesId) " +
+                                              "Values (@dr, @a, @rid)";
+
+                        command.Parameters.AddWithValue("@dr", Request.Form["dr"].ToString());
+                        command.Parameters.AddWithValue("@a", Request.Form["amount"].ToString());
+                        command.Parameters.AddWithValue("@rid", id);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public IActionResult Edit(int id)
         {
@@ -196,12 +307,11 @@ namespace WebApplication1.Controllers
                 {
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "UPDATE Receivables SET accountNo = @an, dealer = @d, bankName = @bn, checkNo = @cn, " +
+                        command.CommandText = "UPDATE Receivables SET accountNo = @an, bankName = @bn, checkNo = @cn, " +
                                               "rtNo = @rn, payToTheOrderOf = @pttoo, dateIssued = @di, " +
                                               "dateDue = @dd, amount = @a, status = @s, remarks = @r WHERE id=@id";
 
                         command.Parameters.AddWithValue("@an", Request.Form["accountNo"].ToString());
-                        command.Parameters.AddWithValue("@d", Request.Form["dealer"].ToString());
                         command.Parameters.AddWithValue("@bn", Request.Form["bankName"].ToString());
                         command.Parameters.AddWithValue("@cn", Request.Form["checkNo"].ToString());
                         command.Parameters.AddWithValue("@rn", Request.Form["rtNo"].ToString());

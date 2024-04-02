@@ -15,11 +15,11 @@ namespace WebApplication1.Models.Inventory
         [AllowNull]
         public string? category { get; set; }
         [AllowNull]
-        public BigInteger unitPrice { get; set; }
+        public BigInteger? unitPrice { get; set; }
         [AllowNull]
         public BigInteger? unit { get; set; }
         [AllowNull]
-        public BigInteger qtyPerBox { get; set; }
+        public BigInteger? qtyPerBox { get; set; }
         [AllowNull]
         public int? supplier { get; set; }
         [AllowNull]

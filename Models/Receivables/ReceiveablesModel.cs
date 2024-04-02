@@ -12,6 +12,8 @@ namespace WebApplication1.Models.Receivables
         [AllowNull]
         public string? dealer { get; set; }
         [AllowNull]
+        public int dealerNum { get; set; }
+        [AllowNull]
         public string? bankName { get; set; }
         [AllowNull]
         public string checkNo { get; set; }

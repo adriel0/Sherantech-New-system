@@ -127,8 +127,7 @@
             </table>
 
             <div class="button-vertical">
-                <button type="submit" class="button">Save</button>
-                <button type="submit" class="button">Manage</button>
+                <button onclick='document.getElementById("managebutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Receivables" asp-action="manage" asp-route-id="@Model.Current.Id" asp-route-dealerid="@Model.Current.dealerNum" id="managebutton">Manage</a></button>
                 <button type="submit" class="button">Delete</button>
             </div>
         </div>

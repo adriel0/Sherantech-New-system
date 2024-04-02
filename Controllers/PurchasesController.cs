@@ -199,7 +199,7 @@ namespace WebApplication1.Controllers
                                 SelectListItem d = new SelectListItem();
                                 d.Value = reader.GetInt32(0).ToString();
                                 d.Text = reader.GetString(1);
-                                if (result.Current.purchasedFromNum != null && result.Current.purchasedFromNum.Equals(d.Value))
+                                if (result.Current.purchasedFromNum != null && result.Current.purchasedFromNum.ToString().Equals(d.Value))
                                 {
                                     d.Selected = true;
                                 }

@@ -108,7 +108,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT inv.id,inv.name,inv.description,inv.category,inv.unitPrice,inv.unit,inv.qtyPerBox,inv.Supplier,inv.hasSerial FROM Inventory as inv WHERE inv.id=@id";
+                    String sql = "SELECT inv.name, inv.description, inv.category, inv.unitPrice, inv.unit, inv.qtyPerBox, inv.Supplier, inv.hasSerial FROM Inventory as inv WHERE inv.id=@id";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -117,16 +117,15 @@ namespace WebApplication1.Controllers
                         {
                             while (reader.Read())
                             {
-                                result.CurrentDetails.Id = reader.GetInt32(0);
-                                result.CurrentDetails.name = reader.GetString(1);
-                                result.CurrentDetails.description = reader.GetString(2);
-                                result.CurrentDetails.category = reader.GetString(3);
-                                result.CurrentDetails.unitPrice = reader.GetInt64(4);
-                                result.CurrentDetails.unit = reader.GetInt64(5);
-                                result.CurrentDetails.qtyPerBox = reader.GetInt64(6);
-                                result.CurrentDetails.supplier = reader.GetInt32(7);
-                                result.CurrentDetails.hasSerial = reader.GetBoolean(8);
-                                
+                                result.CurrentDetails.name = reader.GetString(0);
+                                result.CurrentDetails.description = reader.GetString(1);
+                                result.CurrentDetails.category = reader.GetString(2);
+                                result.CurrentDetails.unitPrice = reader.GetInt64(3);
+                                result.CurrentDetails.unit = reader.GetInt64(4);
+                                result.CurrentDetails.qtyPerBox = reader.GetInt64(5);
+                                result.CurrentDetails.supplier = reader.GetInt32(6);
+                                result.CurrentDetails.hasSerial = reader.GetBoolean(7);
+
                             }
                         }
                     }
@@ -137,6 +136,8 @@ namespace WebApplication1.Controllers
                 Debug.WriteLine(e.ToString());
             }
             List<SelectListItem> dl = new List<SelectListItem>();
+            Console.WriteLine("getting dropdown");
+            Console.WriteLine(result.CurrentDetails.unit);
             try
             {
                 using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
@@ -158,7 +159,12 @@ namespace WebApplication1.Controllers
                                 d.Value = reader.GetInt32(0).ToString();
                                 d.Text = reader.GetString(1);
                                 dl.Add(d);
-
+                                Console.WriteLine(result.CurrentDetails.supplier);
+                                if (result.CurrentDetails.supplier != null && result.CurrentDetails.supplier.ToString().Equals(d.Value))
+                                {
+                                    Console.WriteLine("test it did equate");
+                                    d.Selected = true;
+                                }
                             }
                         }
                     }
@@ -182,12 +188,16 @@ namespace WebApplication1.Controllers
                 {
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "UPDATE Inventory SET name = @n, description = @d, category = @c, unitPrice = @up WHERE id = @id";
+                        command.CommandText = "UPDATE Inventory SET name = @n, description = @d, category = @c, unitPrice = @up, unit = @u, qtyPerBox = @qpb,hasserial = @hs, supplier = @s WHERE id = @id";
 
                         command.Parameters.AddWithValue("@n", Request.Form["name"].ToString());
                         command.Parameters.AddWithValue("@d", Request.Form["description"].ToString());
                         command.Parameters.AddWithValue("@c", Request.Form["category"].ToString());
                         command.Parameters.AddWithValue("@up", Request.Form["unitPrice"].ToString());
+                        command.Parameters.AddWithValue("@u", Request.Form["unit"].ToString());
+                        command.Parameters.AddWithValue("@qpb", Request.Form["qtyPerBox"].ToString());
+                        command.Parameters.AddWithValue("@hs", Request.Form["serial"].ToString());
+                        command.Parameters.AddWithValue("@s", Request.Form["supplier"].ToString());
                         command.Parameters.AddWithValue("@id", id);
                         Debug.WriteLine(Request.Form["id"].ToString());
                         connection.Open();
@@ -210,12 +220,16 @@ namespace WebApplication1.Controllers
                 {
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "INSERT Into Inventory (description, category, unitPrice, name) Values (@d, @c, @up, @n)";
+                        command.CommandText = "INSERT Into Inventory (description, category, unitPrice, name,supplier,qtyPerBox,unit, hasserial) Values (@d, @c, @up, @n, @s, @qpb, @u, @hs)";
 
                         command.Parameters.AddWithValue("@d", "");
                         command.Parameters.AddWithValue("@c", "");
                         command.Parameters.AddWithValue("@up", "");
                         command.Parameters.AddWithValue("@n", "");
+                        command.Parameters.AddWithValue("@s", "");
+                        command.Parameters.AddWithValue("@qpb", "");
+                        command.Parameters.AddWithValue("@u", "");
+                        command.Parameters.AddWithValue("@hs", "");
                         connection.Open();
                         command.ExecuteNonQuery();
                     }

@@ -14,40 +14,40 @@
     <form method="post">
         <div class="upper-body">
             <div class="form xlarge">
-                <label class="form-text" for="StockName">Name:</label>
-                <input type="text" class="form-type" name="StockName" placeholder="Enter here" value="@Model.CurrentDetails.name" />
+                <label class="form-text" for="name">Name:</label>
+                <input type="text" class="form-type" name="name" placeholder="Enter here" value="@Model.CurrentDetails.name" />
             </div>
             <div class="form xlarge">
-                <label class="form-text" for="StockDescription">Description:</label>
-                <input type="text" class="form-type" name="StockDescription" placeholder="Enter here" value="@Model.CurrentDetails.description" />
+                <label class="form-text" for="description">Description:</label>
+                <input type="text" class="form-type" name="description" placeholder="Enter here" value="@Model.CurrentDetails.description" />
             </div>
             <div class="form large">
-                <label class="form-text" for="StockCategory">Category:</label>
-                <input type="text" class="form-type" name="StockCategory" placeholder="Enter here" value="@Model.CurrentDetails.category" />
+                <label class="form-text" for="category">Category:</label>
+                <input type="text" class="form-type" name="category" placeholder="Enter here" value="@Model.CurrentDetails.category" />
             </div>
             <div class="form">
-                <label class="form-text" for="StockUnitPrice">Unit Price:</label>
-                <input type="text" class="form-type" name="StockUnitPrice" placeholder="Enter here" value="@Model.CurrentDetails.unitPrice" />
+                <label class="form-text" for="unitPrice">Unit Price:</label>
+                <input type="text" class="form-type" name="unitPrice" placeholder="Enter here" value="@Model.CurrentDetails.unitPrice" />
             </div>
             <div class="form">
-                <label class="form-text" for="StockUnit">Unit:</label>
-                <input type="text" class="form-type" name="StockUnit" placeholder="Enter here" value="@Model.CurrentDetails.unit" />
+                <label class="form-text" for="unit">Unit:</label>
+                <input type="text" class="form-type" name="unit" placeholder="Enter here" value="@Model.CurrentDetails.unit" />
             </div>
             <div class="form">
-                <label class="form-text" for="StockQtyPerBox">Quantity Per Box:</label>
-                <input type="text" class="form-type" name="StockQtyPerBox" placeholder="Enter here" value="@Model.CurrentDetails.qtyPerBox" />
+                <label class="form-text" for="qtyPerBox">Quantity Per Box:</label>
+                <input type="text" class="form-type" name="qtyPerBox" placeholder="Enter here" value="@Model.CurrentDetails.qtyPerBox" />
             </div>
             <div class="form xlarge">
-                <label class="form-text" for="StockSupplier">Supplier:</label>
-                @Html.DropDownList("soldTo", (List<SelectListItem>)Model.dealers, new { @class = "form-type" })
+                <label class="form-text" for="supplier">Supplier:</label>
+                @Html.DropDownList("supplier", (List<SelectListItem>)Model.dealers, new { @class = "form-type" })
             </div>
           
 
             <div class="button-horizontal">
                 <label class="check">
-                    <input type="checkbox" class="check-space" name="StockSerial" checked="@Model.CurrentDetails.hasSerial">Has Serial
+                    <input type="checkbox" class="check-space" name="Serial" checked="@Model.CurrentDetails.hasSerial">Has Serial
                 </label>
-                <input type="submit" class="button" value="Save" />
+                <input type="submit" class="button" asp-area="" asp-controller="Inventory" asp-action="edit" asp-route-id="@Model.CurrentDetails.Id" value="Save">
                 <button type="submit" class="button">Cancel</button>
             </div>
         </div>
@@ -103,8 +103,8 @@
         </table>
     </div>
     <div class="button-vertical">
-        <button type="submit" class="button">Add</button>
-        <button type="submit" class="button">Edit</button>
+        <button onclick='document.getElementById("addbutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Inventory" asp-action="add" id="addbutton">Add</a></button>
+        @* <button type="submit" class="button">Edit</button> *@
         <button type="submit" class="button">Delete</button>
     </div>
 </div>

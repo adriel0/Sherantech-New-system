@@ -194,7 +194,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT drs.drNo, drs.serialNo, inv.name, drs.warranty, drs.free, drs.demo, drs.name FROM drSerials as drs INNER JOIN inventory as inv on drSerials.name=inv.id WHERE drNo=@id";
+                    String sql = "SELECT drs.drNo, drs.serialNo, inv.name, drs.warranty, drs.free, drs.demo, drs.item FROM drSerials as drs INNER JOIN inventory as inv on inv.id = drSerials.item WHERE drNo=@id";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -207,10 +207,10 @@ namespace WebApplication1.Controllers
                                 sm.drNo = reader.GetInt32(0);
                                 sm.serialNo = reader.GetInt32(1);
                                 sm.name = reader.GetString(2);
-                                sm.warranty = reader.GetInt32(3);
+                                sm.warranty = reader.GetString(3);
                                 sm.free = reader.GetBoolean(4);
                                 sm.demo = reader.GetBoolean(5);
-                                sm.namenum = reader.GetInt32(5);
+                                sm.namenum = reader.GetInt32(6);
 
                                 serialsModels.Add(sm);
                             }
@@ -444,7 +444,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM drSerials WHERE drNo=@id";
+                    String sql = "SELECT drs.drNo, drs.serialNo, inv.name, drs.warranty, drs.free, drs.demo, drs.item FROM drSerials as drs INNER JOIN inventory as inv on inv.id = drSerials.item WHERE drNo=@id";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -457,9 +457,10 @@ namespace WebApplication1.Controllers
                                 sm.drNo = reader.GetInt32(0);
                                 sm.serialNo = reader.GetInt32(1);
                                 sm.name = reader.GetString(2);
-                                sm.warranty = reader.GetInt32(5);
-                                sm.free = reader.GetBoolean(6);
-                                sm.demo = reader.GetBoolean(7);
+                                sm.warranty = reader.GetString(3);
+                                sm.free = reader.GetBoolean(4);
+                                sm.demo = reader.GetBoolean(5);
+                                sm.namenum = reader.GetInt32(6);
 
                                 serialsModels.Add(sm);
                             }
