@@ -1,0 +1,50 @@
+﻿@{
+
+    ViewData["Title"] = "Sharentach Trading Inc. | Stocks";
+}
+
+<div class="header">STOCKS</div>
+
+<div class="tabcontent" id="Details">
+    <form method="post">
+        <div class="upper-body">
+            <div class="form xlarge">
+                <label class="form-text" for="StockName">Name:</label>
+                <input type="text" class="form-type" name="StockName" placeholder="Enter here" value="@Model.CurrentDetails.name" />
+            </div>
+            <div class="form xlarge">
+                <label class="form-text" for="StockDescription">Description:</label>
+                <input type="text" class="form-type" name="StockDescription" placeholder="Enter here" value="@Model.CurrentDetails.description" />
+            </div>
+            <div class="form large">
+                <label class="form-text" for="StockCategory">Category:</label>
+                <input type="text" class="form-type" name="StockCategory" placeholder="Enter here" value="@Model.CurrentDetails.category" />
+            </div>
+            <div class="form">
+                <label class="form-text" for="StockUnitPrice">Unit Price:</label>
+                <input type="text" class="form-type" name="StockUnitPrice" placeholder="Enter here" value="@Model.CurrentDetails.unitPrice" />
+            </div>
+            <div class="form">
+                <label class="form-text" for="StockUnit">Unit:</label>
+                <input type="text" class="form-type" name="StockUnit" placeholder="Enter here" value="@Model.CurrentDetails.unit" />
+            </div>
+            <div class="form">
+                <label class="form-text" for="StockQtyPerBox">Quantity Per Box:</label>
+                <input type="text" class="form-type" name="StockQtyPerBox" placeholder="Enter here" value="@Model.CurrentDetails.qtyPerBox" />
+            </div>
+            <div class="form xlarge">
+                <label class="form-text" for="StockSupplier">Supplier:</label>
+                @Html.DropDownList("soldTo", (List<SelectListItem>)Model.dealers, new { @class = "form-type" })
+            </div>
+          
+
+            <div class="button-horizontal">
+                <label class="check">
+                    <input type="checkbox" class="check-space" name="StockSerial" checked="@Model.CurrentDetails.hasSerial">Has Serial
+                </label>
+                <input type="submit" class="button" value="Save" />
+                <button type="submit" class="button">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
