@@ -393,9 +393,9 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT i.id,i.name,sum(pi.qty),sum(dri.qty) FROM inventory as i " +
+                    String sql = "SELECT i.id,i.name,sum(pi.qty),isnull(sum(dri.qty), 0) FROM inventory as i " +
                         "INNER JOIN PurchaceItems as pi on pi.stockNo = i.id " +
-                        "INNER JOIN drItems as dri on dri.article = i.id " +
+                        "FULL JOIN drItems as dri on dri.article = i.id " +
                         "group by i.id,i.name";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
