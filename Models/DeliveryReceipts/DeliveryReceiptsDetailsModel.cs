@@ -9,7 +9,7 @@ namespace WebApplication1.Models.DeliveryReceipts
         [Key]
         public int drNo { get; set; }
         [AllowNull]
-        public int invoiceNo { get; set; }
+        public BigInteger invoiceNo { get; set; }
         [AllowNull]
         public int? soldTo { get; set; }
         [AllowNull]

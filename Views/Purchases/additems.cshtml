@@ -1,0 +1,35 @@
+﻿
+@{
+
+    ViewData["Title"] = "Sharentach Trading Inc. | Purchases";
+}
+
+<div class="header">Purchases</div>
+<form method="post">
+    <div class="upper-body">
+        <div class="form large">
+            <label class="form-text" for="qty">qty:</label>
+            <input type="text" class="form-type" name="qty" placeholder="Enter here" />
+        </div>
+        <div class="form large">
+            <label class="form-text" for="unit">unit:</label>
+            <input type="text" class="form-type" name="unit" placeholder="Enter here" />
+        </div>
+        <div class="form large">
+            <label class="form-text" for="stock">stock:</label>
+            @Html.DropDownList("stock", (List<SelectListItem>)Model.items, new { @class = "form-type" })
+        </div>
+        <div class="form large">
+            <label class="form-text" for="unitPrice">unitPrice:</label>
+            <input type="text" class="form-type" name="unitPrice" placeholder="Enter here" />
+        </div>
+        <div class="form large">
+            <label class="form-text" for="remarks">remarks:</label>
+            <input type="text" class="form-type" name="remarks" placeholder="Enter here" />
+        </div>
+
+        <div class="button-horizontal">
+            <input type="submit" class="button" value="Save" asp-area="" asp-controller="Purchases" asp-action="additemspost" asp-route-id="@Model.id">
+        </div>
+    </div>
+</form>

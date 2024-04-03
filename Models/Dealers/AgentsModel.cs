@@ -8,9 +8,7 @@ namespace WebApplication1.Models.Dealers
         [Key]
         public int Id { get; set; }
         [AllowNull]
-        public string? lastName { get; set; }
-        [AllowNull]
-        public string? firstName { get; set; }
+        public string? name { get; set; }
         [AllowNull]
         public string? isDefault { get; set; }
         [DisallowNull]

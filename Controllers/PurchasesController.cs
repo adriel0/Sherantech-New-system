@@ -80,7 +80,7 @@ namespace WebApplication1.Controllers
                                 pm.Id = reader.GetInt32(0);
                                 pm.referenceNo = reader.GetInt32(1);
                                 pm.purchasedFrom = reader.GetString(2);
-                                pm.datePurchased = reader.GetDateTime(3);
+                                pm.datePurchased = reader.GetDateTime(3).Date;
                                 pm.receivedBy = reader.GetString(4);
                                 pm.closed = reader.GetBoolean(5);
                                 pm.purchasedFromNum = reader.GetInt32(6);
@@ -160,9 +160,8 @@ namespace WebApplication1.Controllers
                                 result.Current.Id = reader.GetInt32(0);
                                 result.Current.referenceNo = reader.GetInt32(1);
                                 result.Current.purchasedFromNum = reader.GetInt32(2);
-                                result.Current.datePurchased = reader.GetDateTime(3);
+                                result.Current.datePurchased = reader.GetDateTime(3).Date;
                                 result.Current.receivedBy = reader.GetString(4);
-                                result.Current.closed = reader.GetBoolean(5);
                             }
                         }
                     }
@@ -221,7 +220,6 @@ namespace WebApplication1.Controllers
             return View(result);
         }
         
-        [HttpPost]
         public IActionResult Edit(int id)
         {
             try
@@ -230,14 +228,13 @@ namespace WebApplication1.Controllers
                 {
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "UPDATE Purchases SET referenceNo = @rn, purchasedFrom = @pf, datePurchased = @dp, receivedBy = @rb, closed = @c " +
+                        command.CommandText = "UPDATE Purchases SET referenceNo = @rn, purchasedFrom = @pf, datePurchased = @dp, receivedBy = @rb " +
                                               "WHERE id = @id";
 
                         command.Parameters.AddWithValue("@rn", Request.Form["referenceNo"].ToString());
                         command.Parameters.AddWithValue("@pf", Request.Form["purchasedFrom"].ToString());
                         command.Parameters.AddWithValue("@dp", Request.Form["datePurchased"].ToString());
                         command.Parameters.AddWithValue("@rb", Request.Form["receivedBy"].ToString());
-                        command.Parameters.AddWithValue("@c", Request.Form["closed"].ToString());
                         command.Parameters.AddWithValue("@id", id);
                         Debug.WriteLine(Request.Form["Id"].ToString());
                         connection.Open();
@@ -252,7 +249,76 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index");
         }
 
-        
+        public IActionResult additems(int id)
+        {
+            PurchasesDisplayDataModel result = new PurchasesDisplayDataModel();
+            result.items = new List<SelectListItem>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    Console.WriteLine("\nQuery data example:");
+                    Console.WriteLine("=========================================\n");
+
+                    connection.Open();
+
+                    String sql = "SELECT i.id,i.name FROM inventory as i ";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                SelectListItem i = new SelectListItem();
+                                i.Value = reader.GetInt32(0).ToString();
+                                i.Text = reader.GetString(1);
+                                result.items.Add(i);
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+
+            result.id = id;
+            return View(result);
+        }
+
+        public IActionResult additemspost(int id)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "INSERT Into PurchaceItems (qty, unit, stockNo, unitPrice, remarks, purchaseId) " +
+                                              "Values (@q, @u, @s, @up, @r, @id)";
+
+                        command.Parameters.AddWithValue("@q", Request.Form["qty"].ToString());
+                        command.Parameters.AddWithValue("@u", Request.Form["unit"].ToString());
+                        command.Parameters.AddWithValue("@s", Request.Form["stock"].ToString());
+                        command.Parameters.AddWithValue("@up", Request.Form["unitPrice"].ToString());
+                        command.Parameters.AddWithValue("@r", Request.Form["remarks"].ToString());
+                        command.Parameters.AddWithValue("@id", id);
+                        Debug.WriteLine(Request.Form["Id"].ToString());
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Add()
         {
             try
@@ -264,11 +330,11 @@ namespace WebApplication1.Controllers
                         command.CommandText = "INSERT Into Purchases (purchasedFrom, datePurchased, receivedBy, closed, referenceNo) " +
                                               "Values (@pf, @dp, @rb, @c, @rn)";
 
-                        command.Parameters.AddWithValue("@pf", Request.Form["purchasedFrom"].ToString());
-                        command.Parameters.AddWithValue("@dp", Request.Form["datePurchased"].ToString());
-                        command.Parameters.AddWithValue("@rb", Request.Form["receivedBy"].ToString());
-                        command.Parameters.AddWithValue("@c", Request.Form["closed"].ToString());
-                        command.Parameters.AddWithValue("@rn", Request.Form["referenceNo"].ToString());
+                        command.Parameters.AddWithValue("@pf","1031");
+                        command.Parameters.AddWithValue("@dp", "");
+                        command.Parameters.AddWithValue("@rb", "");
+                        command.Parameters.AddWithValue("@c", "");
+                        command.Parameters.AddWithValue("@rn", "");
                         connection.Open();
                         command.ExecuteNonQuery();
                     }
@@ -282,10 +348,6 @@ namespace WebApplication1.Controllers
         }
 
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -48,16 +48,8 @@
 <form method="post">
     <div class="upper-body">
         <div class="form large">
-            <label class="form-text" for="lastname">Last Name:</label>
-            <input type="text" class="form-type" name="lastname" placeholder="Enter here"/>
-        </div>
-        <div class="form large">
-            <label class="form-text" for="firstname">First Name:</label>
-            <input type="text" class="form-type" name="firstname" placeholder="Enter here"/>
-        </div>
-        <div class="form large">
-            <label class="form-text" for="isDefault">Default:</label>
-            <input type="text" class="form-type" name="isDefault" placeholder="Enter here"/>
+            <label class="form-text" for="name">Last Name:</label>
+            @Html.DropDownList("name", (List<SelectListItem>)Model.agents, new { @class = "form-type" })
         </div>
             
 

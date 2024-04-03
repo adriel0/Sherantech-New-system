@@ -200,30 +200,18 @@
             <table class="scroll" cellpadding="5" width="100%">
                 <tr>
                     <th>
-                        lastName
-                    </th>
-                    <th>
-                        firstName
-                    </th>
-                    <th>
-                        default
+                        Name
                     </th>
                 </tr>
                 @foreach (var i in Model.CurrentAgents)
                 {
                     <tr>
                         <td>
-                            @i.lastName
+                            @i.name
                         </td>
                         <td>
-                            @i.firstName
-                        </td>
-                        <td>
-                            @i.isDefault
-                        </td>
-                        <td>
-                            <a asp-area="" asp-controller="Dealers" asp-action="editagents" asp-route-id="@i.Id" asp-route-dealerid="@i.dealerId">
-                                edit
+                            <a asp-area="" asp-controller="Dealers" asp-action="deleteagents" asp-route-id="@i.Id">
+                                delete
                             </a>
                         </td>
                     </tr>

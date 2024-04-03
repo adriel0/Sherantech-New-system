@@ -6,6 +6,7 @@ using System.Net;
 using System.Reflection.PortableExecutable;
 using WebApplication1.Models;
 using WebApplication1.Models.Dealers;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebApplication1.Controllers
 {
@@ -206,7 +207,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM DealerAgents WHERE dealerId=@did";
+                    String sql = "SELECT da.id,sr.name,da.dealerId FROM DealerAgents as da INNER JOIN salesrep as sr on sr.id=da.name WHERE dealerId=@did";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -217,10 +218,8 @@ namespace WebApplication1.Controllers
                             {
                                 AgentsModel am = new AgentsModel();
                                 am.Id = reader.GetInt32(0);
-                                am.lastName = reader.GetString(1);
-                                am.firstName = reader.GetString(2);
-                                am.isDefault = reader.GetString(3);
-                                am.dealerId = reader.GetInt32(4);
+                                am.name = reader.GetString(1);
+                                am.dealerId = reader.GetInt32(2);
                                 agentsModel.Add(am);
                             }
                         }
@@ -416,6 +415,40 @@ namespace WebApplication1.Controllers
         {
             DataModel dm = new DataModel();
             dm.Id = id;
+
+            List<SelectListItem> al = new List<SelectListItem>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    Console.WriteLine("\nQuery data example:");
+                    Console.WriteLine("=========================================\n");
+
+                    connection.Open();
+
+                    String sql = "SELECT id,name FROM salesrep";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                SelectListItem a = new SelectListItem();
+                                a.Value = reader.GetInt32(0).ToString();
+                                a.Text = reader.GetString(1);
+                                al.Add(a);
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            dm.agents = al;
             return View(dm);
         }
         public IActionResult addAgentspost(int id)
@@ -426,12 +459,10 @@ namespace WebApplication1.Controllers
                 {
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "INSERT Into DealerAgents (firstName, lastName, isDefault, dealerId) " +
-                                                                   " Values (@fn, @ln, @isd, @did)";
+                        command.CommandText = "INSERT Into DealerAgents (name, dealerId) " +
+                                                                   " Values (@n, @did)";
 
-                        command.Parameters.AddWithValue("@fn", Request.Form["firstname"].ToString());
-                        command.Parameters.AddWithValue("@ln", Request.Form["lastname"].ToString());
-                        command.Parameters.AddWithValue("@isd", Request.Form["isDefault"].ToString());
+                        command.Parameters.AddWithValue("@n", Request.Form["name"].ToString());
                         command.Parameters.AddWithValue("@did", id);
                         connection.Open();
                         command.ExecuteNonQuery();
@@ -468,9 +499,7 @@ namespace WebApplication1.Controllers
                             while (reader.Read())
                             {
                                 am.Id = reader.GetInt32(0);
-                                am.lastName = reader.GetString(1);
-                                am.firstName = reader.GetString(2);
-                                am.isDefault = reader.GetSqlBinary(3).ToString();
+                                am.name = reader.GetString(1);
                                 am.dealerId = reader.GetInt32(4);
                             }
                         }
@@ -493,12 +522,11 @@ namespace WebApplication1.Controllers
                 {
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "UPDATE DealerAgents SET firstName = @fn, lastName = @ln, isDefault = @isd " +
+                        command.CommandText = "UPDATE DealerAgents SET firstName = @fn, lastName = @ln" +
                                                                  "WHERE Id = @id";
 
                         command.Parameters.AddWithValue("@fn", Request.Form["firstname"].ToString());
                         command.Parameters.AddWithValue("@ln", Request.Form["lastname"].ToString());
-                        command.Parameters.AddWithValue("@isd", Request.Form["isDefault"].ToString());
                         command.Parameters.AddWithValue("@id", id);
                         Debug.WriteLine(Request.Form["Id"].ToString());
                         connection.Open();

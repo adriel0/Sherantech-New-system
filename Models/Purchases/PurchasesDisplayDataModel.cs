@@ -15,5 +15,9 @@ namespace WebApplication1.Models.Purchases
         public PurchasesModel? Current { get; set; }
         [AllowNull]
         public List<SelectListItem> dealers { get; set; }
+        [AllowNull]
+        public List<SelectListItem> items { get; set; }
+        [AllowNull]
+        public int id { get; set; }
     }
 }

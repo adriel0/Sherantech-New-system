@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
 
 namespace WebApplication1.Models.DeliveryReceipts
 {
@@ -8,7 +9,7 @@ namespace WebApplication1.Models.DeliveryReceipts
         [Key]
         public int drNo { get; set; }
         [AllowNull]
-        public int invoiceNo { get; set; }
+        public BigInteger invoiceNo { get; set; }
         [AllowNull]
         public string? soldTo { get; set; }
         [AllowNull]

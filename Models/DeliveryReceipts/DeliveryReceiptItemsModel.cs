@@ -7,6 +7,8 @@ namespace WebApplication1.Models.DeliveryReceipts
     public class DeliveryReceiptsItemsModel
     {
         [Key]
+        public int id { get; set; }
+        [AllowNull]
         public int drNo { get; set; }
         [AllowNull]
         public BigInteger qty { get; set; }

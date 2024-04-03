@@ -8,6 +8,8 @@ namespace WebApplication1.Models.DeliveryReceipts
     public class DeliveryReceiptsDisplayDataModel
     {
         [AllowNull]
+        public int? id { get; set; }
+        [AllowNull]
         public List<DeliveryReceiptsModel>? Data { get; set; }
         [AllowNull]
         public List<DeliveryReceiptsItemsModel>? CurrentItems { get; set; }
@@ -19,6 +21,8 @@ namespace WebApplication1.Models.DeliveryReceipts
         public DeliveryReceiptsDetailsModel? CurrentDetails { get; set; }
         [AllowNull]
         public List<SelectListItem> dealers { get; set; }
+        [AllowNull]
+        public List<SelectListItem> items { get; set; }
 
         [AllowNull]
         public List<SelectListItem> sRep { get; set; }

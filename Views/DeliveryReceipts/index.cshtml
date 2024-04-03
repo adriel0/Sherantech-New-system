@@ -16,12 +16,8 @@
     <form method="post">
         <div class="upper-body">
             <div class="form large">
-                <label class="form-text" for="drNo">DR #:</label>
-                <input type="text" class="form-type" name="drNo" placeholder="Enter here" />
-            </div>
-            <div class="form large">
                 <label class="form-text" for="invoiceNo">Invoice #:</label>
-                <input type="text" class="form-type" name="invoiceNo" placeholder="Enter here" />
+                <input type="text" class="form-type" name="invoiceNo" placeholder="Enter here" value="@Model.CurrentDetails.invoiceNo" />
             </div>
             <div class="form large">
                 <label class="form-text" for="soldTo">Sold To:</label>
@@ -35,34 +31,28 @@
             </div>
             <div class="form large">
                 <label class="form-text" for="terms">Terms:</label>
-                <div class="input-with-button">
-                    <input type="text" class="form-type" name="terms" placeholder="Enter here" />
-                    <button type="submit" class="button">New Term</button>
-                </div>
+                <input type="text" class="form-type" name="terms" placeholder="Enter here" value="@Model.CurrentDetails.terms" />
             </div>
             <div class="form large">
                 <label class="form-text" for="PONum">P.O. #:</label>
-                <input type="text" class="form-type" name="PONum" placeholder="Enter here" />
+                <input type="text" class="form-type" name="PONum" placeholder="Enter here" value="@Model.CurrentDetails.POnumber" />
             </div>
             <div class="form large">
                 <label class="form-text" for="address">Address:</label>
-                <input type="text" class="form-type" name="address" placeholder="Enter here" />
+                <input type="text" class="form-type" name="address" placeholder="Enter here" value="@Model.CurrentDetails.address" />
             </div>
             <div class="form large">
                 <label class="form-text" for="dateSold">Date Sold:</label>
-                <input type="text" class="form-type" name="dateSold" placeholder="Enter here" />
+                <input type="text" class="form-type" name="dateSold" placeholder="Enter here" value="@Model.CurrentDetails.dateSold" />
             </div>
             <div class="form large">
                 <label class="form-text" for="remarks">Remarks:</label>
-                <input type="text" class="form-type" name="remarks" placeholder="Enter here" />
+                <input type="text" class="form-type" name="remarks" placeholder="Enter here" value="@Model.CurrentDetails.remarks" />
             </div>
 
             <div class="button-horizontal">
-                <label class="check">
-                    <input type="checkbox" class="check-space" name="closed">Closed Transaction
-                </label>
-                <input type="submit" class="button" value="Save" />
-                <button type="submit" class="button">Cancel</button>
+                <input type="submit" class="button" asp-area="" asp-controller="DeliveryReceipts" asp-action="Edit" asp-route-id="@Model.CurrentDetails.drNo" value="Save">
+                <input type="submit" class="button" asp-area="" asp-controller="DeliveryReceipts" asp-action="index" asp-route-id="@Model.CurrentDetails.drNo" value="Cancel">
             </div>
         </div>
     </form>
@@ -91,12 +81,6 @@
                     <th>
                         payTo
                     </th>
-                    <th>
-                        demo
-                    </th>
-                    <th>
-                        returned
-                    </th>
                 </tr>
                 @foreach (var i in Model.CurrentItems)
                 {
@@ -120,25 +104,23 @@
                             @i.payTo
                         </td>
                         <td>
-                            @i.demo
-                        </td>
-                        <td>
-                            @i.returned
+                            <a asp-area="" asp-controller="DeliveryReceipts" asp-action="deleteitem" asp-route-id="@i.id">
+                                delete
+                            </a>
                         </td>
                     </tr>
                 }
             </table>
 
             <div class="button-vertical">
-                <button type="submit" class="button">Add</button>
-                <button type="submit" class="button">Edit</button>
-                <button type="submit" class="button">Delete</button>
+                <button onclick='document.getElementById("additembutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="DeliveryReceipts" asp-action="additems" asp-route-id="@Model.CurrentDetails.drNo" id="additembutton">Add</a></button>
+
             </div>
         </div>
     </div>
 </div>
 
-<div class="tabcontent" id="Serial">
+@* <div class="tabcontent" id="Serial">
     <div>
         <div class="upper-body">
             <table class="scroll" cellpadding="5" width="100%">
@@ -175,7 +157,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> *@
 
 <div class="tabcontent" id="Remittance">
     <div>
@@ -267,7 +249,6 @@
     </div>
     <div class="button-vertical">
         <button onclick='document.getElementById("addbutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="DeliveryReceipts" asp-action="add" asp-route-id="@Model.CurrentDetails.drNo" id="addbutton">add</a></button>
-        <button onclick='document.getElementById("editbutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="DeliveryReceipts" asp-action="Edit" asp-route-id="@Model.CurrentDetails.drNo" id="editbutton">edit</a></button>
         <button type="submit" class="button">Delete</button>
         <button type="submit" class="button">Jump DR</button>
         <button type="submit" class="button">Print DR</button>

@@ -15,28 +15,25 @@
     <form method="post">
         <div class="upper-body">
             <div class="form large">
-                <label class="form-text" for="PurchaseReferenceNo">Reference #:</label>
-                <input type="text" class="form-type" name="PurchaseReferenceNo" placeholder="Enter here" value="@Model.Current.referenceNo"/>
+                <label class="form-text" for="referenceNo">Reference #:</label>
+                <input type="text" class="form-type" name="referenceNo" placeholder="Enter here" value="@Model.Current.referenceNo" />
             </div>
             <div class="form large">
-                <label class="form-text" for="PurchaseReceivedBy">Received By:</label>
-                <input type="text" class="form-type" name="PurchaseReceivedBy" placeholder="Enter here" value="@Model.Current.receivedBy"/>
+                <label class="form-text" for="receivedBy">Received By:</label>
+                <input type="text" class="form-type" name="receivedBy" placeholder="Enter here" value="@Model.Current.receivedBy" />
             </div>
             <div class="form xlarge">
-                <label class="form-text" for="PurchasePurchasedFrom">Purchased From:</label>
-                <input type="text" class="form-type" name="PurchasePurchasedFrom" placeholder="Enter here" value="@Model.Current.purchasedFrom"/>
+                <label class="form-text" for="purchasedFrom">Purchased From:</label>
+                @Html.DropDownList("purchasedFrom", (List<SelectListItem>)Model.dealers, new { @class = "form-type" })
             </div>
             <div class="form large">
-                <label class="form-text" for="PurchaseDatePurchased">Date Purchased:</label>
-                <input type="text" class="form-type" name="PurchaseDatePurchased" placeholder="Enter here" value="@Model.Current.datePurchased"/>
+                <label class="form-text" for="datePurchased">Date Purchased:</label>
+                <input type="text" class="form-type" name="datePurchased" placeholder="Enter here" value="@Model.Current.datePurchased" />
             </div>
 
             <div class="button-horizontal">
-                <label class="check">
-                    <input type="checkbox" class="check-space" name="PurchaseClosed">Close Transaction
-                </label>
-                <input type="submit" class="button" value="Save" />
-                <button type="submit" class="button">Cancel</button>
+                <input type="submit" class="button" asp-area="" asp-controller="Purchases" asp-action="Edit" asp-route-id="@Model.Current.Id" value="Save">
+                <input type="submit" class="button" asp-area="" asp-controller="Purchases" asp-action="index" asp-route-id="@Model.Current.Id" value="Cancel">
             </div>
         </div>
     </form>
@@ -92,7 +89,8 @@
             </table>
 
             <div class="button-vertical">
-                <button type="submit" class="button">Add</button>
+                <button onclick='document.getElementById("additemssbutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Purchases" asp-action="additems" asp-route-id="@Model.Current.Id" id="additemssbutton">Add</a></button>
+
                 <button type="submit" class="button">Edit</button>
                 <button type="submit" class="button">Delete</button>
             </div>
@@ -123,9 +121,6 @@
                 <th>
                     PurchaseDatePurchased
                 </th>
-                <th>
-                    PurchaseClosed
-                </th>
             </tr>
 
             @foreach (var i in Model.Details)
@@ -148,16 +143,13 @@
                     <td>
                         @i.datePurchased
                     </td>
-                    <td>
-                        @i.closed
-                    </td>
                 </tr>
             }
         </table>
     </div>
     <div class="button-vertical">
-        <button type="submit" class="button">Add</button>
-        <button type="submit" class="button">Edit</button>
+        <button onclick='document.getElementById("addbutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Purchases" asp-action="add" asp-route-id="@Model.Current.Id" id="addbutton">Add</a></button>
+
         <button type="submit" class="button">Delete</button>
     </div>
 </div>
