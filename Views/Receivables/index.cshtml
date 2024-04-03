@@ -16,51 +16,45 @@
         <div class="upper-body">
             <div class="form large">
                 <label class="form-text" for="ReceiveAccountNo">Account #:</label>
-                <input type="text" class="form-type" name="ReceiveAccountNo" placeholder="Enter here" value="@Model.Current.accountNo"/>
+                <input type="text" class="form-type" name="ReceiveAccountNo" placeholder="Enter here" value="@Model.Current.accountNo" disabled/>
             </div>
             <div class="form large">
                 <label class="form-text" for="ReceiveDealer">Dealer:</label>
-                <input type="text" class="form-type" name="ReceiveDealer" placeholder="Enter here" value="@Model.Current.dealer"/>
+                <input type="text" class="form-type" name="ReceiveDealer" placeholder="Enter here" value="@Model.Current.dealer" disabled />
             </div>
             <div class="form large">
                 <label class="form-text" for="ReceiveCheckNo">Check #:</label>
-                <input type="text" class="form-type" name="ReceiveCheckNo" placeholder="Enter here" value="@Model.Current.checkNo" />
+                <input type="text" class="form-type" name="ReceiveCheckNo" placeholder="Enter here" value="@Model.Current.checkNo" disabled />
             </div>
             <div class="form large">
                 <label class="form-text" for="ReceiveRtNo">RT #:</label>
-                <input type="text" class="form-type" name="ReceiveRtNo" placeholder="Enter here" value="@Model.Current.rtNo " />
+                <input type="text" class="form-type" name="ReceiveRtNo" placeholder="Enter here" value="@Model.Current.rtNo " disabled />
             </div>
             <div class="form large">
                 <label class="form-text" for="ReceivePayToTheOrderOf">Pay To the Order of:</label>
-                <input type="text" class="form-type" name="ReceivePayToTheOrderOf" placeholder="Enter here" value="@Model.Current.payToTheOrderOf" />
+                <input type="text" class="form-type" name="ReceivePayToTheOrderOf" placeholder="Enter here" value="@Model.Current.payToTheOrderOf" disabled />
             </div>
             <div class="form large">
                 <label class="form-text" for="ReceiveDateIssued">Date Issued:</label>
-                <input type="text" class="form-type" name="ReceiveDateIssued" placeholder="Enter here" value="@Model.Current.dateIssued" />
+                <input type="text" class="form-type" name="ReceiveDateIssued" placeholder="Enter here" value="@Model.Current.dateIssued" disabled />
             </div>
             <div class="form large">
                 <label class="form-text" for="ReceiveDateDue">Date Due:</label>
-                <input type="text" class="form-type" name="ReceiveDateDue" placeholder="Enter here" value="@Model.Current.dateDue" />
+                <input type="text" class="form-type" name="ReceiveDateDue" placeholder="Enter here" value="@Model.Current.dateDue" disabled />
             </div>
             <div class="form large">
                 <label class="form-text" for="ReceiveAmount">Amount:</label>
-                <input type="text" class="form-type" name="ReceiveAmount" placeholder="Enter here" value="@Model.Current.amount" />
+                <input type="text" class="form-type" name="ReceiveAmount" placeholder="Enter here" value="@Model.Current.amount" disabled />
             </div>
             <div class="form large">
                 <label class="form-text" for="ReceiveStatus">Status:</label>
-                <input type="text" class="form-type" name="ReceiveStatus" placeholder="Enter here" value="@Model.Current.status" />
+                <input type="text" class="form-type" name="ReceiveStatus" placeholder="Enter here" value="@Model.Current.status" disabled />
             </div>
             <div class="form large">
                 <label class="form-text" for="ReceiveRemarks">Remarks:</label>
-                <input type="text" class="form-type" name="ReceiveRemarks" placeholder="Enter here" value="@Model.Current.remarks" />
+                <input type="text" class="form-type" name="ReceiveRemarks" placeholder="Enter here" value="@Model.Current.remarks" disabled />
             </div>
 
-            <div class="button-horizontal">
-                <div class="button-horizontal">
-                    <input type="submit" class="button" value="Save" />
-                    <button type="submit" class="button">Cancel</button>
-                </div>
-            </div>
         </div>
     </form>
 </div>
@@ -103,7 +97,6 @@
 
             <div class="button-vertical">
                 <button onclick='document.getElementById("managebutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Receivables" asp-action="manage" asp-route-id="@Model.Current.Id" asp-route-dealerid="@Model.Current.dealerNum" id="managebutton">Manage</a></button>
-                <button type="submit" class="button">Delete</button>
             </div>
         </div>
     </div>

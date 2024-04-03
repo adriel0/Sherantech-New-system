@@ -105,7 +105,7 @@
     <div class="button-vertical">
         <button onclick='document.getElementById("addbutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Inventory" asp-action="add" id="addbutton">Add</a></button>
         @* <button type="submit" class="button">Edit</button> *@
-        <button onclick='document.getElementById("deletebutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Inventory" asp-action="delete" id="deletebutton">Delete</a></button>
+        <button onclick='document.getElementById("deletebutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Inventory" asp-action="delete" asp-route-id="@Model.CurrentDetails.Id" id="deletebutton">Delete</a></button>
 
     </div>
 </div>

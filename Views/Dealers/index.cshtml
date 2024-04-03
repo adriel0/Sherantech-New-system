@@ -178,6 +178,11 @@
                                 edit
                             </a>
                         </td>
+                        <td>
+                            <a asp-area="" asp-controller="Dealers" asp-action="DeleteBankRef" asp-route-id="@i.Id" asp-route-dealerid="@i.dealerId">
+                                delete
+                            </a>
+                        </td>
                     </tr>
                 }
             </table>
