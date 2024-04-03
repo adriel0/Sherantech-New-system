@@ -226,7 +226,7 @@ namespace WebApplication1.Controllers
                         command.Parameters.AddWithValue("@c", "");
                         command.Parameters.AddWithValue("@up", "");
                         command.Parameters.AddWithValue("@n", "");
-                        command.Parameters.AddWithValue("@s", "");
+                        command.Parameters.AddWithValue("@s", "1031");
                         command.Parameters.AddWithValue("@qpb", "");
                         command.Parameters.AddWithValue("@u", "");
                         command.Parameters.AddWithValue("@hs", "");

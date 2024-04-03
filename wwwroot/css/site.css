@@ -357,6 +357,8 @@ body {
 /* ---------- Table Style ---------- */
 .scroll {
     overflow: auto;
+    max-height: 450px;
+    scrollbar-width: none;
 }
 
 .upper-body .scroll {
