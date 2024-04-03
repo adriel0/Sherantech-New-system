@@ -44,9 +44,9 @@
           
 
             <div class="button-horizontal">
-                <label class="check">
+                @* <label class="check">
                     <input type="checkbox" class="check-space" name="Serial" checked="@Model.CurrentDetails.hasSerial">Has Serial
-                </label>
+                </label> *@
                 <input type="submit" class="button" asp-area="" asp-controller="Inventory" asp-action="edit" asp-route-id="@Model.CurrentDetails.Id" value="Save">
                 <button type="submit" class="button">Cancel</button>
             </div>
@@ -55,10 +55,10 @@
 </div>
 
 <div class="lower-body">
-    <div class="filter-form">
+    @* <div class="filter-form">
         <label class="filter-text" for="#">Filter</label>
         <input type="text" class="filter-type" name="#" value="" />
-    </div>
+    </div> *@
     <div class="scroll">
         <table cellpadding="5" width="100%">
             <tr>
@@ -105,6 +105,7 @@
     <div class="button-vertical">
         <button onclick='document.getElementById("addbutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Inventory" asp-action="add" id="addbutton">Add</a></button>
         @* <button type="submit" class="button">Edit</button> *@
-        <button type="submit" class="button">Delete</button>
+        <button onclick='document.getElementById("deletebutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Inventory" asp-action="delete" id="deletebutton">Delete</a></button>
+
     </div>
 </div>

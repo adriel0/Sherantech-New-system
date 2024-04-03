@@ -230,7 +230,7 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT * FROM drRemittance WHERE drNo=@id";
+                    String sql = "SELECT rn.drNo,r.checkNo,r.accountNo,rn.amount,r.dateIssued,r.dateDue,r.status,r.payToTheOrderOf,r.bankName FROM ReceivablesRefNo as rn INNER JOIN receivables as r on r.id=rn.receivablesId WHERE rn.drNo=@id";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -242,15 +242,14 @@ namespace WebApplication1.Controllers
 
                                 RemittanceModel rm = new RemittanceModel();
                                 rm.drNo = reader.GetInt32(0);
-                                rm.checkNo = reader.GetInt32(1);
+                                rm.checkNo = reader.GetString(1);
                                 rm.accountNo = reader.GetInt32(2);
                                 rm.amount = reader.GetInt32(3);
-                                rm.dateIssued = reader.GetSqlDateTime(4).Value;
-                                rm.dateDue = reader.GetSqlDateTime(5).Value;
+                                rm.dateIssued = reader.GetDateTime(4);
+                                rm.dateDue = reader.GetDateTime(5);
                                 rm.status = reader.GetString(6);
                                 rm.payToTheOrderOf = reader.GetString(7);
                                 rm.bankName = reader.GetString(8);
-                                rm.accountName = reader.GetString(9);
                                 
                                 referencesModels.Add(rm);
                             }
@@ -459,6 +458,47 @@ namespace WebApplication1.Controllers
                     using (SqlCommand command = connection.CreateCommand())
                     {
                         command.CommandText = "delete from drItems where id=@id";
+
+                        command.Parameters.AddWithValue("@id", id);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult delete(int id)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "delete from drItems where drNo=@id";
+
+                        command.Parameters.AddWithValue("@id", id);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "delete from dr where drNo=@id";
 
                         command.Parameters.AddWithValue("@id", id);
                         connection.Open();

@@ -84,25 +84,27 @@
                         <td>
                             @i.remarks
                         </td>
+                        <td>
+                            <a asp-area="" asp-controller="Purchases" asp-action="deleteitems" asp-route-id="@i.Id">
+                                delete
+                            </a>
+                        </td>
                     </tr>
                 }
             </table>
 
             <div class="button-vertical">
                 <button onclick='document.getElementById("additemssbutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Purchases" asp-action="additems" asp-route-id="@Model.Current.Id" id="additemssbutton">Add</a></button>
-
-                <button type="submit" class="button">Edit</button>
-                <button type="submit" class="button">Delete</button>
             </div>
         </div>
     </div>
 </div>
 
 <div class="lower-body">
-    <div class="filter-form">
+    @* <div class="filter-form">
         <label class="filter-text" for="#">Filter</label>
         <input type="text" class="filter-type" name="#" value="" />
-    </div>
+    </div> *@
     <div class="scroll">
         <table cellpadding="5" width="100%">
             <tr>
@@ -149,8 +151,8 @@
     </div>
     <div class="button-vertical">
         <button onclick='document.getElementById("addbutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Purchases" asp-action="add" asp-route-id="@Model.Current.Id" id="addbutton">Add</a></button>
+        <button onclick='document.getElementById("deletebutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Purchases" asp-action="delete" asp-route-id="@Model.Current.Id" id="deletebutton">delete</a></button>
 
-        <button type="submit" class="button">Delete</button>
     </div>
 </div>
 

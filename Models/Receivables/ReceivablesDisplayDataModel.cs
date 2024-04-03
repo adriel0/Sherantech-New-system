@@ -17,5 +17,7 @@ namespace WebApplication1.Models.Receivables
         public List<ReferenceNoModel>? CurrentReferenceNo { get; set; }
         [AllowNull]
         public List<SelectListItem> dealers { get; set; }
+        [AllowNull]
+        public int id { get; set; }
     }
 }

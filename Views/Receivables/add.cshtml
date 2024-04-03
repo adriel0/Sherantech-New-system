@@ -1,0 +1,63 @@
+﻿@{
+
+    ViewData["Title"] = "Sharentach Trading Inc. | Receivables";
+}
+
+<div class="header">RECEIVABLES</div>
+
+<form method="post">
+    <div class="upper-body">
+        <div class="form large">
+            <label class="form-text" for="accountNo">Account #:</label>
+            <input type="text" class="form-type" name="accountNo" placeholder="Enter here" />
+        </div>
+        <div class="form large">
+            <label class="form-text" for="dealer">Dealer:</label>
+            @Html.DropDownList("dealer", (List<SelectListItem>)Model.dealers, new { @class = "form-type" })
+        </div>
+        <div class="form large">
+            <label class="form-text" for="bank">Bank:</label>
+            <input type="text" class="form-type" name="bank" placeholder="Enter here" />
+        </div>
+        <div class="form large">
+            <label class="form-text" for="checkNo">Check #:</label>
+            <input type="text" class="form-type" name="checkNo" placeholder="Enter here" />
+        </div>
+        <div class="form large">
+            <label class="form-text" for="rtNo">RT #:</label>
+            <input type="text" class="form-type" name="rtNo" placeholder="Enter here" />
+        </div>
+        <div class="form large">
+            <label class="form-text" for="payToTheOrderOf">Pay To the Order of:</label>
+            <input type="text" class="form-type" name="payToTheOrderOf" placeholder="Enter here" />
+        </div>
+        <div class="form large">
+            <label class="form-text" for="dateIssued">Date Issued:</label>
+            <input type="text" class="form-type" name="dateIssued" placeholder="Enter here" />
+        </div>
+        <div class="form large">
+            <label class="form-text" for="dateDue">Date Due:</label>
+            <input type="text" class="form-type" name="dateDue" placeholder="Enter here" />
+        </div>
+        <div class="form large">
+            <label class="form-text" for="amount">Amount:</label>
+            <input type="text" class="form-type" name="amount" placeholder="Enter here"/>
+        </div>
+        <div class="form large">
+            <label class="form-text" for="status">Status:</label>
+            <input type="text" class="form-type" name="status" placeholder="Enter here" />
+        </div>
+        <div class="form large">
+            <label class="form-text" for="remarks">Remarks:</label>
+            <input type="text" class="form-type" name="remarks" placeholder="Enter here" />
+        </div>
+
+        <div class="button-horizontal">
+            <div class="button-horizontal">
+                <input type="submit" class="button" asp-area="" asp-controller="Receivables" asp-action="addpost" value="Save">
+
+                <button type="submit" class="button">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>

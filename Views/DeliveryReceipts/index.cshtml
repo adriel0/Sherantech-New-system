@@ -188,20 +188,46 @@
                     <th>
                         bankName
                     </th>
-                    <th>
-                        accountName
-                    </th>
                 </tr>
+                @foreach (var i in Model.CurrentReferences)
+                {
+                    <tr>
+                        <td>
+                            @i.checkNo
+                        </td>
+                        <td>
+                            @i.accountNo
+                        </td>
+                        <td>
+                            @i.amount
+                        </td>
+                        <td>
+                            @i.dateIssued
+                        </td>
+                        <td>
+                            @i.dateDue
+                        </td>
+                        <td>
+                            @i.status
+                        </td>
+                        <td>
+                            @i.payToTheOrderOf
+                        </td>
+                        <td>
+                            @i.bankName
+                        </td>
+                    </tr>
+                }
             </table>
         </div>
     </div>
 </div>
 
 <div class="lower-body">
-    <div class="filter-form">
+    @* <div class="filter-form">
         <label class="filter-text" for="#">Filter</label>
         <input type="text" class="filter-type" name="#" value="" />
-    </div>
+    </div> *@
     <div class="scroll">
         <table cellpadding="5" width="100%">
             <tr>
@@ -248,10 +274,8 @@
         </table>
     </div>
     <div class="button-vertical">
-        <button onclick='document.getElementById("addbutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="DeliveryReceipts" asp-action="add" asp-route-id="@Model.CurrentDetails.drNo" id="addbutton">add</a></button>
-        <button type="submit" class="button">Delete</button>
-        <button type="submit" class="button">Jump DR</button>
-        <button type="submit" class="button">Print DR</button>
-        <button type="submit" class="button">Print SI</button>
+        <button onclick='document.getElementById("addbutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="DeliveryReceipts" asp-action="add" asp-route-id="@Model.CurrentDetails.drNo" id="addbutton">Add</a></button>
+        <button onclick='document.getElementById("deletebutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="DeliveryReceipts" asp-action="delete" asp-route-id="@Model.CurrentDetails.drNo" id="deletebutton">Delete</a></button>
+
     </div>
 </div>

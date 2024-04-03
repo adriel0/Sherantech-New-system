@@ -9,16 +9,60 @@
     <table class="scroll" cellpadding="5" width="100%">
         <tr>
             <th>
-                type
+                Date Sold
+            </th>
+            <th>
+                Dr#
+            </th>
+            <th>
+                Qty
+            </th>
+            <th>
+                Item
+            </th>
+            <th>
+                Unit Price
+            </th>
+            <th>
+                Dealer Name
+            </th>
+            <th>
+                Amount
             </th>
         </tr>
+        @foreach(var i in Model.report)
+        {
+            <tr>
+                <td>
+                    @i.dateSold
+                </td>
+                <td>
+                    @i.drNo
+                </td>
+                <td>
+                    @i.qty
+                </td>
+                <td>
+                    @i.iName
+                </td>
+                <td>
+                    @i.unitPrice
+                </td>
+                <td>
+                    @i.dName
+                </td>
+                <td>
+                    @i.amount
+                </td>
+            </tr>
+        }
     </table>
-
+@* 
     <div class="button-vertical">
         <button type="submit" class="button">Save</button>
         <button type="submit" class="button">Create</button>
         <button type="submit" class="button">Edit</button>
         <button type="submit" class="button">Delete</button>
         <button type="submit" class="button">Generate</button>
-    </div>
+    </div> *@
 </div>

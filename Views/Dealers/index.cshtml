@@ -108,13 +108,7 @@
             </div>
             <div class="form large">
                 <label class="form-text" for="DealerTerms">Terms:</label>
-                @* <input type="text" class="form-type" name="DealerTerms" placeholder="Enter here" value="@Model.Current.DealerTerms" /> *@
-                <select class="form-type" name="DealerTerms" id="termsselector" value="audi">
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="fiat">Fiat</option>
-                    <option value="audi">Audi</option>
-                </select>
+                <input type="text" class="form-type" name="DealerTerms" placeholder="Enter here" value="@Model.Current.DealerTerms" />
             </div>
             <div class="form">
                 <label class="form-text" for="DTIRegNo">DTI Registration #:</label>
@@ -122,7 +116,7 @@
             </div>
             <div class="form">
                 <label class="form-text" for="DTIDateIssued">DTI Date Issued:</label>
-                <input type="date" class="form-type" name="DTIDateIssued" placeholder="Enter here" value="@Model.Current.DTIDateIssued" />
+                <input type="text" class="form-type" name="DTIDateIssued" placeholder="Enter here" value="@Model.Current.DTIDateIssued" />
             </div>
             <div class="form">
                 <label class="form-text" for="DTIAmtCapital">DTI Amnt. Capital:</label>
@@ -227,10 +221,7 @@
 
 
 <div class="lower-body">
-    <div class="filter-form">
-        <label class="filter-text" for="#">Filter</label>
-        <input type="text" class="filter-type" name="#" value="" />
-    </div>
+    
     <div class="scroll">
         <table cellpadding="5" width="100%">
             <tr>

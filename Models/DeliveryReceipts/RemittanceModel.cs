@@ -8,7 +8,7 @@ namespace WebApplication1.Models.DeliveryReceipts
         [Key]
         public int drNo { get; set; }
         [AllowNull]
-        public int checkNo { get; set; }
+        public string checkNo { get; set; }
         [AllowNull]
         public int accountNo { get; set; }
         [AllowNull]
@@ -23,7 +23,5 @@ namespace WebApplication1.Models.DeliveryReceipts
         public string? payToTheOrderOf { get; set; }
         [AllowNull]
         public string? bankName { get; set; }
-        [AllowNull]
-        public string? accountName { get; set; }
     }
 }

@@ -68,9 +68,9 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT r.accountNo, d.DealerBusinessName, dbr.bank, r.checkNo, r.rtNo, r.payToTheorderOf, r.dateIssued, r.dateDue, r.amount, r.status, r.remarks, r.id, r.dealers FROM Receivables as r " +
+                    String sql = "SELECT r.accountNo, d.DealerBusinessName, r.bankName, r.checkNo, r.rtNo, r.payToTheorderOf, r.dateIssued, r.dateDue, r.amount, r.status, r.remarks, r.id, r.dealers FROM Receivables as r " +
                         "INNER JOIN Dealers as d on d.id = r.dealers " +
-                        "INNER JOIN DealerBankRef as dbr on dbr.DealerId = r.dealers AND dbr.id = r.bankName WHERE r.id = @id";
+                        "WHERE r.id = @id";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -116,9 +116,8 @@ namespace WebApplication1.Controllers
 
                     connection.Open();
 
-                    String sql = "SELECT r.accountNo, d.DealerBusinessName, dbr.bank, r.checkNo, r.rtNo, r.payToTheorderOf, r.dateIssued, r.dateDue, r.amount, r.status, r.remarks, r.id FROM Receivables as r " +
-                        "INNER JOIN Dealers as d on d.id = r.dealers " +
-                        "INNER JOIN DealerBankRef as dbr on dbr.DealerId = r.dealers AND dbr.id = r.bankName";
+                    String sql = "SELECT r.accountNo, d.DealerBusinessName, r.bankName, r.checkNo, r.rtNo, r.payToTheorderOf, r.dateIssued, r.dateDue, r.amount, r.status, r.remarks, r.id FROM Receivables as r " +
+                        "INNER JOIN Dealers as d on d.id = r.dealers ";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -312,7 +311,7 @@ namespace WebApplication1.Controllers
                                               "dateDue = @dd, amount = @a, status = @s, remarks = @r WHERE id=@id";
 
                         command.Parameters.AddWithValue("@an", Request.Form["accountNo"].ToString());
-                        command.Parameters.AddWithValue("@bn", Request.Form["bankName"].ToString());
+                        command.Parameters.AddWithValue("@bn", Request.Form["bank"].ToString());
                         command.Parameters.AddWithValue("@cn", Request.Form["checkNo"].ToString());
                         command.Parameters.AddWithValue("@rn", Request.Form["rtNo"].ToString());
                         command.Parameters.AddWithValue("@pttoo", Request.Form["payToTheOrderOf"].ToString());
@@ -322,7 +321,8 @@ namespace WebApplication1.Controllers
                         command.Parameters.AddWithValue("@s", Request.Form["status"].ToString());
                         command.Parameters.AddWithValue("@r", Request.Form["remarks"].ToString());
                         command.Parameters.AddWithValue("@id", id);
-                        Debug.WriteLine(Request.Form["accountNo"].ToString());
+                        Console.WriteLine(Request.Form["bank"].ToString());
+                        Console.WriteLine(Request.Form["bank"].ToString());
                         connection.Open();
                         command.ExecuteNonQuery();
                     }
@@ -335,7 +335,53 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Add()
+        public IActionResult Add(int id)
+        {
+
+
+            ReceivablesDisplayDataModel result = new ReceivablesDisplayDataModel();
+
+            List<SelectListItem> dl = new List<SelectListItem>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    Console.WriteLine("\nQuery data example:");
+                    Console.WriteLine("=========================================\n");
+
+                    connection.Open();
+
+                    String sql = "SELECT id,DealerBusinessName FROM Dealers";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                SelectListItem d = new SelectListItem();
+                                d.Value = reader.GetInt32(0).ToString();
+                                d.Text = reader.GetString(1);
+                                dl.Add(d);
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            result.dealers = dl;
+
+            
+
+            result.id = id;
+            return View(result);
+        }
+
+        public IActionResult AddPost()
         {
             try
             {
@@ -343,21 +389,84 @@ namespace WebApplication1.Controllers
                 {
                     using (SqlCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "INSERT Into Receivables (dealer, bankName, checkNo, " +
-                                              "rtNo, payToTheOrderOf, dateIssued, dateDue, amount, status, remarks, accountNo) " +
+                        command.CommandText = "INSERT Into Receivables (dealers, bankName, checkNo, " +
+                                              "rtNo, payToTheOrderOf, dateIssued, dateDue, amount, status, remarks, accountNo ) " +
                                               "Values (@d, @bn, @cn, @rn, @pttoo, @di, @dd, @a, @s, @r, @an)";
 
-                        command.Parameters.AddWithValue("@d", "");
-                        command.Parameters.AddWithValue("@bn", "");
-                        command.Parameters.AddWithValue("@cn", "");
-                        command.Parameters.AddWithValue("@rn", "");
-                        command.Parameters.AddWithValue("@pttoo", "");
-                        command.Parameters.AddWithValue("@di", "");
-                        command.Parameters.AddWithValue("@dd", "");
-                        command.Parameters.AddWithValue("@a", "");
-                        command.Parameters.AddWithValue("@s", "");
-                        command.Parameters.AddWithValue("@r", "");
-                        command.Parameters.AddWithValue("@an", "");
+                        command.Parameters.AddWithValue("@d", Request.Form["dealer"].ToString());
+                        command.Parameters.AddWithValue("@an", Request.Form["accountNo"].ToString());
+                        command.Parameters.AddWithValue("@bn", Request.Form["bank"].ToString());
+                        command.Parameters.AddWithValue("@cn", Request.Form["checkNo"].ToString());
+                        command.Parameters.AddWithValue("@rn", Request.Form["rtNo"].ToString());
+                        command.Parameters.AddWithValue("@pttoo", Request.Form["payToTheOrderOf"].ToString());
+                        command.Parameters.AddWithValue("@di", Request.Form["dateIssued"].ToString());
+                        command.Parameters.AddWithValue("@dd", Request.Form["dateDue"].ToString());
+                        command.Parameters.AddWithValue("@a", Request.Form["amount"].ToString());
+                        command.Parameters.AddWithValue("@s", Request.Form["status"].ToString());
+                        command.Parameters.AddWithValue("@r", Request.Form["remarks"].ToString());
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            return RedirectToAction("Index");
+        }
+        public IActionResult deleteref(int id)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "delete from ReceivablesRefNo where id=@id";
+
+                        command.Parameters.AddWithValue("@id", id);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            return RedirectToAction("Index");
+        }
+        public IActionResult delete(int id)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "delete from ReceivablesRefNo where receivablesId=@id";
+
+                        command.Parameters.AddWithValue("@id", id);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
+                {
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "delete from receivables where id=@id";
+
+                        command.Parameters.AddWithValue("@id", id);
                         connection.Open();
                         command.ExecuteNonQuery();
                     }
@@ -370,11 +479,6 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index");
         }
 
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

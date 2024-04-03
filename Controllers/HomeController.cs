@@ -48,7 +48,8 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult Login_Post()
         {
-            String password = "a";
+            String username = "admin";
+            String password = "Sherantech";
             try
             {
                 using (SqlConnection connection = new SqlConnection(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["defaultConnection"]))
@@ -79,9 +80,8 @@ namespace WebApplication1.Controllers
 
             //hash
             // if (password.Equals(GetHashString(Request.Form["Password"].ToString())))
-            if (password.Equals(Request.Form["Password"].ToString()))
+            if (username.Equals(Request.Form["Username"].ToString()) && password.Equals(Request.Form["Password"].ToString()))
             {
-                // change later
                 return RedirectToRoute(new
                 {
                     controller = "dealers",

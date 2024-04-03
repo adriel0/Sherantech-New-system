@@ -74,25 +74,10 @@
                         drNo
                     </th>
                     <th>
-                        invoiceNo
-                    </th>
-                    <th>
-                        date
-                    </th>
-                    <th>
-                        dealer
-                    </th>
-                    <th>
                         drAmount
                     </th>
                     <th>
                         amount
-                    </th>
-                    <th>
-                        checkAmount
-                    </th>
-                    <th>
-                        checkBalance
                     </th>
                 </tr>
                 @foreach (var i in Model.CurrentReferenceNo)
@@ -102,25 +87,15 @@
                             @i.drNo
                         </td>
                         <td>
-                            @i.invoiceNo
-                        </td>
-                        <td>
-                            @i.date
-                        </td>
-                        <td>
-                            @i.dealer
-                        </td>
-                        <td>
                             @i.drAmount
                         </td>
                         <td>
                             @i.amount
                         </td>
                         <td>
-                            @i.checkAmount
-                        </td>
-                        <td>
-                            @i.checkBalance
+                            <a asp-area="" asp-controller="Receivables" asp-action="deleteref" asp-route-id="@i.Id">
+                                delete
+                            </a>
                         </td>
                     </tr>
                 }
@@ -135,10 +110,10 @@
 </div>
 
 <div class="lower-body">
-    <div class="filter-form">
+    @* <div class="filter-form">
         <label class="filter-text" for="#">Filter</label>
         <input type="text" class="filter-type" name="#" value="" />
-    </div>
+    </div> *@
     <div class="scroll">
         <table cellpadding="5" width="100%">
             <tr>
@@ -225,8 +200,8 @@
         </table>
     </div>
     <div class="button-vertical">
-        <button type="submit" class="button">Add</button>
-        <button type="submit" class="button">Edit</button>
-        <button type="submit" class="button">Delete</button>
+        <button onclick='document.getElementById("addbutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Receivables" asp-action="add" asp-route-id="@Model.Current.Id" id="addbutton">Add</a></button>
+        <button onclick='document.getElementById("deletebutton").click();' class="button"><a style="text-decoration:none; color:inherit;" asp-area="" asp-controller="Receivables" asp-action="delete" asp-route-id="@Model.Current.Id" id="deletebutton">Delete</a></button>
+
     </div>
 </div>
